@@ -26,3 +26,15 @@
   flex-wrap: wrap;
   justify-content: center
 }
+
+.userWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center
+}
+
+.picWrapper {
+  display: flex;
+
+  justify-content: center
+}

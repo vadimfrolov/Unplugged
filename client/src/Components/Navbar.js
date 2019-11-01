@@ -45,9 +45,9 @@ class Navbar extends React.Component {
              Landing
           </NavLink>
             {/* <NavLink activeClassName={"Active"} to={"/artist/:id"}> */}
-            <div>
-              <input name="bandInput" type="text" value={this.state.text} onChange={this.handleInput} />
-              <button onClick={this.onClick}> search band </button>
+            <div style={{ margin: "20px" }}>
+              <input style={{ borderRadius: "15px" }} name="bandInput" type="text" value={this.state.text} onChange={this.handleInput} />
+              <button  style={{ borderRadius: "15px" }} onClick={this.onClick}> search band </button>
             </div>
             {/* </NavLink> */}
           </div>
