@@ -6,6 +6,7 @@ import "../App.css";
 import FBpanel from "./FBpanel";
 import Navbar from "./Navbar";
 import LandingPage from "./LandingPage";
+import ConcertYear from "./Concert-by-artist/ConcertYear"
 
 const App = () => (
    
@@ -16,6 +17,7 @@ const App = () => (
       <Route exact path="/" component={Home} />
       <Route path="/fbpanel" component={FBpanel} />
       <Route  path="/landing" component={LandingPage} />
+      <Route  path="/concerts" component={ConcertYear} />
     </Switch>
     </Router>
   </div>

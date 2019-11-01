@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../react.svg";
+// import logo from "../react.svg";
 import "../Home.css";
 import Api from "./Api";
 import User from "./User";
