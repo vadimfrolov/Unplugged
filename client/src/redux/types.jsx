@@ -1,0 +1,2 @@
+export const GET_ARTIST_ID = "GET_ARTIST_ID";
+export const GET_ARTIST_INFO = "GET_ARTIST_INFO";
