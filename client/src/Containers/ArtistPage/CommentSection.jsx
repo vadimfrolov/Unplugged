@@ -1,14 +1,12 @@
-import React, { Component } from "react";
+import React from 'react';
 
-class CommentSection extends Component {
-  render() {
-    return (
-      <div>
-        <input type="text" placeholder="comment here"></input>
-        <button>Send</button>
-      </div>
-    );
-  }
-}
+const CommentSection = () => {
+  return (
+    <div>
+      <input type="text" placeholder="comment here"></input>
+      <button>Send</button>
+    </div>
+  );
+};
 
-export default CommentSection;
+export default CommentSection

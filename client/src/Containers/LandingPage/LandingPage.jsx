@@ -20,6 +20,7 @@ class LandingPage extends Component {
                 <img
                   style={{ borderRadius: "15px" }}
                   src={group.profilePic}
+                  alt='artist picture'
                 />
               </div>
               <div>
