@@ -9,7 +9,7 @@ class Upcoming extends Component {
   callUpcoming = async () => {
     const resUp = await fetch("https://api.songkick.com/api/3.0/artists/233066/calendar.json?apikey=gQiI75sO6fDuKGq0&per_page=5");
     const dataUp = await resUp.json();
-    console.log(dataUp.resultsPage.results.event)
+    // console.log(dataUp.resultsPage.results.event)
     const gigName = dataUp.resultsPage.results.event.map(el => el.displayName)
     const gigLocation = dataUp.resultsPage.results.event.map(el => el.location.city);
     const gigDate = dataUp.resultsPage.results.event.map(el => el.start.date);
