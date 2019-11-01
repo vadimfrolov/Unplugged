@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { NavLink, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { fetchArtistIdAC, fetchArtistInfoAC } from "../../redux/actions/artistActions";
+import {
+  fetchArtistIdAC,
+  fetchArtistInfoAC
+} from "../../Redux/actions/artistActions";
 
-const Navbar = (props) => {
-  const [text, setText] = useState('');
+const Navbar = props => {
+  const [text, setText] = useState("");
 
   const handleInput = e => {
     setText(e.target.value);
@@ -17,7 +20,7 @@ const Navbar = (props) => {
     await fetchArtistInfoAC(text);
 
     history.push(`/artists/${artist.id}`);
-  }
+  };
 
   return (
     <div className="Home">
@@ -31,30 +34,27 @@ const Navbar = (props) => {
           </NavLink>
           {/* <NavLink activeClassName={"Active"} to={"/artist/:id"}> */}
           <div>
-            <input
-              type="text"
-              value={text}
-              onChange={handleInput}
-            />
-            <button onClick={onClick}>
-              search band
-            </button>
+            <input type="text" value={text} onChange={handleInput} />
+            <button onClick={onClick}>search band</button>
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   artist: state.artist
-})
+});
 
 const mapDispatchToProps = {
   fetchArtistIdAC,
   fetchArtistInfoAC
-}
+};
 
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(Navbar)
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Navbar)
 );
