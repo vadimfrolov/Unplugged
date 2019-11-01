@@ -3,8 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "instagram-web-api": "^2.0.0",
+    "axios": "^0.19.0",
     "dotenv": "^8.2.0",
+    "instagram-web-api": "^2.0.0",
+    "lodash.get": "^4.4.2",
     "react": "^16.11.0",
     "react-animations": "^1.0.0",
     "react-dom": "^16.11.0",
@@ -14,6 +16,7 @@
     "react-soundcloud-player": "^1.1.1",
     "redux": "^4.0.4",
     "redux-devtools-extension": "^2.13.8",
+    "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "styled-components": "^4.4.1"
   },
