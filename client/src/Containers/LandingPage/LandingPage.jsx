@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import dataArtists from "../../data/dataArtists";
-
 import { fadeIn } from "react-animations";
 import styled, { keyframes } from "styled-components";
 
+import dataArtists from "../../Data/dataArtists";
+
 const Pulse = styled.div`
-  animation: 15s ${keyframes`${fadeIn}`}
+  animation: 15s ${keyframes`${fadeIn}`};
 `;
 
 class LandingPage extends Component {
@@ -20,12 +20,10 @@ class LandingPage extends Component {
                 <img
                   style={{ borderRadius: "15px" }}
                   src={group.profilePic}
-                  alt='artist picture'
+                  alt="artist picture"
                 />
               </div>
-              <div>
-                {group.name}
-              </div>
+              <div>{group.name}</div>
             </Pulse>
           </div>
         ))}
