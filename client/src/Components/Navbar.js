@@ -14,7 +14,7 @@ function Navbar(props) {
           </NavLink>
           {/* <NavLink activeClassName={"Active"} to={"/artist/:id"}> */}
           <div>
-          <input name="groupInput"/>
+          <input name="groupInput"></input>
             <button> search group </button>
             </div>
           {/* </NavLink> */}

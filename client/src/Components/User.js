@@ -6,7 +6,7 @@ class User extends Component {
     return (
       <div className="User">
       <h1>Page about {dataUser.user.name} </h1>
-      <img src={dataUser.user.profilePic} />
+      <img src={dataUser.user.profilePic} alt='profile picture' />
       <ul> 
         <h2>I follow:</h2>
         {dataUser.user.follow.map(group => (
