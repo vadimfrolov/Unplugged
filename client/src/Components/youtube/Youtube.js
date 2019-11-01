@@ -2,38 +2,17 @@ import React, { Component } from "react";
 import { findDOMNode } from "react-dom";
 import { hot } from "react-hot-loader";
 import screenfull from "screenfull";
+import ReactPlayer from "react-player";
 
 import "./reset.css";
 import "./defaults.css";
 import "./App.css";
 
-import ReactPlayer from "react-player";
-import Duration from "./Duration";
-
 import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
-import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
-import CancelOutlinedIcon from "@material-ui/icons/CancelOutlined";
 import PlayArrowOutlinedIcon from "@material-ui/icons/PlayArrowOutlined";
 import PauseOutlinedIcon from "@material-ui/icons/PauseOutlined";
 import StopOutlinedIcon from "@material-ui/icons/StopOutlined";
-
-const version = "1.13.0";
-
-const MULTIPLE_SOURCES = [
-  {
-    src: "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4",
-    type: "video/mp4"
-  },
-  {
-    src: "http://clips.vorwaerts-gmbh.de/big_buck_bunny.ogv",
-    type: "video/ogv"
-  },
-  {
-    src: "http://clips.vorwaerts-gmbh.de/big_buck_bunny.webm",
-    type: "video/webm"
-  }
-];
 
 class Youtube extends Component {
   state = {
@@ -112,7 +91,6 @@ class Youtube extends Component {
 
   handleProgress = state => {
     console.log("onProgress", state);
-    // We only want to update time slider if we are not currently seeking
     if (!this.state.seeking) {
       this.setState(state);
     }
@@ -147,25 +125,12 @@ class Youtube extends Component {
       volume,
       muted,
       played,
-      loaded,
-      duration,
       pip
     } = this.state;
-    const SEPARATOR = " · ";
 
     return (
       <div className="app">
         <section className="section">
-          {/* <iframe
-            id="ytplayer"
-            type="text/html"
-            width="720"
-            height="405"
-            src="https://www.youtube.com/embed/?listType=search&list=metallica enter the sandman"
-            frameborder="0"
-            allowfullscreen
-          ></iframe> */}
-
           <div className="player-wrapper">
             <ReactPlayer
               ref={this.ref}
@@ -194,293 +159,51 @@ class Youtube extends Component {
           </div>
 
           <div className="">
-          <ButtonGroup
-            color="primary"
-            aria-label="outlined primary button group"
-          >
-            <Button
-              onClick={this.handlePlayPause}
-              color="secondary"
-              startIcon={
-                playing ? <PauseOutlinedIcon /> : <PlayArrowOutlinedIcon />
-              }
-            ></Button>
-            <Button
-              onClick={this.handleStop}
-              color="secondary"
-              startIcon={<StopOutlinedIcon />}
-            ></Button>
+            <ButtonGroup
+              color="primary"
+              aria-label="outlined primary button group"
+            >
+              <Button
+                onClick={this.handlePlayPause}
+                color="secondary"
+                startIcon={
+                  playing ? <PauseOutlinedIcon /> : <PlayArrowOutlinedIcon />
+                }
+              ></Button>
+              <Button
+                onClick={this.handleStop}
+                color="secondary"
+                startIcon={<StopOutlinedIcon />}
+              ></Button>
 
-            <Button
-              onClick={() =>
-                this.load("https://www.youtube.com/watch?v=oUFJJNQGwhk")
-              }
-            >
-              YT
-            </Button>
-            <Button
-              onClick={() =>
-                this.load(
-                  "https://soundcloud.com/miami-nights-1984/accelerated"
-                )
-              }
-            >
-              SC
-            </Button>
-          </ButtonGroup>
-          <input
-            type="range"
-            min={0}
-            max={1}
-            step="any"
-            value={played}
-            onMouseDown={this.handleSeekMouseDown}
-            onChange={this.handleSeekChange}
-            onMouseUp={this.handleSeekMouseUp}
-          />
+              <Button
+                onClick={() =>
+                  this.load("https://www.youtube.com/watch?v=oUFJJNQGwhk")
+                }
+              >
+                YT
+              </Button>
+              <Button
+                onClick={() =>
+                  this.load(
+                    "https://soundcloud.com/miami-nights-1984/accelerated"
+                  )
+                }
+              >
+                SC
+              </Button>
+            </ButtonGroup>
+            <input
+              type="range"
+              min={0}
+              max={1}
+              step="any"
+              value={played}
+              onMouseDown={this.handleSeekMouseDown}
+              onChange={this.handleSeekChange}
+              onMouseUp={this.handleSeekMouseUp}
+            />
           </div>
-
-          {/* <table>
-            <tbody>
-              <tr>
-                <th>Controls</th>
-                <td>
-                  <ButtonGroup
-                    color="primary"
-                    aria-label="outlined primary button group"
-                  >
-                    <Button
-                      onClick={this.handlePlayPause}
-                      color="secondary"
-                      startIcon={
-                        playing ? (
-                          <PauseOutlinedIcon />
-                        ) : (
-                          <PlayArrowOutlinedIcon />
-                        )
-                      }
-                    ></Button>
-                    <Button
-                      onClick={this.handleStop}
-                      color="secondary"
-                      startIcon={<StopOutlinedIcon />}
-                    ></Button>
-
-                    <Button
-                      onClick={() =>
-                        this.load("https://www.youtube.com/watch?v=oUFJJNQGwhk")
-                      }
-                    >
-                      YT
-                    </Button>
-                    <Button
-                      onClick={() =>
-                        this.load(
-                          "https://soundcloud.com/miami-nights-1984/accelerated"
-                        )
-                      }
-                    >
-                      SC
-                    </Button>
-                  </ButtonGroup>
-
-                  {ReactPlayer.canEnablePIP(url) && (
-                    <button onClick={this.handleTogglePIP}>
-                      {pip ? "Disable PiP" : "Enable PiP"}
-                    </button>
-                  )}
-                </td>
-              </tr>
-              <tr>
-                <th>Seek</th>
-                <td>
-                  <input
-                    type="range"
-                    min={0}
-                    max={1}
-                    step="any"
-                    value={played}
-                    onMouseDown={this.handleSeekMouseDown}
-                    onChange={this.handleSeekChange}
-                    onMouseUp={this.handleSeekMouseUp}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <th>Volume</th>
-                <td>
-                  <input
-                    type="range"
-                    min={0}
-                    max={1}
-                    step="any"
-                    value={volume}
-                    onChange={this.handleVolumeChange}
-                  />
-                </td>
-              </tr>
-              <tr></tr>
-              <tr></tr>
-              <tr></tr>
-              <tr></tr>
-              <tr>
-                <th>Played</th>
-                <td>
-                  <progress max={1} value={played} />
-                </td>
-              </tr>
-              <tr>
-                <th>Loaded</th>
-                <td>
-                  <progress max={1} value={loaded} />
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </section>
-        <section className="section">
-          <table>
-            <tbody>
-              <tr>
-                <th>YouTube</th>
-                <td>
-                  {this.renderLoadButton(
-                    "https://www.youtube.com/watch?v=oUFJJNQGwhk",
-                    "Test A"
-                  )}
-                  {this.renderLoadButton(
-                    "https://www.youtube.com/watch?v=jNgP6d9HraI",
-                    "Test B"
-                  )}
-                  {this.renderLoadButton(
-                    "https://www.youtube.com/playlist?list=PLDEcUiPhzbjI217qs5KgMvbvx6-fgY_Al",
-                    "Playlist"
-                  )}
-                </td>
-              </tr>
-              <tr>
-                <th>SoundCloud</th>
-                <td>
-                  {this.renderLoadButton(
-                    "https://soundcloud.com/miami-nights-1984/accelerated",
-                    "Test A"
-                  )}
-                  {this.renderLoadButton(
-                    "https://soundcloud.com/tycho/tycho-awake",
-                    "Test B"
-                  )}
-                </td>
-              </tr>
-              <tr>
-                <th>Facebook</th>
-                <td>
-                  {this.renderLoadButton(
-                    "https://www.facebook.com/facebook/videos/10153231379946729/",
-                    "Test A"
-                  )}
-                  {this.renderLoadButton(
-                    "https://www.facebook.com/FacebookDevelopers/videos/10152454700553553/",
-                    "Test B"
-                  )}
-                </td>
-              </tr>
-              <tr></tr>
-              <tr>
-                <th>Files</th>
-                <td>
-                  {this.renderLoadButton(
-                    "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4",
-                    "mp4"
-                  )}
-                  {this.renderLoadButton(
-                    "http://clips.vorwaerts-gmbh.de/big_buck_bunny.ogv",
-                    "ogv"
-                  )}
-                  {this.renderLoadButton(
-                    "http://clips.vorwaerts-gmbh.de/big_buck_bunny.webm",
-                    "webm"
-                  )}
-                  {this.renderLoadButton(
-                    "https://storage.googleapis.com/media-session/elephants-dream/the-wires.mp3",
-                    "mp3"
-                  )}
-                  {this.renderLoadButton(MULTIPLE_SOURCES, "Multiple")}
-                  {this.renderLoadButton(
-                    "https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8",
-                    "HLS (m3u8)"
-                  )}
-                  {this.renderLoadButton(
-                    "http://dash.edgesuite.net/envivio/EnvivioDash3/manifest.mpd",
-                    "DASH (mpd)"
-                  )}
-                </td>
-              </tr>
-              <tr>
-                <th>Custom URL</th>
-                <td>
-                  <input
-                    ref={input => {
-                      this.urlInput = input;
-                    }}
-                    type="text"
-                    placeholder="Enter URL"
-                  />
-                  <button
-                    onClick={() => this.setState({ url: this.urlInput.value })}
-                  >
-                    Load
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-
-          <h2>State</h2>
-
-          <table>
-            <tbody>
-              <tr>
-                <th>url</th>
-                <td className={!url ? "faded" : ""}>
-                  {(url instanceof Array ? "Multiple" : url) || "null"}
-                </td>
-              </tr>
-              <tr>
-                <th>playing</th>
-                <td>{playing ? "true" : "false"}</td>
-              </tr>
-              <tr>
-                <th>volume</th>
-                <td>{volume.toFixed(3)}</td>
-              </tr>
-              <tr>
-                <th>played</th>
-                <td>{played.toFixed(3)}</td>
-              </tr>
-              <tr>
-                <th>loaded</th>
-                <td>{loaded.toFixed(3)}</td>
-              </tr>
-              <tr>
-                <th>duration</th>
-                <td>
-                  <Duration seconds={duration} />
-                </td>
-              </tr>
-              <tr>
-                <th>elapsed</th>
-                <td>
-                  <Duration seconds={duration * played} />
-                </td>
-              </tr>
-              <tr>
-                <th>remaining</th>
-                <td>
-                  <Duration seconds={duration * (1 - played)} />
-                </td>
-              </tr>
-            </tbody>
-          </table> */}
         </section>
       </div>
     );
