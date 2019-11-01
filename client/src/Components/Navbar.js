@@ -12,6 +12,12 @@ function Navbar(props) {
           <NavLink activeClassName={"Active"} to={"/fbpanel"}>
             FBpanel
           </NavLink>
+          {/* <NavLink activeClassName={"Active"} to={"/artist/:id"}> */}
+          <div>
+          <input name="groupInput"/>
+            <button> search group </button>
+            </div>
+          {/* </NavLink> */}
         </div>
       </div>
     </div>
