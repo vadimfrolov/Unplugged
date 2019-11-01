@@ -5,11 +5,18 @@ import screenfull from "screenfull";
 
 import "./reset.css";
 import "./defaults.css";
-import "./range.css";
 import "./App.css";
 
-import ReactPlayer from 'react-player';
+import ReactPlayer from "react-player";
 import Duration from "./Duration";
+
+import Button from "@material-ui/core/Button";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
+import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
+import CancelOutlinedIcon from "@material-ui/icons/CancelOutlined";
+import PlayArrowOutlinedIcon from "@material-ui/icons/PlayArrowOutlined";
+import PauseOutlinedIcon from "@material-ui/icons/PauseOutlined";
+import StopOutlinedIcon from "@material-ui/icons/StopOutlined";
 
 const version = "1.13.0";
 
@@ -33,15 +40,12 @@ class Youtube extends Component {
     url: null,
     pip: false,
     playing: true,
-    controls: false,
-    light: false,
-    volume: 0.8,
+    controls: true,
+    volume: 1,
     muted: false,
     played: 0,
     loaded: 0,
-    duration: 0,
-    playbackRate: 1.0,
-    loop: false
+    duration: 0
   };
 
   load = url => {
@@ -58,26 +62,7 @@ class Youtube extends Component {
   };
 
   handleStop = () => {
-    this.setState({ url: null, playing: false });
-  };
-
-  handleToggleControls = () => {
-    const url = this.state.url;
-    this.setState(
-      {
-        controls: !this.state.controls,
-        url: null
-      },
-      () => this.load(url)
-    );
-  };
-
-  handleToggleLight = () => {
-    this.setState({ light: !this.state.light });
-  };
-
-  handleToggleLoop = () => {
-    this.setState({ loop: !this.state.loop });
+    this.setState({ url: null, playing: true, played: 0 });
   };
 
   handleVolumeChange = e => {
@@ -86,10 +71,6 @@ class Youtube extends Component {
 
   handleToggleMuted = () => {
     this.setState({ muted: !this.state.muted });
-  };
-
-  handleSetPlaybackRate = e => {
-    this.setState({ playbackRate: parseFloat(e.target.value) });
   };
 
   handleTogglePIP = () => {
@@ -139,7 +120,6 @@ class Youtube extends Component {
 
   handleEnded = () => {
     console.log("onEnded");
-    this.setState({ playing: this.state.loop });
   };
 
   handleDuration = duration => {
@@ -164,14 +144,11 @@ class Youtube extends Component {
       url,
       playing,
       controls,
-      light,
       volume,
       muted,
-      loop,
       played,
       loaded,
       duration,
-      playbackRate,
       pip
     } = this.state;
     const SEPARATOR = " · ";
@@ -179,7 +156,16 @@ class Youtube extends Component {
     return (
       <div className="app">
         <section className="section">
-          <h1>ReactPlayer Demo</h1>
+          {/* <iframe
+            id="ytplayer"
+            type="text/html"
+            width="720"
+            height="405"
+            src="https://www.youtube.com/embed/?listType=search&list=metallica enter the sandman"
+            frameborder="0"
+            allowfullscreen
+          ></iframe> */}
+
           <div className="player-wrapper">
             <ReactPlayer
               ref={this.ref}
@@ -190,9 +176,6 @@ class Youtube extends Component {
               pip={pip}
               playing={playing}
               controls={controls}
-              light={light}
-              loop={loop}
-              playbackRate={playbackRate}
               volume={volume}
               muted={muted}
               onReady={() => console.log("onReady")}
@@ -210,42 +193,102 @@ class Youtube extends Component {
             />
           </div>
 
-          <table>
+          <div className="">
+          <ButtonGroup
+            color="primary"
+            aria-label="outlined primary button group"
+          >
+            <Button
+              onClick={this.handlePlayPause}
+              color="secondary"
+              startIcon={
+                playing ? <PauseOutlinedIcon /> : <PlayArrowOutlinedIcon />
+              }
+            ></Button>
+            <Button
+              onClick={this.handleStop}
+              color="secondary"
+              startIcon={<StopOutlinedIcon />}
+            ></Button>
+
+            <Button
+              onClick={() =>
+                this.load("https://www.youtube.com/watch?v=oUFJJNQGwhk")
+              }
+            >
+              YT
+            </Button>
+            <Button
+              onClick={() =>
+                this.load(
+                  "https://soundcloud.com/miami-nights-1984/accelerated"
+                )
+              }
+            >
+              SC
+            </Button>
+          </ButtonGroup>
+          <input
+            type="range"
+            min={0}
+            max={1}
+            step="any"
+            value={played}
+            onMouseDown={this.handleSeekMouseDown}
+            onChange={this.handleSeekChange}
+            onMouseUp={this.handleSeekMouseUp}
+          />
+          </div>
+
+          {/* <table>
             <tbody>
               <tr>
                 <th>Controls</th>
                 <td>
-                  <button onClick={this.handleStop}>Stop</button>
-                  <button onClick={this.handlePlayPause}>
-                    {playing ? "Pause" : "Play"}
-                  </button>
-                  <button onClick={this.handleClickFullscreen}>
-                    Fullscreen
-                  </button>
-                  {light && (
-                    <button onClick={() => this.player.showPreview()}>
-                      Show preview
-                    </button>
-                  )}
+                  <ButtonGroup
+                    color="primary"
+                    aria-label="outlined primary button group"
+                  >
+                    <Button
+                      onClick={this.handlePlayPause}
+                      color="secondary"
+                      startIcon={
+                        playing ? (
+                          <PauseOutlinedIcon />
+                        ) : (
+                          <PlayArrowOutlinedIcon />
+                        )
+                      }
+                    ></Button>
+                    <Button
+                      onClick={this.handleStop}
+                      color="secondary"
+                      startIcon={<StopOutlinedIcon />}
+                    ></Button>
+
+                    <Button
+                      onClick={() =>
+                        this.load("https://www.youtube.com/watch?v=oUFJJNQGwhk")
+                      }
+                    >
+                      YT
+                    </Button>
+                    <Button
+                      onClick={() =>
+                        this.load(
+                          "https://soundcloud.com/miami-nights-1984/accelerated"
+                        )
+                      }
+                    >
+                      SC
+                    </Button>
+                  </ButtonGroup>
+
                   {ReactPlayer.canEnablePIP(url) && (
                     <button onClick={this.handleTogglePIP}>
                       {pip ? "Disable PiP" : "Enable PiP"}
                     </button>
                   )}
-                </td>
-              </tr>
-              <tr>
-                <th>Speed</th>
-                <td>
-                  <button onClick={this.handleSetPlaybackRate} value={1}>
-                    1x
-                  </button>
-                  <button onClick={this.handleSetPlaybackRate} value={1.5}>
-                    1.5x
-                  </button>
-                  <button onClick={this.handleSetPlaybackRate} value={2}>
-                    2x
-                  </button>
                 </td>
               </tr>
               <tr>
@@ -276,59 +319,10 @@ class Youtube extends Component {
                   />
                 </td>
               </tr>
-              <tr>
-                <th>
-                  <label htmlFor="controls">Controls</label>
-                </th>
-                <td>
-                  <input
-                    id="controls"
-                    type="checkbox"
-                    checked={controls}
-                    onChange={this.handleToggleControls}
-                  />
-                  <em>&nbsp; Requires player reload</em>
-                </td>
-              </tr>
-              <tr>
-                <th>
-                  <label htmlFor="muted">Muted</label>
-                </th>
-                <td>
-                  <input
-                    id="muted"
-                    type="checkbox"
-                    checked={muted}
-                    onChange={this.handleToggleMuted}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <th>
-                  <label htmlFor="loop">Loop</label>
-                </th>
-                <td>
-                  <input
-                    id="loop"
-                    type="checkbox"
-                    checked={loop}
-                    onChange={this.handleToggleLoop}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <th>
-                  <label htmlFor="light">Light mode</label>
-                </th>
-                <td>
-                  <input
-                    id="light"
-                    type="checkbox"
-                    checked={light}
-                    onChange={this.handleToggleLight}
-                  />
-                </td>
-              </tr>
+              <tr></tr>
+              <tr></tr>
+              <tr></tr>
+              <tr></tr>
               <tr>
                 <th>Played</th>
                 <td>
@@ -390,88 +384,7 @@ class Youtube extends Component {
                   )}
                 </td>
               </tr>
-              <tr>
-                <th>Vimeo</th>
-                <td>
-                  {this.renderLoadButton(
-                    "https://vimeo.com/90509568",
-                    "Test A"
-                  )}
-                  {this.renderLoadButton(
-                    "https://vimeo.com/169599296",
-                    "Test B"
-                  )}
-                </td>
-              </tr>
-              <tr>
-                <th>Twitch</th>
-                <td>
-                  {this.renderLoadButton(
-                    "https://www.twitch.tv/videos/106400740",
-                    "Test A"
-                  )}
-                  {this.renderLoadButton(
-                    "https://www.twitch.tv/videos/12783852",
-                    "Test B"
-                  )}
-                  {this.renderLoadButton(
-                    "https://www.twitch.tv/kronovi",
-                    "Test C"
-                  )}
-                </td>
-              </tr>
-              <tr>
-                <th>Streamable</th>
-                <td>
-                  {this.renderLoadButton(
-                    "https://streamable.com/moo",
-                    "Test A"
-                  )}
-                  {this.renderLoadButton(
-                    "https://streamable.com/ifjh",
-                    "Test B"
-                  )}
-                </td>
-              </tr>
-              <tr>
-                <th>Wistia</th>
-                <td>
-                  {this.renderLoadButton(
-                    "https://home.wistia.com/medias/e4a27b971d",
-                    "Test A"
-                  )}
-                  {this.renderLoadButton(
-                    "https://home.wistia.com/medias/29b0fbf547",
-                    "Test B"
-                  )}
-                </td>
-              </tr>
-              <tr>
-                <th>DailyMotion</th>
-                <td>
-                  {this.renderLoadButton(
-                    "https://www.dailymotion.com/video/x5e9eog",
-                    "Test A"
-                  )}
-                  {this.renderLoadButton(
-                    "https://www.dailymotion.com/video/x61xx3z",
-                    "Test B"
-                  )}
-                </td>
-              </tr>
-              <tr>
-                <th>Mixcloud</th>
-                <td>
-                  {this.renderLoadButton(
-                    "https://www.mixcloud.com/mixcloud/meet-the-curators/",
-                    "Test A"
-                  )}
-                  {this.renderLoadButton(
-                    "https://www.mixcloud.com/mixcloud/mixcloud-curates-4-mary-anne-hobbs-in-conversation-with-dan-deacon/",
-                    "Test B"
-                  )}
-                </td>
-              </tr>
+              <tr></tr>
               <tr>
                 <th>Files</th>
                 <td>
@@ -567,15 +480,8 @@ class Youtube extends Component {
                 </td>
               </tr>
             </tbody>
-          </table>
+          </table> */}
         </section>
-        <footer className="footer">
-          Version <strong>{version}</strong>
-          {SEPARATOR}
-          <a href="https://github.com/CookPete/react-player">GitHub</a>
-          {SEPARATOR}
-          <a href="https://www.npmjs.com/package/react-player">npm</a>
-        </footer>
       </div>
     );
   }

@@ -1,5 +1,6 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Route } from "react-router-dom";
+import Youtube from "./youtube/Youtube";
 
 function Navbar(props) {
   return (
@@ -15,6 +16,7 @@ function Navbar(props) {
           <NavLink activeClassName={"Active"} to={"/youtube"}>
             YouTube
           </NavLink>
+          <Route component={Youtube} />
         </div>
       </div>
     </div>
