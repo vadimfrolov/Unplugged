@@ -3,12 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.5.2",
+    "ig-headless-driver": "^1.0.12",
+    "origen-react-instagram-feed": "0.0.3",
     "react": "^16.11.0",
     "react-animations": "^1.0.0",
     "react-dom": "^16.11.0",
+    "react-facebook": "^8.0.4",
+    "react-instagram-embed": "^1.5.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
-    "styled-components": "^4.4.1"
+    "styled-components": "^4.4.1",
+    "user-instagram": "^1.0.4"
   },
   "scripts": {
     "start": "react-scripts start",

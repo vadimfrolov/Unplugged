@@ -1,22 +1,18 @@
-.App {
-  text-align: center;
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.NavLinks {
+  
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-evenly;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: #09d3ac;
 }
 
-.App-link {
+.Active {
   color: #09d3ac;
 }
