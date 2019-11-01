@@ -3,11 +3,13 @@ import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 import { connect } from 'react-redux';
 import get from 'lodash.get';
 
-import Home from "./Home";
-import FaceBookPanel from "./Facebook/FBpanel";
-import Navbar from "./Navbar";
-import LandingPage from "./LandingPage";
-import ArtistInfo from "./ArtistPage/ArtistInfo"
+import Home from "../Home";
+import FaceBookPanel from "../../Components/FacebookPanel";
+import Navbar from "../../Components/Navbar";
+import LandingPage from "../LandingPage";
+import ArtistInfo from "../ArtistPage/ArtistInfo";
+
+import './styles.css';
 
 class App extends React.Component {
   render() {

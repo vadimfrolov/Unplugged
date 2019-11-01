@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import dataArtists from "../data/dataArtists";
+import dataArtists from "../../data/dataArtists";
 
 import { fadeIn } from "react-animations";
 import styled, { keyframes } from "styled-components";

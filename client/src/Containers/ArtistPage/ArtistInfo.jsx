@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import get from 'lodash.get';
 import { withRouter } from 'react-router-dom';
 import Upcoming from "./Upcoming";
-import TagsList from '../TagsList'
+import TagsList from '../../Components/TagsList'
 
 class ArtistInfo extends Component {
   state = {

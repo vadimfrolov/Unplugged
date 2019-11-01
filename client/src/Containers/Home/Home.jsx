@@ -1,7 +1,7 @@
 import React from "react";
-import "../Home.css";
-import User from "./User";
-// import Navbar from './Navbar';
+
+import User from "../../Components/User";
+import "./Home.css";
 
 class Home extends React.Component {
   render() {

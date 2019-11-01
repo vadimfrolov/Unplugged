@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-export default class FBpanel extends Component {
+export default class FacebookPanel extends Component {
   render() {
     return (
       <div>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { NavLink, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { fetchArtistIdAC, fetchArtistInfoAC } from "../redux/actions/artistActions";
+import { fetchArtistIdAC, fetchArtistInfoAC } from "../../redux/actions/artistActions";
 
 const Navbar = (props) => {
   const [text, setText] = useState('');
