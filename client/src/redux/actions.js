@@ -45,21 +45,19 @@ const fetchDate = year => {
     );
     const data = await resp.json();
     const events = data.resultsPage.results.event;
-    let obj = {};
-    let arr = [];
+    let objStore = {};
+    let finalArr = [];
     events.map(event => {
-      obj = {};
-      obj.date = event.start.date;
-      obj.country = event.location.city;
-      obj.location = { lat: event.location.lat, lng: event.location.lng };
-      arr.push(obj);
-      // console.log(event);
-      console.log(obj);
+      objStore = {};
+      objStore.date = event.start.date;
+      objStore.country = event.location.city;
+      objStore.location = { lat: event.location.lat, lng: event.location.lng };
+      finalArr.push(objStore);
+     
     });
-    console.log("hbdjhdjh", arr);
-    console.log(data.resultsPage.results.event);
+  
 
-    dispatch(fetchDateAC(arr));
+    dispatch(fetchDateAC(finalArr));
   };
 };
 

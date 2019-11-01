@@ -3,9 +3,13 @@ import React, { Component } from "react";
 
 import { connect } from "react-redux";
 
-import { fetchPastDates, fetchPastDatesAC, fetchDate } from "../../redux/actions";
+import {
+  fetchPastDates,
+  fetchPastDatesAC,
+  fetchDate
+} from "../../redux/actions";
 
-import DataClick from "./DataClick"
+import DataClick from "./DataClick";
 class ConcertYear extends Component {
   state = {
     year: []
@@ -23,8 +27,7 @@ class ConcertYear extends Component {
   };
 
   onClick = br => {
-    this.props.fetchDate(br)
-    // console.log(br);
+    this.props.fetchDate(br);
   };
 
   render() {
@@ -37,7 +40,7 @@ class ConcertYear extends Component {
             </button>
           );
         })}
-      <DataClick/>
+        <DataClick />
       </div>
     );
   }
@@ -47,7 +50,7 @@ function mapDispatchToProps(dispatch) {
   return {
     fetchPastDates: page => dispatch(fetchPastDates(page)),
     fetchPastDatesAC: arr => dispatch(fetchPastDatesAC(arr)),
-    fetchDate:year=>dispatch(fetchDate(year)) 
+    fetchDate: year => dispatch(fetchDate(year))
   };
 }
 
@@ -55,8 +58,7 @@ function mapStateToProps(store) {
   // console.log(store);
   return {
     years: store.years,
-    events:store.events
-
+    // events: store.events
   };
 }
 

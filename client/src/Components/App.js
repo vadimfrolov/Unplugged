@@ -7,6 +7,7 @@ import FBpanel from "./FBpanel";
 import Navbar from "./Navbar";
 import LandingPage from "./LandingPage";
 import ConcertYear from "./Concert-by-artist/ConcertYear"
+// import DataClick from "../Components/Concert-by-artist/DataClick"
 
 const App = () => (
    
@@ -18,6 +19,7 @@ const App = () => (
       <Route path="/fbpanel" component={FBpanel} />
       <Route  path="/landing" component={LandingPage} />
       <Route  path="/concerts" component={ConcertYear} />
+      {/* <Route  path="/dataconcert" component={DataClick} /> */}
     </Switch>
     </Router>
   </div>

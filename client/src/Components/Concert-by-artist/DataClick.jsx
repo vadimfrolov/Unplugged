@@ -8,9 +8,18 @@ class DataClick extends Component {
   render() {
     return (
       <>
-        {this.events.map(event => {
-          return <div>{event.date}</div>;
-        })}
+        {this.props.events &&
+          this.props.events.map((event, i) => {
+            return (
+              <div key={i}>
+                <div>{event.date}</div>
+                <div>{event.country}</div>
+                {/* <div>{event.location.lat}</div>
+                <div>{event.location.lng}</div> */}
+                <div>-------------</div>
+              </div>
+            );
+          })}
       </>
     );
   }
@@ -24,9 +33,8 @@ class DataClick extends Component {
 // }
 
 function mapStateToProps(store) {
-  console.log(store);
+  console.log("D", store);
   return {
-    years: store.years,
     events: store.events
   };
 }
