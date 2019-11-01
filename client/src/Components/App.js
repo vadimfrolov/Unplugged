@@ -6,6 +6,7 @@ import "../App.css";
 import FBpanel from "./FBpanel";
 import Navbar from "./Navbar";
 import LandingPage from "./LandingPage";
+import Youtube from "./youtube/Youtube";
 
 const App = () => (
    
@@ -15,6 +16,7 @@ const App = () => (
     <Switch>
       <Route exact path="/" component={Home} />
       <Route path="/fbpanel" component={FBpanel} />
+      <Route path="/youtube" component={Youtube} />
       <Route  path="/landing" component={LandingPage} />
     </Switch>
     </Router>

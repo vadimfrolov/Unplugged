@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import { FacebookProvider, Like, Page, Comments } from "react-facebook";
-import InstagramEmbed from "react-instagram-embed";
-// let group_URL = "https://www.facebook.com/Metallica/";
+// import InstagramEmbed from "react-instagram-embed"; // для импорта 1 поста
+// let account_URL = "https://www.facebook.com/Metallica/";
 import InstaGrid from "./InstaGrid";
 
 export default class FBpanel extends Component {
   state = {
-    name: ""
+    name: "",
+    pip: true
   };
 
   componentDidMount() {
@@ -18,6 +19,7 @@ export default class FBpanel extends Component {
 
     return (
       <div>
+        
         <div>
           <InstaGrid account="elbrus.bootcamp" numberOfMediaElements={9} />
         </div>

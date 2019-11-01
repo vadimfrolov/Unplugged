@@ -10,9 +10,12 @@
     "react-animations": "^1.0.0",
     "react-dom": "^16.11.0",
     "react-facebook": "^8.0.4",
+    "react-hot-loader": "^4.12.15",
     "react-instagram-embed": "^1.5.0",
+    "react-player": "^1.13.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
+    "screenfull": "^5.0.0",
     "styled-components": "^4.4.1",
     "user-instagram": "^1.0.4"
   },

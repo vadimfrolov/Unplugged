@@ -12,6 +12,9 @@ function Navbar(props) {
           <NavLink activeClassName={"Active"} to={"/fbpanel"}>
             FBpanel
           </NavLink>
+          <NavLink activeClassName={"Active"} to={"/youtube"}>
+            YouTube
+          </NavLink>
         </div>
       </div>
     </div>
