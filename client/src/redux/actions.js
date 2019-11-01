@@ -1,5 +1,8 @@
 import { FETCH_PAST_DATES, FETCH_DATE } from "./types";
 
+require("dotenv").config();
+let songkickKey = process.env.REACT_APP_SONGKICK_KEY;
+console.log(songkickKey)
 const fetchPastDatesAC = years => {
   return {
     type: FETCH_PAST_DATES,
@@ -18,7 +21,7 @@ const fetchPastDates = page => {
   let arrDate = [];
   return async dispatch => {
     const resp = await fetch(
-      `https://api.songkick.com/api/3.0/artists/379603/gigography.json?apikey=gQiI75sO6fDuKGq0&page=${page}`
+      `https://api.songkick.com/api/3.0/artists/379603/gigography.json?apikey=${songkickKey}&page=${page}`
     );
     const data = await resp.json();
     const arrayData = data.resultsPage.results.event;
@@ -41,7 +44,7 @@ const fetchPastDates = page => {
 const fetchDate = year => {
   return async dispatch => {
     const resp = await fetch(
-      `https://api.songkick.com/api/3.0/artists/379603/gigography.json?apikey=gQiI75sO6fDuKGq0&min_date=${year}-01-01&max_date=${year}-12-31`
+      `https://api.songkick.com/api/3.0/artists/379603/gigography.json?apikey=${songkickKey}&min_date=${year}-01-01&max_date=${year}-12-31`
     );
     const data = await resp.json();
     const events = data.resultsPage.results.event;
@@ -53,9 +56,7 @@ const fetchDate = year => {
       objStore.country = event.location.city;
       objStore.location = { lat: event.location.lat, lng: event.location.lng };
       finalArr.push(objStore);
-     
     });
-  
 
     dispatch(fetchDateAC(finalArr));
   };
