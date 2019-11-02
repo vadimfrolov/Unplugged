@@ -8,6 +8,7 @@ import FaceBookPanel from "../../Components/FacebookPanel";
 import Navbar from "../../Components/Navbar";
 import LandingPage from "../LandingPage";
 import ArtistPage from "../ArtistPage/ArtistPage";
+import User from "../User/User";
 
 import './styles.css';
 
@@ -21,6 +22,7 @@ class App extends React.Component {
           <Navbar />
           <Switch>
             <Route exact path="/" component={Home} />
+            <Route path={`/dashboard`} component={User} />
             <Route path="/fbpanel" component={FaceBookPanel} />
             <Route path="/landing" component={LandingPage} />
             <Route path={`/artists/${id}`} component={ArtistPage} />

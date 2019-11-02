@@ -32,6 +32,9 @@ const Navbar = props => {
           <NavLink activeClassName={"Active"} to={"/fbpanel"}>
             FaceBook Panel
           </NavLink>
+          <NavLink activeClassName={"Active"} to={"/dashboard"}>
+            dashboard
+          </NavLink>
           {/* <NavLink activeClassName={"Active"} to={"/artist/:id"}> */}
           <div>
             <input type="text" value={text} onChange={handleInput} />
