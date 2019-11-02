@@ -14,7 +14,7 @@ export const fetchArtistIdAC = (text) => async dispatch => {
   dispatch({ type: TYPES.FETCH_ARTIST_ID_REQUEST });
 
   try {
-    const { data } = await axios.post("/getid", { text });
+    const { data } = await axios.post("/getId", { text });
 
     dispatch({
       type: TYPES.FETCH_ARTIST_ID_SUCCESS,
