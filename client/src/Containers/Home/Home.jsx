@@ -1,19 +1,12 @@
 import React from "react";
-// import logo from "../react.svg";
-import "../Home.css";
-import Api from "./Api";
-import User from "./User";
-import Navbar from "./Navbar";
 
-
-
+import User from "../../Components/User";
+import "./Home.css";
 
 class Home extends React.Component {
   render() {
     return (
       <div className="Home">
-        <Api />
-
         <User />
       </div>
     );
