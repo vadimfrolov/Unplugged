@@ -42,13 +42,16 @@ class Navbar extends React.Component {
             <NavLink activeClassName={"Active"} to={"/fbpanel"}>
               FBpanel
           </NavLink>
-            {/* <NavLink activeClassName={"Active"} to={"/artist/:id"}> */}
-            <div>
+          <NavLink activeClassName={"Active"} to={"/dashboard"}>
+            dashboard
+          </NavLink>
+          <Youtube />
+          <div>
               <input name="bandInput" type="text" value={this.state.text} onChange={this.handleInput} />
               <button onClick={this.onClick}> search band </button>
             </div>
-            {/* </NavLink> */}
-          </div>
+       
+            </div>
         </div>
       </div>
     );

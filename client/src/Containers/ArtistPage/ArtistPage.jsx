@@ -1,21 +1,22 @@
 import React, { Component } from "react";
-import { connect } from 'react-redux';
-import get from 'lodash.get';
-import { withRouter } from 'react-router-dom';
+import { connect } from "react-redux";
+import get from "lodash.get";
+import { withRouter } from "react-router-dom";
 import Upcoming from "./Upcoming";
-import TagsList from '../../Components/TagsList'
+import TagsList from "../../Components/TagsList";
 
 class ArtistInfo extends Component {
   state = {
-    id: '',
-    name: ''
-  }
+    id: "",
+    name: ""
+  };
 
-  render() {
+
+ render() {
     const { artist } = this.props;
 
-    const name = get(artist, 'name');
-    const content = get(artist, 'bio.content');
+    const name = get(artist, "name");
+    const content = get(artist, "bio.content");
 
     return (
       <div>
@@ -28,10 +29,10 @@ class ArtistInfo extends Component {
   }
 }
 
+
+
 const mapStateToProps = store => ({
   artist: store.artist
 });
 
-export default connect(
-  mapStateToProps
-)(withRouter(ArtistInfo));
+export default connect(mapStateToProps)(withRouter(ArtistInfo));
