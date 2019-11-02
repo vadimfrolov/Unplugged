@@ -2,16 +2,15 @@ import React, { Component } from "react";
 import { FacebookProvider, Like, Page, Comments } from "react-facebook";
 // import InstagramEmbed from "react-instagram-embed"; // для импорта 1 поста
 // let account_URL = "https://www.facebook.com/Metallica/";
-import InstaGrid from "./InstaGrid";
+import InstaGrid from "../InstaPanel/InstaGrid";
 
 export default class FBpanel extends Component {
   state = {
-    name: "",
-    pip: true
+    name: ""
   };
 
   componentDidMount() {
-    this.setState({ name: "bla" });
+    this.setState({ name: "bla" })
   }
 
   render() {

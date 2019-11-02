@@ -6,6 +6,8 @@ import {
   fetchArtistInfoAC
 } from "../../Redux/actions/artistActions";
 
+import Youtube from "../Youtube/Youtube"
+
 const Navbar = props => {
   const [text, setText] = useState("");
 
@@ -26,17 +28,18 @@ const Navbar = props => {
     <div className="Home">
       <div className="Home-header">
         <div className="NavLinks">
+          <div>
+            <input type="text" value={text} onChange={handleInput} />
+            <button onClick={onClick}>search band</button>
+          </div>
           <NavLink activeClassName={"Active"} exact={true} to={"/"}>
             Index
           </NavLink>
           <NavLink activeClassName={"Active"} to={"/fbpanel"}>
             FaceBook Panel
           </NavLink>
-          {/* <NavLink activeClassName={"Active"} to={"/artist/:id"}> */}
-          <div>
-            <input type="text" value={text} onChange={handleInput} />
-            <button onClick={onClick}>search band</button>
-          </div>
+          <Youtube />
+          
         </div>
       </div>
     </div>
