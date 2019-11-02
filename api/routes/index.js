@@ -20,7 +20,6 @@ router.post('/search', async (req, res) => {
   let bandInput = req.body.text;
   const resSearch = await fetch(`http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${bandInput}&api_key=${LastFmKey}&format=json`);
   const dataSearch = await resSearch.json();
-  // console.log(dataSearch)
   res.json({ dataSearch })
 });
 

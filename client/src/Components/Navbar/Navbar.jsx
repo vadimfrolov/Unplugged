@@ -6,42 +6,54 @@ import {
   fetchArtistInfoAC
 } from "../../Redux/actions/artistActions";
 
-const Navbar = props => {
-  const [text, setText] = useState("");
+import Youtube from "../Youtube/Youtube"
 
-  const handleInput = e => {
-    setText(e.target.value);
+class Navbar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      text: ""
+    };
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.artist && prevProps.artist !== this.props.artist) {
+      this.props.history.push(`/artists/${this.props.artist.id}`);
+    }
+  }
+
+  handleInput = e => {
+    this.setState({ text: e.target.value });
   };
 
-  const onClick = async () => {
-    const { fetchArtistIdAC, fetchArtistInfoAC, history, artist } = props;
+  onClick = async () => {
+    await this.props.fetchArtistIdAC(this.state.text);
+    await this.props.fetchArtistInfoAC(this.state.text);
+  }
 
-    await fetchArtistIdAC(text);
-    await fetchArtistInfoAC(text);
-
-    history.push(`/artists/${artist.id}`);
-  };
-
-  return (
-    <div className="Home">
-      <div className="Home-header">
-        <div className="NavLinks">
-          <NavLink activeClassName={"Active"} exact={true} to={"/"}>
-            Index
+  render() {
+    return (
+      <div className="Home">
+        <div className="Home-header">
+          <div className="NavLinks">
+            <NavLink activeClassName={"Active"} exact={true} to={"/"}>
+              Index
           </NavLink>
-          <NavLink activeClassName={"Active"} to={"/fbpanel"}>
-            FaceBook Panel
+            <NavLink activeClassName={"Active"} to={"/fbpanel"}>
+              FBpanel
           </NavLink>
-          {/* <NavLink activeClassName={"Active"} to={"/artist/:id"}> */}
-          <div>
-            <input type="text" value={text} onChange={handleInput} />
-            <button onClick={onClick}>search band</button>
+            {/* <NavLink activeClassName={"Active"} to={"/artist/:id"}> */}
+            <div>
+              <input name="bandInput" type="text" value={this.state.text} onChange={this.handleInput} />
+              <button onClick={this.onClick}> search band </button>
+            </div>
+            {/* </NavLink> */}
           </div>
         </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 const mapStateToProps = state => ({
   artist: state.artist
