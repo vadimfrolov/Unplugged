@@ -12,6 +12,19 @@ code {
     monospace;
 }
 
+.NavLinks {
+  
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  font-size: calc(10px + 2vmin);
+  color: #09d3ac;
+}
+
+.Active {
+  color: #09d3ac;
+}
+
 .landingPage {
   display: flex;
   flex-wrap: wrap;
