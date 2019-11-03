@@ -1,18 +1,18 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
+let moment = require("moment");
 
-// import { fetchPastDates, fetchPastDatesAC } from "../../redux/actions";
 
 class DataClick extends Component {
   render() {
     return (
       <>
-        {this.props.events &&
-          this.props.events.map((event, i) => {
+        {this.props.conserts.events &&
+          this.props.conserts.events.map((event, i) => {
             return (
               <div key={i}>
-                <div>{event.date}</div>
+                <div>{moment(event.date).format("ll")}</div>
                 <div>{event.country}</div>
                 {/* <div>{event.location.lat}</div>
                 <div>{event.location.lng}</div> */}
@@ -33,9 +33,9 @@ class DataClick extends Component {
 // }
 
 function mapStateToProps(store) {
-  console.log("D", store);
+  // console.log("D", store.conserts);
   return {
-    events: store.events
+    conserts: store.conserts
   };
 }
 

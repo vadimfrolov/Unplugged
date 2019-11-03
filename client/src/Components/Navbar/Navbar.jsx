@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import {
   fetchArtistIdAC,
   fetchArtistInfoAC
-} from "../../Redux/actions/artistActions";
+} from "../../redux/actions/artistActions";
 
 import Youtube from "../Youtube/Youtube"
 

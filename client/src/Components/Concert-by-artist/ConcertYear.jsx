@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import get from "lodash.get";
 // import { Route, Switch, BrowserRouter as Router,Link } from "react-router-dom";
 
 import { connect } from "react-redux";
@@ -7,22 +8,25 @@ import {
   fetchPastDates,
   fetchPastDatesAC,
   fetchDate
-} from "../../redux/actions";
+} from "../../redux/concertsReducer/concertsActions";
 
 import DataClick from "./DataClick";
+
 class ConcertYear extends Component {
   state = {
     year: []
   };
 
   componentDidMount = async () => {
+    // const  id  = this.props.location.pathname.slice(10);
+    const id = this.props.artist.id;
     let page = 1;
-    let res = await this.props.fetchPastDates(page);
+    let res = await this.props.fetchPastDates(id, page);
     while (res) {
       await this.props.fetchPastDatesAC(res);
-      await this.props.fetchPastDates(page);
+      await this.props.fetchPastDates(id, page);
       page++;
-      res = await this.props.fetchPastDates(page);
+      res = await this.props.fetchPastDates(id, page);
     }
   };
 
@@ -33,13 +37,14 @@ class ConcertYear extends Component {
   render() {
     return (
       <div>
-        {this.props.years.map((el, i) => {
-          return (
-            <button key={i} onClick={() => this.onClick(el)}>
-              {el}
-            </button>
-          );
-        })}
+        {this.props.conserts.years &&
+          this.props.conserts.years.map((el, i) => {
+            return (
+              <button key={i} onClick={() => this.onClick(el)}>
+                {el}
+              </button>
+            );
+          })}
         <DataClick />
       </div>
     );
@@ -48,16 +53,17 @@ class ConcertYear extends Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchPastDates: page => dispatch(fetchPastDates(page)),
+    fetchPastDates: (id, page) => dispatch(fetchPastDates(id, page)),
     fetchPastDatesAC: arr => dispatch(fetchPastDatesAC(arr)),
     fetchDate: year => dispatch(fetchDate(year))
   };
 }
 
 function mapStateToProps(store) {
-  // console.log(store);
+  console.log("ollo.llol", store);
   return {
-    years: store.years,
+    artist: store.artist,
+    conserts: store.conserts
     // events: store.events
   };
 }

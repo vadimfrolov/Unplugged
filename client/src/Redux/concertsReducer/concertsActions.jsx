@@ -1,27 +1,32 @@
-import { FETCH_PAST_DATES, FETCH_DATE } from "./types";
-
+// import axios from "axios";
+// import get from "lodash.get";
 require("dotenv").config();
 let songkickKey = process.env.REACT_APP_SONGKICK_KEY;
-console.log(songkickKey)
-const fetchPastDatesAC = years => {
+
+export const TYPES = {
+  FETCH_PAST_DATES: "FETCH_PAST_DATES",
+  FETCH_DATE: "FETCH_DATE"
+};
+
+export const fetchPastDatesAC = years => {
   return {
-    type: FETCH_PAST_DATES,
-    years: years
+    type: TYPES.FETCH_PAST_DATES,
+    payload: years
   };
 };
 
-const fetchDateAC = events => {
+export const fetchDateAC = events => {
   return {
-    type: FETCH_DATE,
-    events: events
+    type: TYPES.FETCH_DATE,
+    payload: events
   };
 };
 
-const fetchPastDates = page => {
+export const fetchPastDates = (id, page) => {
   let arrDate = [];
   return async dispatch => {
     const resp = await fetch(
-      `https://api.songkick.com/api/3.0/artists/379603/gigography.json?apikey=${songkickKey}&page=${page}`
+      `https://api.songkick.com/api/3.0/artists/${id}/gigography.json?apikey=${songkickKey}&page=${page}`
     );
     const data = await resp.json();
     const arrayData = data.resultsPage.results.event;
@@ -33,15 +38,12 @@ const fetchPastDates = page => {
         arrDate.push(date);
       }
     }
-    // console.log(page);
-    let uniqueYear = [...new Set(arrDate)];
-    // console.log("ololo", uniqueYear);
+    let uniqueYear = [...new Set(arrDate)] 
     return uniqueYear;
-    // dispatch(fetchPastDatesAC(uniqueYear));
   };
 };
 
-const fetchDate = year => {
+export const fetchDate = year => {
   return async dispatch => {
     const resp = await fetch(
       `https://api.songkick.com/api/3.0/artists/379603/gigography.json?apikey=${songkickKey}&min_date=${year}-01-01&max_date=${year}-12-31`
@@ -58,8 +60,9 @@ const fetchDate = year => {
       finalArr.push(objStore);
     });
 
-    dispatch(fetchDateAC(finalArr));
+    const newArr= finalArr //.sort((a,b)=>b.date-a.date)
+console.log(`data ${newArr}`)
+    
+    dispatch(fetchDateAC(newArr));
   };
 };
-
-export { fetchPastDates, fetchPastDatesAC, fetchDate };
