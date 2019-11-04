@@ -24,8 +24,8 @@ class App extends React.Component {
             <Route exact path="/" component={Home} />
             <Route path="/fbpanel" component={FaceBookPanel} />
             <Route path="/landing" component={LandingPage} />
-            <Route path={`/artists/${id}`} component={ArtistPage} />
-            <Route path={`/concerts/${id}`} component={ConcertYear} />
+            <Route path={`/artists/:id`} component={ArtistPage} />
+            <Route path={`/concerts/:id`} component={ConcertYear} />
           </Switch>
         </Router>
       </div>

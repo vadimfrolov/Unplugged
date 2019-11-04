@@ -1,18 +1,25 @@
 import React, { Component } from "react";
+import { Route, Switch, BrowserRouter as Router, Link} from "react-router-dom";
 
 import { connect } from "react-redux";
 let moment = require("moment");
 
 
+
 class DataClick extends Component {
   render() {
+    console.log('hui',this.props)
     return (
       <>
         {this.props.conserts.events &&
           this.props.conserts.events.map((event, i) => {
             return (
               <div key={i}>
+                <Link>
                 <div>{moment(event.date).format("ll")}</div>
+                </Link>
+         
+                <div>{this.props.nameArtist}</div>
                 <div>{event.country}</div>
                 {/* <div>{event.location.lat}</div>
                 <div>{event.location.lng}</div> */}

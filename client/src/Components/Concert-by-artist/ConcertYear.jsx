@@ -18,8 +18,8 @@ class ConcertYear extends Component {
   };
 
   componentDidMount = async () => {
-    // const  id  = this.props.location.pathname.slice(10);
-    const id = this.props.artist.id;
+    const id  = this.props.match.params.id;
+    // const id = this.props.artist.id;
     let page = 1;
     let res = await this.props.fetchPastDates(id, page);
     while (res) {
@@ -45,7 +45,7 @@ class ConcertYear extends Component {
               </button>
             );
           })}
-        <DataClick />
+        <DataClick nameArtist={this.props.artist.name}/>
       </div>
     );
   }
