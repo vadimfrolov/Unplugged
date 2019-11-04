@@ -57,7 +57,6 @@ export const fetchArtistConcertAC = (id) => async dispatch => {
   try {
     const res = await axios.get(`/artists/${id}`, { id });
     const tourSnippet = get(res, 'data.dataConcerts.resultsPage.results.event', {});
-    console.log(tourSnippet)
 
     dispatch({
       type: TYPES.FETCH_TOUR_SNIPPET_SUCCESS,
