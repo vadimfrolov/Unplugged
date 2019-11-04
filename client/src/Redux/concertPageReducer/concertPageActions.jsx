@@ -7,11 +7,11 @@ export const TYPES = {
   FETCH_CONCERT_INFO_FAILURE: 'FETCH_CONCERT_INFO_FAILURE',
 }
 
-export const fetchConcertInfoAC = () => async dispatch => {
+export const fetchConcertInfoAC = (id) => async dispatch => {
   dispatch({ type: TYPES.FETCH_CONCERT_INFO_REQUEST });
 
   try {
-    const res = await axios.get(`/concert/38489024`);
+    const res = await axios.get(`/concert/${id}`);
     const data = get(res, "data.info", {});
 
     dispatch({

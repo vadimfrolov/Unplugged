@@ -44,13 +44,13 @@ export const fetchPastDates = (id, page) => {
   };
 };
 
-export const fetchDate = year => {
+export const fetchDate = (id,year) => {
   return async dispatch => {
     const resp = await fetch(
-      `https://api.songkick.com/api/3.0/artists/379603/gigography.json?apikey=${songkickKey}&min_date=${year}-01-01&max_date=${year}-12-31`
+      `https://api.songkick.com/api/3.0/artists/${id}/gigography.json?apikey=${songkickKey}&min_date=${year}-01-01&max_date=${year}-12-31`
     );
     const data = await resp.json();
-   
+   console.log("privet", data)
     const events = data.resultsPage.results.event;
     console.log('olo1', events)
     let objStore = {};

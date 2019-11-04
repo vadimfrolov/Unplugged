@@ -31,7 +31,8 @@ class ConcertYear extends Component {
   };
 
   onClick = br => {
-    this.props.fetchDate(br);
+    const id  = this.props.match.params.id;
+    this.props.fetchDate(id,br);
   };
 
   render() {
@@ -55,7 +56,7 @@ function mapDispatchToProps(dispatch) {
   return {
     fetchPastDates: (id, page) => dispatch(fetchPastDates(id, page)),
     fetchPastDatesAC: arr => dispatch(fetchPastDatesAC(arr)),
-    fetchDate: year => dispatch(fetchDate(year))
+    fetchDate: (id,year) => dispatch(fetchDate(id,year))
   };
 }
 
