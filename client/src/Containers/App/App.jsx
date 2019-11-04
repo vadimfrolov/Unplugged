@@ -10,12 +10,13 @@ import LandingPage from "../LandingPage";
 import ArtistPage from "../ArtistPage/ArtistPage";
 import User from "../User/User";
 import ConcertYear from "../../Components/Concert-by-artist/ConcertYear";
+import CommentUser from "../../Components/commentsUser/CommentsUser"
 
 import "./styles.css";
 
 class App extends React.Component {
   render() {
-    // const id = get(this.props, "artist.id");
+    const id = get(this.props, "artist.id");
 
     return (
       <div>
@@ -28,6 +29,7 @@ class App extends React.Component {
             <Route path="/landing" component={LandingPage} />
             <Route path={`/artists/:id`} component={ArtistPage} />
             <Route path={`/concerts/:id`} component={ConcertYear} />
+            <Route exact path={`/concert/:id`} component={CommentUser} />
           </Switch>
         </Router>
       </div>
