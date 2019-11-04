@@ -5,20 +5,9 @@ import { FacebookProvider, Like, Page, Comments } from "react-facebook";
 import InstaGrid from "../InstaPanel/InstaGrid";
 
 export default class FBpanel extends Component {
-  state = {
-    name: ""
-  };
-
-  componentDidMount() {
-    this.setState({ name: "bla" })
-  }
-
   render() {
-    console.log("render");
-
     return (
       <div>
-        
         <div>
           <InstaGrid account="elbrus.bootcamp" numberOfMediaElements={9} />
         </div>
