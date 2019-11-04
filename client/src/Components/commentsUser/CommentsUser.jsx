@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 let moment = require("moment");
-class CommentsUser extends Comments {
+export default class CommentsUser extends Component {
   state = {
     text: "",
     comments: []

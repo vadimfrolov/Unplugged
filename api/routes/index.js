@@ -22,8 +22,7 @@ router.post('/search', async (req, res) => {
   res.json({ dataSearch })
 });
 
-// router.get('/getTourSnippet', async (req, res) => {
-//   console.log(123)
+// router.get('/concerts/:id', async (req, res) => {
 //   let bandId = req.params.id;
 //   console.log(bandId)
 //   const resTourSnippet = await fetch(`https://api.songkick.com/api/3.0/artists/${bandId}/calendar.json?apikey=${SongKickKey}&per_page=5`);
@@ -35,7 +34,6 @@ router.get('/artists/:id', async (req, res) => {
   const bandId = req.params.id;
   const resConcerts = await fetch(`https://api.songkick.com/api/3.0/artists/${bandId}/calendar.json?apikey=${SongKickKey}&per_page=5`);
   const dataConcerts = await resConcerts.json();
-  // const response = dataConcerts.resultsPage.results;
   res.json({dataConcerts})
 });
 
