@@ -21,12 +21,14 @@ $gutter-width: 20px;
   right: 10px;
   width: 480px;
   height: 270px;
+  z-index: 100;
 }
 
-.player-control {
-  position: absolute;
-  top: 1.5rem;
-  left: 10px;
+.player-close-icon {
+  position: fixed;
+  bottom: 270px;
+  right: 0px;
+  z-index: 100;
 }
 
 .react-player {

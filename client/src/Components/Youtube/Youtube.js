@@ -3,6 +3,8 @@ import { findDOMNode } from "react-dom";
 import { hot } from "react-hot-loader";
 import screenfull from "screenfull";
 import ReactPlayer from "react-player";
+import axios from 'axios';
+import get from 'lodash.get';
 
 import "./reset.css";
 import "./defaults.css";
@@ -13,6 +15,11 @@ import ButtonGroup from "@material-ui/core/ButtonGroup";
 import PlayArrowOutlinedIcon from "@material-ui/icons/PlayArrowOutlined";
 import PauseOutlinedIcon from "@material-ui/icons/PauseOutlined";
 import StopOutlinedIcon from "@material-ui/icons/StopOutlined";
+import CloseIcon from "@material-ui/icons/Close";
+import IconButton from "@material-ui/core/IconButton";
+
+
+const youTubeApikey = process.env.REACT_APP_YOUTUBE_API_KEY
 
 class Youtube extends Component {
   state = {
@@ -24,7 +31,8 @@ class Youtube extends Component {
     muted: false,
     played: 0,
     loaded: 0,
-    duration: 0
+    duration: 0,
+    findInput: ""
   };
 
   load = url => {
@@ -57,22 +65,18 @@ class Youtube extends Component {
   };
 
   handlePlay = () => {
-    console.log("onPlay");
     this.setState({ playing: true });
   };
 
   handleEnablePIP = () => {
-    console.log("onEnablePIP");
     this.setState({ pip: true });
   };
 
   handleDisablePIP = () => {
-    console.log("onDisablePIP");
     this.setState({ pip: false });
   };
 
   handlePause = () => {
-    console.log("onPause");
     this.setState({ playing: false });
   };
 
@@ -90,18 +94,15 @@ class Youtube extends Component {
   };
 
   handleProgress = state => {
-    console.log("onProgress", state);
     if (!this.state.seeking) {
       this.setState(state);
     }
   };
 
   handleEnded = () => {
-    console.log("onEnded");
   };
 
   handleDuration = duration => {
-    console.log("onDuration", duration);
     this.setState({ duration });
   };
 
@@ -117,16 +118,22 @@ class Youtube extends Component {
     this.player = player;
   };
 
+  inputOnChange = e => {
+    this.setState({ findInput: e.target.value });
+  };
+
+  findSongAndPlay = async () => {
+    const query = this.state.findInput.replace(/\s+/g, "%20");
+    const httpQuery = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&order=relevance&q=${query}&key=${youTubeApikey}`;
+    const res = await axios.get(httpQuery);
+
+    const videoId = get(res, 'data.items[0].id.videoId', 'dQw4w9WgXcQ');
+    this.load(`https://www.youtube.com/watch?v=${videoId}`);
+    this.setState({ playing: true });
+  };
+
   render() {
-    const {
-      url,
-      playing,
-      controls,
-      volume,
-      muted,
-      played,
-      pip
-    } = this.state;
+    const { url, playing, controls, volume, muted, played, pip } = this.state;
 
     return (
       <div className="app">
@@ -143,19 +150,26 @@ class Youtube extends Component {
               controls={controls}
               volume={volume}
               muted={muted}
-              onReady={() => console.log("onReady")}
-              onStart={() => console.log("onStart")}
+              // onReady={() => console.log("onReady")}
+              // onStart={() => console.log("onStart")}
               onPlay={this.handlePlay}
               onEnablePIP={this.handleEnablePIP}
               onDisablePIP={this.handleDisablePIP}
               onPause={this.handlePause}
-              onBuffer={() => console.log("onBuffer")}
-              onSeek={e => console.log("onSeek", e)}
+              // onBuffer={() => console.log("onBuffer")}
+              // onSeek={e => console.log("onSeek", e)}
               onEnded={this.handleEnded}
               onError={e => console.log("onError", e)}
               onProgress={this.handleProgress}
               onDuration={this.handleDuration}
             />
+          </div>
+          <div className="player-close-icon">
+            {this.state.url && (
+              <IconButton onClick={this.handleStop} color="primary">
+                <CloseIcon />
+              </IconButton>
+            )}
           </div>
 
           <div className="">
@@ -176,21 +190,14 @@ class Youtube extends Component {
                 startIcon={<StopOutlinedIcon />}
               ></Button>
 
-              <Button
-                onClick={() =>
-                  this.load("https://www.youtube.com/watch?v=oUFJJNQGwhk")
-                }
-              >
-                YT
-              </Button>
-              <Button
-                onClick={() =>
-                  this.load(
-                    "https://soundcloud.com/miami-nights-1984/accelerated"
-                  )
-                }
-              >
-                SC
+              
+              <input
+                placeholder="choose your song"
+                onChange={this.inputOnChange}
+                value={this.state.findInput}
+              />
+              <Button onClick={this.findSongAndPlay}>
+                <PlayArrowOutlinedIcon />
               </Button>
             </ButtonGroup>
             <input
