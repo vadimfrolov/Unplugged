@@ -1,9 +1,11 @@
 import React from 'react'
+// import YoutubeControls from "../Youtube/YoutubeControls"
 
-const ArtistTrack = ({ name }) => {
+const ArtistTrack = ({ trackName, trackNum }) => {
   return (
     <div>
-      <div>{name}</div>
+      <div>{`${trackNum} - ${trackName}`}</div>
+      {/* <YoutubeControls /> */}
     </div>
   )
 }

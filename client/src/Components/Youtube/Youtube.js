@@ -123,15 +123,11 @@ class Youtube extends Component {
   };
 
   findSongAndPlay = async () => {
-    console.log(youTubeApikey);
-    console.log(process.env)
-
     const query = this.state.findInput.replace(/\s+/g, "%20");
     const httpQuery = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&order=relevance&q=${query}&key=${youTubeApikey}`;
     const res = await axios.get(httpQuery);
 
     const videoId = get(res, 'data.items[0].id.videoId', 'dQw4w9WgXcQ');
-        
     this.load(`https://www.youtube.com/watch?v=${videoId}`);
     this.setState({ playing: true });
   };
@@ -194,23 +190,7 @@ class Youtube extends Component {
                 startIcon={<StopOutlinedIcon />}
               ></Button>
 
-              {/* <Button
-                onClick={() =>
-                  this.load("https://www.youtube.com/watch?v=oUFJJNQGwhk")
-                }
-              >
-                YT
-              </Button>
-              <Button
-                onClick={() =>
-                  this.load(
-                    "https://soundcloud.com/miami-nights-1984/accelerated"
-                  )
-                }
-              >
-                SC
-              </Button> */}
-
+              
               <input
                 placeholder="choose your song"
                 onChange={this.inputOnChange}

@@ -17,7 +17,7 @@ class ArtistTopTracks extends Component {
     this.fetchTopTracks()
   }
 
-  fetchTopTracks = () => {
+  fetchTopTracks = async () => {
     const res = await axios.get(`http://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&artist=${this.state.artistName}&api_key=${lastfmApiKey}&format=json`);
     const tracks = get(res, 'data.toptracks.track', []);
     this.setState({ tracks: tracks });
@@ -28,7 +28,7 @@ class ArtistTopTracks extends Component {
     return (
       <div>
         <div>Artist Top Tracks:</div>
-        {tracks.map(({ name }, i) => <ArtistTrack artistName={artistName} tracks={tracks} trackName={name} i={`${i}`} />)}
+        {tracks.map(({ name }, i) => <ArtistTrack artistName={artistName} tracks={tracks} trackName={name} key={i} trackNum={i+1}/>)}
       </div>
     )
   }
