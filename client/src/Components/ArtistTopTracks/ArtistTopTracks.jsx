@@ -1,6 +1,7 @@
 import React, { Component }  from "react";
 import { connect } from "react-redux";
 import axios from 'axios';
+import get from 'lodash.get';
 
 import ArtistTrack from "./ArtistTrack";
 
@@ -17,16 +18,24 @@ class ArtistTopTracks extends Component {
   }
 
   fetchTopTracks = () => {
-    const res = await axios.get(`http://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&artist=${artistName}&api_key=${lastfmApiKey}&format=json`);
+    const res = await axios.get(`http://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&artist=${this.state.artistName}&api_key=${lastfmApiKey}&format=json`);
+    const tracks = get(res, 'data.toptracks.track', []);
+    this.setState({ tracks: tracks });
   }
 
   render() {
-    return tracks.map(({ name }, i) => <ArtistTrack name={name} i={`${i}`} />);
+    const { artistName, tracks } = this.state
+    return (
+      <div>
+        <div>Artist Top Tracks:</div>
+        {tracks.map(({ name }, i) => <ArtistTrack artistName={artistName} tracks={tracks} trackName={name} i={`${i}`} />)}
+      </div>
+    )
   }
 }
 
 const mapStateToProps = state => ({
-  artistName: state.artist.tags
+  tags: state.artist.tags
 });
 
 export default connect(mapStateToProps)(ArtistTopTracks);
