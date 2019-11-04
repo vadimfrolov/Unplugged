@@ -14,8 +14,8 @@ class ArtistInfo extends Component {
   render() {
     const { artist } = this.props;
 
-    const name = get(artist, 'name');
-    const content = get(artist, 'bio.content');
+    const name = get(artist, "name");
+    const content = get(artist, "bio.content");
 
     return (
       <div>
