@@ -6,8 +6,10 @@ import get from "lodash.get";
 import Home from "../Home";
 import FaceBookPanel from "../../Components/FacebookPanel";
 import Navbar from "../../Components/Navbar";
-import LandingPage from "../LandingPage";
+import LandingPage from "../LandingPage/LandingPage";
 import ArtistPage from "../ArtistPage/ArtistPage";
+import Login from '../../Components/User/login'
+import Registration from '../../Components/User/registration'
 import User from "../User/User";
 import ConcertYear from "../../Components/Concert-by-artist/ConcertYear";
 
@@ -23,6 +25,8 @@ class App extends React.Component {
           <Navbar />
           <Switch>
             <Route exact path="/" component={Home} />
+            <Route path="/login" component={Login} />
+            <Route path="/registration" component={Registration}/>
             <Route path={`/dashboard`} component={User} />
             <Route path="/fbpanel" component={FaceBookPanel} />
             <Route path="/landing" component={LandingPage} />

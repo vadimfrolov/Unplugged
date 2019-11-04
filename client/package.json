@@ -16,21 +16,11 @@
     "react": "^16.11.0",
     "react-animations": "^1.0.0",
     "react-dom": "^16.11.0",
-    "react-facebook": "^8.0.4",
-    "react-hot-loader": "^4.12.15",
-    "react-instagram-embed": "^1.5.0",
-    "react-player": "^1.13.0",
     "react-redux": "^7.1.1",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
-    "react-soundcloud-player": "^1.1.1",
     "redux": "^4.0.4",
-    "redux-devtools-extension": "^2.13.8",
-    "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.3.0",
-    "screenfull": "^5.0.0",
-    "styled-components": "^4.4.1",
-    "user-instagram": "^1.0.4"
+    "styled-components": "^4.4.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -38,7 +28,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:9000/",
+  "proxy": "http://localhost:9000",
   "eslintConfig": {
     "extends": "react-app"
   },

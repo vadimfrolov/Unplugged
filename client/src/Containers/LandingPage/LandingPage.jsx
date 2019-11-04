@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { fadeIn } from "react-animations";
 import styled, { keyframes } from "styled-components";
-
 import dataArtists from "../../Data/dataArtists";
 
 const Pulse = styled.div`
