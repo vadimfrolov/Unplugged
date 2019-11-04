@@ -22,9 +22,13 @@ class ArtistInfo extends Component {
         <p>{name}</p>
         <p>{content}</p>
         <TagsList />
+<<<<<<< .merge_file_deh68U
         <SimilarArtistsList />
         <TourSnippet />
         <CommentSection />
+=======
+        <Upcoming idArtist={this.props.artist.id} />
+>>>>>>> .merge_file_qlJV16
       </div>
     );
   }
@@ -35,6 +39,7 @@ const mapStateToProps = store => ({
   artist: store.artist
 });
 
+<<<<<<< .merge_file_deh68U
 const mapDispatchToProps = {
   fetchArtistConcertAC,
 };
@@ -43,3 +48,6 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(withRouter(ArtistInfo));
+=======
+export default connect(mapStateToProps)(withRouter(ArtistInfo));
+>>>>>>> .merge_file_qlJV16
