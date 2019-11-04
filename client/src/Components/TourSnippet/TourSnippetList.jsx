@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import get from 'lodash.get';
 import { withRouter } from 'react-router-dom';
 
-import { fetchArtistConcertAC } from "../../Redux/actions/artistActions";
+import { fetchArtistConcertAC } from "../../redux/actions/artistActions";
 
 import TourSnippet from './TourSnippet'
 
