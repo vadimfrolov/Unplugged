@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { connect } from 'react-redux';
-import get from 'lodash.get';
-import { withRouter } from 'react-router-dom';
+import { connect } from "react-redux";
+import get from "lodash.get";
+import { withRouter } from "react-router-dom";
 
 import TourSnippetList from "../../Components/TourSnippet/TourSnippetList";
 import TagsList from '../../Components/TagsList';
@@ -28,7 +28,6 @@ class ArtistInfo extends Component {
     );
   }
 }
-
 
 const mapStateToProps = store => ({
   artist: store.artist
