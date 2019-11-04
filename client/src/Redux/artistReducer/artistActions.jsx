@@ -13,7 +13,8 @@ export const TYPES = {
   FETCH_TOUR_SNIPPET_FAILURE: 'FETCH_TOUR_SNIPPET_FAILURE',
 }
 
-export const fetchArtistIdAC = text => async dispatch => {
+
+export const fetchArtistIdAC = (text) => async dispatch => {
   dispatch({ type: TYPES.FETCH_ARTIST_ID_REQUEST });
 
   try {
