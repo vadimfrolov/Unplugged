@@ -1,24 +1,48 @@
-var createError = require('http-errors');
-var express = require('express');
+const createError = require('http-errors');
+const express = require('express');
 const session = require('express-session');
-var path = require('path');
-var logger = require('morgan');
-const FacebookStrategy = require('passport-facebook');
-const cookieParser = require('cookie-parser');
-const cors = require("cors");
+const FileStore = require('session-file-store')(session);
 const { connect } = require('mongoose');
 const bodyParser = require("body-parser");
 const passport = require('passport');
-const FileStore = require('session-file-store')(session);
+const FacebookStrategy = require('passport-facebook')
+const path = require('path');
+const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
+const cors = require("cors");
 
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const testAPIRouter = require("./routes/testAPI");
+const instaRouter = require("./routes/insta");
 
+const app = express();
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var testAPIRouter = require("./routes/testAPI");
-var instaRouter = require('./routes/insta');
+// passport
 
-var app = express();
+app.use(
+  session({
+    store: new FileStore({}),
+    key: 'user_sid',
+    secret: 'anything here',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      expires: 60000000,
+    },
+  }),
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+// mongoose 
+
+connect("mongodb://localhost:27017/Final", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+
 
 // passport
 
@@ -52,14 +76,14 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 app.use(cors());
-app.use(logger('dev'));
+app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/api/users/', usersRouter);
 app.use("/testAPI", testAPIRouter);
 app.use('/insta', instaRouter);
 
