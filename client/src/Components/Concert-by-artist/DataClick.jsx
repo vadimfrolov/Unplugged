@@ -8,8 +8,8 @@ class DataClick extends Component {
   render() {
     return (
       <>
-        {this.props.conserts.events &&
-          this.props.conserts.events.map((event, i) => {
+        {this.props.concerts.events &&
+          this.props.concerts.events.map((event, i) => {
             return (
               <div key={i}>
                 <Link to={`concert/${event.idConcert}`}>
@@ -37,9 +37,9 @@ class DataClick extends Component {
 // }
 
 function mapStateToProps(store) {
-  // console.log("D", store.conserts);
+  // console.log("D", store.concerts);
   return {
-    conserts: store.conserts
+    concerts: store.concerts
   };
 }
 
