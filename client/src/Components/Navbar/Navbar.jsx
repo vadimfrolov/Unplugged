@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React, { Component } from "react";
 import { NavLink, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import {
   fetchArtistIdAC,
   fetchArtistInfoAC
-} from "../../Redux/actions/artistActions";
+} from "../../redux/actions/artistActions";
 
 import Youtube from "../Youtube/Youtube"
 
-class Navbar extends React.Component {
+class Navbar extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -42,12 +42,11 @@ class Navbar extends React.Component {
             <NavLink activeClassName={"Active"} to={"/fbpanel"}>
               FBpanel
           </NavLink>
-            {/* <NavLink activeClassName={"Active"} to={"/artist/:id"}> */}
             <div>
               <input name="bandInput" type="text" value={this.state.text} onChange={this.handleInput} />
               <button onClick={this.onClick}> search band </button>
             </div>
-            {/* </NavLink> */}
+            <Youtube />
           </div>
         </div>
       </div>
@@ -61,7 +60,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   fetchArtistIdAC,
-  fetchArtistInfoAC
+  fetchArtistInfoAC,
 };
 
 export default withRouter(
