@@ -62,7 +62,7 @@ class Navbar extends Component {
             <NavLink activeClassName={"Active"} to={"/fbpanel"}>
               FBpanel
           </NavLink>
-            {!this.props.user ?
+            { !this.props.user.user ?
                 <div>
                   <NavLink activeClassName={"Active"} to={"/login"}>
                     Log in
@@ -73,7 +73,7 @@ class Navbar extends Component {
                 </div> :
                 <div>
                   <NavLink activeClassName={"Active"} to={"/userUpdate"}>
-                    {this.props.user.username}
+                    {this.props.user.user.username}
                   </NavLink>
                   <button onClick={this.logout}> Log out </button>
                 </div>
