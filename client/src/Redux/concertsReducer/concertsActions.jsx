@@ -1,7 +1,7 @@
 // import axios from "axios";
 // import get from "lodash.get";
 require("dotenv").config();
-let songkickKey = process.env.REACT_APP_SONGKICK_KEY;
+let songkickKey = process.env.REACT_APP_SONGKICK_API_KEY;
 
 export const TYPES = {
   FETCH_PAST_DATES: "FETCH_PAST_DATES",
