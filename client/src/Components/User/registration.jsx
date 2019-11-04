@@ -6,9 +6,9 @@ class Registration extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        Email: null,
-        Username: null,
-        Password: null,
+        email: null,
+        username: null,
+        password: null,
       }
     };
 
