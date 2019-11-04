@@ -29,13 +29,13 @@ class Login extends Component {
       body: JSON.stringify({ user: data }),
     });
     const user = await response.json();
-    this.props.setUser(user);
+    this.props.setUserAC({user: user});
   }
 
   logout = async () => {
     await fetch('/users/logout/');
     const user = null;
-    this.props.setUser(user)
+    this.props.setUserAC({user: user});
   }
   render() {
     return (
@@ -55,10 +55,8 @@ function mapStateToProps(store) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    setUser: (user) => dispatch(setUserAC(user)),
-  }
-}
+const mapDispatchToProps = {
+  setUserAC
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)

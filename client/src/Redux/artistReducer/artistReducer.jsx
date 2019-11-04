@@ -1,4 +1,4 @@
-import { TYPES } from '../actions/artistActions'
+import { TYPES } from './artistActions'
 
 const initialState = {
   isSuccess: false,

@@ -58,7 +58,7 @@ export const fetchDate = year => {
     events &&
       events.map(event => {
         objStore = {};
-        objStore.idConsert=event.start.id
+        objStore.idConсert=event.id
         objStore.date = event.start.date;
         objStore.country = event.location.city;
         objStore.location = {

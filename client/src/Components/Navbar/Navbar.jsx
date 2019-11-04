@@ -4,12 +4,13 @@ import { connect } from "react-redux";
 import {
   fetchArtistIdAC,
   fetchArtistInfoAC
-} from "../../Redux/actions/artistActions";
+} from "../../Redux/artistReducer/artistActions";
 import {
   setUserAC
-} from "../../Redux/UserAuth/actions/userAuth"
+} from "../../Redux/UserAuth/actions/userAuth";
 
 import Youtube from "../Youtube/Youtube"
+
 
 class Navbar extends Component {
   constructor(props) {
@@ -92,6 +93,7 @@ class Navbar extends Component {
   }
 }
 
+
 const mapStateToProps = state => ({
   artist: state.artist,
   user: state.user
@@ -102,6 +104,7 @@ const mapDispatchToProps = {
   fetchArtistInfoAC,
   setUserAC
 };
+
 
 export default withRouter(
   connect(

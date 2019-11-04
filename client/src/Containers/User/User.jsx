@@ -1,5 +1,5 @@
 import React from "react";
-import dataUser from "../../Data/dataUser"
+import dataUser from "../../Data/dataUser";
 
 const User = () => {
   return (

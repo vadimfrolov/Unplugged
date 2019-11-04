@@ -37,8 +37,8 @@ class ConcertYear extends Component {
   render() {
     return (
       <div>
-        {this.props.conserts.years &&
-          this.props.conserts.years.map((el, i) => {
+        {this.props.concerts.years &&
+          this.props.concerts.years.map((el, i) => {
             return (
               <button key={i} onClick={() => this.onClick(el)}>
                 {el}
@@ -63,7 +63,7 @@ function mapStateToProps(store) {
   console.log("ollo.llol", store);
   return {
     artist: store.artist,
-    conserts: store.conserts
+    concerts: store.concerts
     // events: store.events
   };
 }
