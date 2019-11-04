@@ -10,6 +10,8 @@ import TagsList from "../../Components/TagsList";
 import SimilarArtistsList from "../../Components/SimilarArtists/SimilarArtistsList";
 import CommentSection from "../../Components/CommentSection";
 
+import ShowAll from "../../Components/TourSnippet/ShowAll"
+
 class ArtistInfo extends Component {
   render() {
     const { artist } = this.props;
@@ -24,7 +26,7 @@ class ArtistInfo extends Component {
         <TagsList />
         <SimilarArtistsList />
         <TourSnippet />
-        <git />
+        <ShowAll id={artist.id}/>
       </div>
     );
   }

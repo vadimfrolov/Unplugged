@@ -29,7 +29,7 @@ export const fetchPastDates = (id, page) => {
       `https://api.songkick.com/api/3.0/artists/${id}/gigography.json?apikey=${songkickKey}&page=${page}`
     );
     const data = await resp.json();
-    debugger;
+
     const arrayData = data.resultsPage.results.event;
     if (arrayData === undefined) {
       return false;
@@ -50,7 +50,7 @@ export const fetchDate = year => {
       `https://api.songkick.com/api/3.0/artists/379603/gigography.json?apikey=${songkickKey}&min_date=${year}-01-01&max_date=${year}-12-31`
     );
     const data = await resp.json();
-    debugger;
+   
     const events = data.resultsPage.results.event;
     console.log('olo1', events)
     let objStore = {};
@@ -58,7 +58,7 @@ export const fetchDate = year => {
     events &&
       events.map(event => {
         objStore = {};
-        objStore.idConsert=event.start.id
+        objStore.idConcert=event.id
         objStore.date = event.start.date;
         objStore.country = event.location.city;
         objStore.location = {

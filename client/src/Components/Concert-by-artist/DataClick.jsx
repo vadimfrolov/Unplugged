@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route, Switch, BrowserRouter as Router, Link} from "react-router-dom";
+import {BrowserRouter as Router, Link} from "react-router-dom";
 
 import { connect } from "react-redux";
 let moment = require("moment");
@@ -15,7 +15,7 @@ class DataClick extends Component {
           this.props.conserts.events.map((event, i) => {
             return (
               <div key={i}>
-                <Link>
+                <Link >
                 <div>{moment(event.date).format("ll")}</div>
                 </Link>
          
