@@ -6,6 +6,7 @@ import { fetchArtistConcertAC } from "../../Redux/artistReducer/artistActions";
 
 import TourSnippet from './TourSnippet'
 
+
 class TourSnippetList extends Component {
   async componentDidMount() {
     await this.props.fetchArtistConcertAC(this.props.artist.id);

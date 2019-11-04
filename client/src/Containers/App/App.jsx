@@ -7,7 +7,8 @@ import Home from "../Home";
 import FaceBookPanel from "../../Components/FacebookPanel";
 import Navbar from "../../Components/Navbar";
 import LandingPage from "../LandingPage";
-import ArtistPage from "../ArtistPage/ArtistPage";
+import ArtistPage from "../ArtistPage";
+import ConcertPage from "../ConcertPage";
 import User from "../User/User";
 import ConcertYear from "../../Components/Concert-by-artist/ConcertYear";
 
@@ -28,6 +29,7 @@ class App extends React.Component {
             <Route path="/landing" component={LandingPage} />
             <Route path={`/artists/:id`} component={ArtistPage} />
             <Route path={`/concerts/:id`} component={ConcertYear} />
+            <Route path='/concert/38489024' component={ConcertPage} />
           </Switch>
         </Router>
       </div>

@@ -22,13 +22,14 @@ router.post('/search', async (req, res) => {
   res.json({ dataSearch })
 });
 
-// router.get('/concerts/:id', async (req, res) => {
-//   let bandId = req.params.id;
-//   console.log(bandId)
-//   const resTourSnippet = await fetch(`https://api.songkick.com/api/3.0/artists/${bandId}/calendar.json?apikey=${SongKickKey}&per_page=5`);
-//   const dataTourSnippet = await resTourSnippet.json();
-//   res.json({ dataTourSnippet })
-// });
+router.get('/concert/38489024', async (req, res) => {
+  // let concertId = req.params.id;
+  // console.log(concertId)
+  const resConcertInfo = await fetch(`https://api.songkick.com/api/3.0/events/38489024.json?apikey=${SongKickKey}`);
+  const ConcertInfo = await resConcertInfo.json();
+  const info = ConcertInfo.resultsPage.results.event;
+  res.json({ info })
+});
 
 router.get('/artists/:id', async (req, res) => {
   const bandId = req.params.id;

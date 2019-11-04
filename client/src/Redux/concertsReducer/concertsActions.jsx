@@ -29,7 +29,6 @@ export const fetchPastDates = (id, page) => {
       `https://api.songkick.com/api/3.0/artists/${id}/gigography.json?apikey=${songkickKey}&page=${page}`
     );
     const data = await resp.json();
-    debugger;
     const arrayData = data.resultsPage.results.event;
     if (arrayData === undefined) {
       return false;

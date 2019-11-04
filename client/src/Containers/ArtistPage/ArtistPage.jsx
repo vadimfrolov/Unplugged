@@ -13,7 +13,6 @@ class ArtistInfo extends Component {
     const { artist } = this.props;
 
     const name = get(artist, "name");
-    const id = get(artist, "id");
     const content = get(artist, "bio.content");
 
     return (
