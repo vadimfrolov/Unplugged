@@ -24,7 +24,7 @@ class ArtistInfo extends Component {
         <TagsList />
         <SimilarArtistsList />
         <TourSnippet />
-        <CommentSection />
+        <git />
       </div>
     );
   }
