@@ -15,7 +15,6 @@ class DataClick extends Component {
                 <Link to={`concert/${event.idConcert}`}>
                   <div>{moment(event.date).format("ll")}</div>
                 </Link>
-
                 <div>{this.props.nameArtist}</div>
                 <div>{event.country}</div>
                 {/* <div>{event.location.lat}</div>
