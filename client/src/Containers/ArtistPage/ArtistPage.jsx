@@ -2,15 +2,15 @@ import React, { Component } from "react";
 import { connect } from 'react-redux';
 import get from 'lodash.get';
 import { withRouter } from 'react-router-dom';
-import Upcoming from "./Upcoming";
-import TagsList from '../../Components/TagsList'
+
+import { fetchArtistConcertAC } from "../../Redux/actions/artistActions";
+
+import TourSnippet from "../../Components/TourSnippet/TourSnippetList";
+import TagsList from '../../Components/TagsList';
+import SimilarArtistsList from '../../Components/SimilarArtists/SimilarArtistsList';
+import CommentSection from '../../Components/CommentSection';
 
 class ArtistInfo extends Component {
-  state = {
-    id: '',
-    name: ''
-  }
-
   render() {
     const { artist } = this.props;
 
@@ -22,16 +22,24 @@ class ArtistInfo extends Component {
         <p>{name}</p>
         <p>{content}</p>
         <TagsList />
-        <Upcoming />
+        <SimilarArtistsList />
+        <TourSnippet />
+        <CommentSection />
       </div>
     );
   }
 }
 
+
 const mapStateToProps = store => ({
   artist: store.artist
 });
 
+const mapDispatchToProps = {
+  fetchArtistConcertAC,
+};
+
 export default connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(withRouter(ArtistInfo));
