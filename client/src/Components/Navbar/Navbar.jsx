@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Component } from "react";
 import { NavLink, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import {
@@ -11,7 +11,7 @@ import {
 
 import Youtube from "../Youtube/Youtube"
 
-class Navbar extends React.Component {
+class Navbar extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -84,7 +84,7 @@ class Navbar extends React.Component {
               <input name="bandInput" type="text" value={this.state.text} onChange={this.handleInput} />
               <button onClick={this.onClick}> search band </button>
             </div>
-            {/* </NavLink> */}
+            <Youtube />
           </div>
         </div>
       </div>
