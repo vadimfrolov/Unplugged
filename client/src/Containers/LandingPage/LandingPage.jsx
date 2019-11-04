@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import { fadeIn } from "react-animations";
 import styled, { keyframes } from "styled-components";
-
 import dataArtists from "../../Data/dataArtists";
-
+// ../../Data/dataArtists
 const Pulse = styled.div`
-  animation: 15s ${keyframes`${fadeIn}`};
+  animation: 5s ${keyframes`${fadeIn}`};
 `;
 
 class LandingPage extends Component {

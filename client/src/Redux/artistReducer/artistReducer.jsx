@@ -1,4 +1,4 @@
-import { TYPES } from '../actions/artistActions'
+import { TYPES } from './artistActions'
 
 const initialState = {
   isSuccess: false,
@@ -7,7 +7,8 @@ const initialState = {
   name: '',
   bio: '',
   tags: [],
-  similar: []
+  similar: [],
+  tourSnippet: [],
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -59,6 +60,31 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         isLoading: false,
         isSuccess: false
+      }
+    }
+
+    case TYPES.FETCH_TOUR_SNIPPET_REQUEST: {
+      return {
+        ...state,
+        isLoading: true,
+        isSuccess: false
+      }
+    }
+
+    case TYPES.FETCH_TOUR_SNIPPET_SUCCESS: {
+      return {
+        ...state,
+        isLoading: false,
+        isSuccess: true,
+        tourSnippet: payload
+      }
+    }
+
+    case TYPES.FETCH_TOUR_SNIPPET_FAILURE: {
+      return {
+        ...state,
+        isLoading: false,
+        isSuccess: false,
       }
     }
 

@@ -1,59 +1,110 @@
-import React, { useState } from "react";
+import React, { Component } from "react";
 import { NavLink, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import {
   fetchArtistIdAC,
   fetchArtistInfoAC
-} from "../../Redux/actions/artistActions";
+} from "../../Redux/artistReducer/artistActions";
+import {
+  setUserAC
+} from "../../Redux/UserAuth/actions/userAuth";
 
 import Youtube from "../Youtube/Youtube"
 
-const Navbar = props => {
-  const [text, setText] = useState("");
 
-  const handleInput = e => {
-    setText(e.target.value);
+class Navbar extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      text: ""
+    };
+  }
+
+  componentDidMount() {
+    this.checkSession()
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.artist && prevProps.artist !== this.props.artist) {
+      this.props.history.push(`/artists/${this.props.artist.id}`);
+    }
+  }
+
+
+  checkSession = async () => {
+    const response = await fetch('/users/getsession/');
+    const user = await response.json();
+    this.props.setUserAC({user: user});
+  }
+
+  logout = async () => {
+    await fetch('/users/logout/');
+    const user = null;
+    this.props.setUserAC({user: user});
+  }
+
+  handleInput = e => {
+    this.setState({ text: e.target.value });
   };
 
-  const onClick = async () => {
-    const { fetchArtistIdAC, fetchArtistInfoAC, history, artist } = props;
+  onClick = async () => {
+    await this.props.fetchArtistIdAC(this.state.text);
+    await this.props.fetchArtistInfoAC(this.state.text);
+  }
 
-    await fetchArtistIdAC(text);
-    await fetchArtistInfoAC(text);
+  render() {
+    return (
+      <div className="Home">
+        <div className="Home-header">
+          <div className="NavLinks">
+            <NavLink activeClassName={"Active"} exact={true} to={"/"}>
+              Index
+          </NavLink>
+            <NavLink activeClassName={"Active"} to={"/fbpanel"}>
+              FBpanel
+          </NavLink>
+            { !this.props.user.user ?
+                <div>
+                  <NavLink activeClassName={"Active"} to={"/login"}>
+                    Log in
+                </NavLink>
+                  <NavLink activeClassName={"Active"} to={"/registration"}>
+                    Registration
+                </NavLink>
+                </div> :
+                <div>
+                  <NavLink activeClassName={"Active"} to={"/userUpdate"}>
+                    {this.props.user.user.username}
+                  </NavLink>
+                  <button onClick={this.logout}> Log out </button>
+                </div>
+            }
 
-    history.push(`/artists/${artist.id}`);
-  };
-
-  return (
-    <div className="Home">
-      <div className="Home-header">
-        <div className="NavLinks">
-          <div>
-            <input type="text" value={text} onChange={handleInput} />
-            <button onClick={onClick}>search band</button>
+            {/* <NavLink activeClassName={"Active"} to={"/artist/:id"}> */}
+            <div>
+              <input name="bandInput" type="text" value={this.state.text} onChange={this.handleInput} />
+              <button onClick={this.onClick}> search band </button>
+            </div>
+            <Youtube />
           </div>
-          <NavLink activeClassName={"Active"} exact={true} to={"/"}>
-            Index
-          </NavLink>
-          <NavLink activeClassName={"Active"} to={"/fbpanel"}>
-            FaceBook Panel
-          </NavLink>
-          <Youtube />
-          
         </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
+
 
 const mapStateToProps = state => ({
-  artist: state.artist
+  artist: state.artist,
+  user: state.user
 });
 
 const mapDispatchToProps = {
   fetchArtistIdAC,
-  fetchArtistInfoAC
+  fetchArtistInfoAC,
+  setUserAC
 };
+
 
 export default withRouter(
   connect(

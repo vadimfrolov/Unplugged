@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Player from 'react-soundcloud-player'
+import Player from "react-soundcloud-player";
 
 class TestRoom extends Component {
   render() {
@@ -49,7 +49,15 @@ class TestRoom extends Component {
             allow="autoplay"
             src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/users/174006135&color=%23847c8c&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"
           ></iframe>
-          "<iframe width="100%" height="450" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?visual=true&url=https%3A%2F%2Fapi.soundcloud.com%2Fusers%2F56705121&show_artwork=true&auto_play=true"></iframe>"
+          "
+          <iframe
+            width="100%"
+            height="450"
+            scrolling="no"
+            frameborder="no"
+            src="https://w.soundcloud.com/player/?visual=true&url=https%3A%2F%2Fapi.soundcloud.com%2Fusers%2F56705121&show_artwork=true&auto_play=true"
+          ></iframe>
+          "
         </div>
       </div>
     );
