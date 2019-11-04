@@ -1,0 +1,41 @@
+.Block {
+  margin: 3%;
+  color: white;
+  font-size: 30px;
+  width: 100%;
+}
+
+.userWrapper {
+  margin: 5%;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.User {
+  font-size: 40px;
+  font-weight: 600;
+  margin: 2%;
+  color: white;
+}
+
+.selected {
+  font-size: 35px;
+  font-weight: 600;
+  margin-bottom: 3%;
+}
+
+.avatar {
+  margin: 2%;
+}
+
+.dateConcert {
+  color: #e6e6fa;
+}
+
+.groupConcert {
+  font-weight: 600;
+}
+
+.table {
+  width: 100%;
+}

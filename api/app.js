@@ -23,6 +23,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+// Подключаем mongoose.
+const mongoose = require("mongoose");
+mongoose.connect("mongodb://localhost:27017/final", {
+  useNewUrlParser: true
+});
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use("/testAPI", testAPIRouter);
