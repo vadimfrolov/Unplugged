@@ -22,10 +22,10 @@ router.post('/search', async (req, res) => {
   res.json({ dataSearch })
 });
 
-router.get('/concert/38489024', async (req, res) => {
-  // let concertId = req.params.id;
-  // console.log(concertId)
-  const resConcertInfo = await fetch(`https://api.songkick.com/api/3.0/events/38489024.json?apikey=${SongKickKey}`);
+router.get('/concert/:id', async (req, res) => {
+  let concertId = req.params.id;
+  console.log(concertId)
+  const resConcertInfo = await fetch(`https://api.songkick.com/api/3.0/events/${concertId}.json?apikey=${SongKickKey}`);
   const ConcertInfo = await resConcertInfo.json();
   const info = ConcertInfo.resultsPage.results.event;
   res.json({ info })

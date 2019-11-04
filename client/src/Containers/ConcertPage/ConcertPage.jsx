@@ -16,12 +16,12 @@ class ConcertPage extends Component {
     await this.props.fetchConcertInfoAC(id);
   }
 
-  async componentDidUpdate(prevProps) {
-    const id = this.props.match.params.id
-    if (id && prevProps.concerts.idConcert !== id) {
-      await this.props.fetchConcertInfoAC(id);
-    }
-  }
+  // async componentDidUpdate(prevProps) {
+  //   const id = this.props.match.params.id
+  //   if (id && prevProps.concerts.idConcert !== id) {
+  //     await this.props.fetchConcertInfoAC(id);
+  //   }
+  // }
 
   render() {
     const { concertPage } = this.props;
@@ -45,6 +45,7 @@ class ConcertPage extends Component {
 
 
 const mapStateToProps = store => ({
+  concerts: store.concerts,
   concertPage: store.concertPage,
 });
 
