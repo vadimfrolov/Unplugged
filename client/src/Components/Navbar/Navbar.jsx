@@ -5,6 +5,9 @@ import {
   fetchArtistIdAC,
   fetchArtistInfoAC
 } from "../../Redux/actions/artistActions";
+import {
+  setUserAC
+} from "../../Redux/UserAuth/actions/userAuth"
 
 import Youtube from "../Youtube/Youtube"
 
@@ -16,10 +19,27 @@ class Navbar extends React.Component {
     };
   }
 
+  componentDidMount() {
+    this.checkSession()
+  }
+
   componentDidUpdate(prevProps) {
     if (this.props.artist && prevProps.artist !== this.props.artist) {
       this.props.history.push(`/artists/${this.props.artist.id}`);
     }
+  }
+
+
+  checkSession = async () => {
+    const response = await fetch('/users/getsession/');
+    const user = await response.json();
+    this.props.setUserAC({user: user});
+  }
+
+  logout = async () => {
+    await fetch('/users/logout/');
+    const user = null;
+    this.props.setUserAC({user: user});
   }
 
   handleInput = e => {
@@ -42,6 +62,23 @@ class Navbar extends React.Component {
             <NavLink activeClassName={"Active"} to={"/fbpanel"}>
               FBpanel
           </NavLink>
+            {!this.props.user ?
+                <div>
+                  <NavLink activeClassName={"Active"} to={"/login"}>
+                    Log in
+                </NavLink>
+                  <NavLink activeClassName={"Active"} to={"/registration"}>
+                    Registration
+                </NavLink>
+                </div> :
+                <div>
+                  <NavLink activeClassName={"Active"} to={"/userUpdate"}>
+                    {this.props.user.username}
+                  </NavLink>
+                  <button onClick={this.logout}> Log out </button>
+                </div>
+            }
+
             {/* <NavLink activeClassName={"Active"} to={"/artist/:id"}> */}
             <div>
               <input name="bandInput" type="text" value={this.state.text} onChange={this.handleInput} />
@@ -56,12 +93,14 @@ class Navbar extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  artist: state.artist
+  artist: state.artist,
+  user: state.user
 });
 
 const mapDispatchToProps = {
   fetchArtistIdAC,
-  fetchArtistInfoAC
+  fetchArtistInfoAC,
+  setUserAC
 };
 
 export default withRouter(

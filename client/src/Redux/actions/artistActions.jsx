@@ -10,6 +10,7 @@ export const TYPES = {
   FETCH_ARTIST_INFO_FAILURE: 'FETCH_ARTIST_INFO_FAILURE'
 }
 
+
 export const fetchArtistIdAC = (text) => async dispatch => {
   dispatch({ type: TYPES.FETCH_ARTIST_ID_REQUEST });
 
