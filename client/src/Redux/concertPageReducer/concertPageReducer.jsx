@@ -9,6 +9,7 @@ const initialState = {
   time: '',
   venue: '',
   performers: [],
+  comments:[],
 };
 
 export default (state = initialState, { type, payload }) => {

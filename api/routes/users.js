@@ -39,6 +39,7 @@ router.post('/login/', async (req, res) => {
   const user = await User.findOne({
     username: req.body.user.username,
   })
+  console.log(user)
   if (user.password === req.body.user.password) {
     req.session.user = user
     res.json(user);

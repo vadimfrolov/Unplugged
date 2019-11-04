@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { Component } from "react";
 
-const CommentSection = () => {
-  return (
-    <div>
-      <input type="text" placeholder="comment here"></input>
-      <button>Send</button>
-    </div>
-  );
-};
+let moment = require("moment");
+export default class CommentSection extends Component {
+  state = {
+    text: "",
+    date: ""
+  };
 
-export default CommentSection
+
+  render() {
+    console.log(this.props)
+    return (
+      <div>
+        <input type="text" placeholder="comment here" value={this.state.text}></input>
+        <button>Send</button>
+      </div>
+    );
+  }
+}

@@ -45,6 +45,7 @@ class ConcertPage extends Component {
 
 
 const mapStateToProps = store => ({
+  concerts: store.concerts,
   concertPage: store.concertPage,
   concerts:store.concertPage
 });

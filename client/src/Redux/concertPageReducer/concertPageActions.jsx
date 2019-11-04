@@ -5,13 +5,14 @@ export const TYPES = {
   FETCH_CONCERT_INFO_REQUEST: 'FETCH_CONCERT_INFO_REQUEST',
   FETCH_CONCERT_INFO_SUCCESS: 'FETCH_CONCERT_INFO_SUCCESS',
   FETCH_CONCERT_INFO_FAILURE: 'FETCH_CONCERT_INFO_FAILURE',
+  FETCH_ADD_COMMENTS:'FETCH_ADD_COMMENTS',
 }
 
 export const fetchConcertInfoAC = (id) => async dispatch => {
   dispatch({ type: TYPES.FETCH_CONCERT_INFO_REQUEST });
 
   try {
-    const res = await axios.get(`/concert/${id}`);
+    const res = await axios.get(`/concert/${id}`, {id});
     const data = get(res, "data.info", {});
 
     dispatch({
