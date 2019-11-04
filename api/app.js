@@ -1,9 +1,17 @@
 var createError = require('http-errors');
 var express = require('express');
+const session = require('express-session');
 var path = require('path');
-var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var cors = require("cors");
+const FacebookStrategy = require('passport-facebook');
+const cookieParser = require('cookie-parser');
+const cors = require("cors");
+const { connect } = require('mongoose');
+const bodyParser = require("body-parser");
+const passport = require('passport');
+const FileStore = require('session-file-store')(session);
+
+
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -11,6 +19,33 @@ var testAPIRouter = require("./routes/testAPI");
 var instaRouter = require('./routes/insta');
 
 var app = express();
+
+// passport
+
+app.use(
+  session({
+    store: new FileStore({}),
+    key: 'user_sid',
+    secret: 'anything here',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      expires: 60000000,
+    },
+  }),
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+// mongoose 
+
+connect("mongodb://localhost:27017/final", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
