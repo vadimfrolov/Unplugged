@@ -40,20 +40,14 @@ export const fetchArtistInfoAC = text => async dispatch => {
       type: TYPES.FETCH_ARTIST_INFO_SUCCESS,
       payload: {
         ...artist,
-<<<<<<< .merge_file_5D5Ivk
         tags: artist.tags.tag,
         similar: artist.similar.artist
       },
-=======
-        tags: artist.tags.tag
-      }
->>>>>>> .merge_file_zOBhBd
     });
   } catch (err) {
     dispatch({ type: TYPES.FETCH_ARTIST_INFO_FAILURE });
     console.log(err);
   }
-<<<<<<< .merge_file_5D5Ivk
 }
 
 export const fetchArtistConcertAC = (id) => async dispatch => {
@@ -73,6 +67,3 @@ export const fetchArtistConcertAC = (id) => async dispatch => {
     console.log(err);
   }
 }
-=======
-};
->>>>>>> .merge_file_zOBhBd
