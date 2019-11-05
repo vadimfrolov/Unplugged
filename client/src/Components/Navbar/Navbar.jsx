@@ -3,7 +3,8 @@ import { NavLink, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import {
   fetchArtistIdAC,
-  fetchArtistInfoAC
+  fetchArtistInfoAC,
+  switchSearchBarAC
 } from "../../Redux/artistReducer/artistActions";
 import { setUserAC, logoutAC } from "../../Redux/UserAuth/actions/userAuth";
 
@@ -33,7 +34,6 @@ class Navbar extends Component {
     const response = await fetch("/users/getsession/");
 
     const user = await response.json();
-    console.log(user);
     this.props.setUserAC(user);
   };
 
@@ -48,7 +48,8 @@ class Navbar extends Component {
   onClick = async () => {
     await this.props.fetchArtistIdAC(this.state.text);
     await this.props.fetchArtistInfoAC(this.state.text);
-  };
+    await this.props.switchSearchBarAC();
+  }
 
   render() {
     return (
@@ -60,26 +61,23 @@ class Navbar extends Component {
             </NavLink>
             <NavLink activeClassName={"Active"} to={"/fbpanel"}>
               FBpanel
-            </NavLink>
-            {!this.props.user.user ? (
+          </NavLink>
+            {!this.props.user.user ?
               <div>
                 <NavLink activeClassName={"Active"} to={"/login"}>
                   Log in
                 </NavLink>
                 <NavLink activeClassName={"Active"} to={"/registration"}>
-                  <div> Registration </div>
+                  Registration
                 </NavLink>
-              </div>
-            ) : (
+              </div> :
               <div>
-                <NavLink activeClassName={"Active"} to={"/dashboard"}>
+                <NavLink activeClassName={"Active"} to={"/userUpdate"}>
                   {this.props.user.user.username}
                 </NavLink>
                 <button onClick={this.logout}> Log out </button>
               </div>
-            )}
-
-            {/* <NavLink activeClassName={"Active"} to={"/artist/:id"}> */}
+            }
             <div>
               <input
                 className="input"
@@ -90,6 +88,7 @@ class Navbar extends Component {
               />
               <button onClick={this.onClick}> search band </button>
             </div>
+            <NavLink activeClassName={"Active"} to={"/explore"}>Explore</NavLink>
             <Youtube />
           </div>
         </div>
@@ -106,6 +105,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   fetchArtistIdAC,
   fetchArtistInfoAC,
+  switchSearchBarAC,
   setUserAC,
   logoutAC
 };

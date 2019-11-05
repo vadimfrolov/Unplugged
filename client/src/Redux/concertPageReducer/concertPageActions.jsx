@@ -23,12 +23,7 @@ export const fetchConcertInfoAC = id => async dispatch => {
     dispatch({
       type: TYPES.FETCH_CONCERT_INFO_SUCCESS,
       payload: {
-        id: data.id,
-        name: data.displayName,
-        date: data.start.date,
-        time: data.start.time,
-        venue: data.venue.displayName,
-        performers: data.performance,
+        ...data,
         comments: arrComment
       }
     });
@@ -42,10 +37,6 @@ export const fetchAddCommentAC = comment => async dispatch => {
   try {
     const res = await axios.post(`/comments`, { comment });
     const data = get(res, "data", {});
-    console.log("Data", data);
-    // const comments= data.concerts.comments.sort((a,b)=>{
-    //   b.date-a.date
-    // })
     dispatch({
       type: TYPES.FETCH_ADD_COMMENTS,
       payload: data.concerts.comments

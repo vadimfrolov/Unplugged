@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import get from "lodash.get";
-// import { Route, Switch, BrowserRouter as Router,Link } from "react-router-dom";
 
 import { connect } from "react-redux";
 
@@ -19,7 +17,6 @@ class ConcertYear extends Component {
 
   componentDidMount = async () => {
     const id  = this.props.match.params.id;
-    // const id = this.props.artist.id;
     let page = 1;
     let res = await this.props.fetchPastDates(id, page);
     while (res) {
@@ -61,11 +58,9 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(store) {
-  console.log("ollo.llol", store);
   return {
     artist: store.artist,
     concerts: store.concerts
-    // events: store.events
   };
 }
 

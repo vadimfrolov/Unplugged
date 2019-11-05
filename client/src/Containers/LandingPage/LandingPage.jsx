@@ -5,7 +5,7 @@ import dataArtists from "../../Data/dataArtists";
 import M from "materialize-css";
 import { Slider, Slide, Caption, Button, Icon } from "react-materialize";
 import "./landingPage.css";
-import { NavLink, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
 import {
@@ -39,23 +39,15 @@ class LandingPage extends Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.artist && prevProps.artist !== this.props.artist) {
-      this.props.history.push(`/artists/${this.props.artist.id}`);
+      this.props.history.push(`/artists/${this.props.artist.id}`)
     }
   }
 
-  // handleDiv = e => {
-  //   this.setState({ text: e.target.value });
-  //   console.log(e.target)
-  // };
-
   handleClick = async e => {
-    // console.dir(e);
-    console.log(e.target.name);
     await this.setState({ text: e.target.name });
     await this.props.fetchArtistIdAC(this.state.text);
     await this.props.fetchArtistInfoAC(this.state.text);
   };
-
 
 
   render() {
@@ -147,4 +139,3 @@ export default withRouter(
     mapDispatchToProps
   )(LandingPage)
 );
-

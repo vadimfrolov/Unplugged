@@ -3,12 +3,6 @@ import { TYPES } from "./concertPageActions";
 const initialState = {
   isSuccess: false,
   isLoading: false,
-  id: "",
-  name: "",
-  date: "",
-  time: "",
-  venue: "",
-  performers: [],
   comments: []
 };
 

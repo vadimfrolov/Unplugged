@@ -13,6 +13,8 @@ import Login from '../../Components/User/login'
 import Registration from '../../Components/User/registration'
 import User from "../User/User";
 import ConcertYear from "../../Components/Concert-by-artist/ConcertYear";
+import ConcertExplore from "../../Components/ConcertExplore";
+import DateConcerts from "../../Components/DateConcerts"
 import MapContainer from '../../Components/Map/Map'
 
 import "./styles.css";
@@ -35,6 +37,8 @@ class App extends React.Component {
             <Route path={`/artists/:id`} component={ArtistPage} />
             <Route path={`/concerts/:id`} component={ConcertYear} />
             <Route path={`/concert/:id`} component={ConcertPage} />
+            <Route exact path="/explore" component={ConcertExplore} />
+            <Route path={`/explore/:id`} component={DateConcerts} />
             <Route path='/map/:id' component={MapContainer}/>
           </Switch>
         </Router>
