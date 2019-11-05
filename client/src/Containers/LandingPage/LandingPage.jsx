@@ -98,7 +98,7 @@ class LandingPage extends Component {
           </Slide>
           <Slide
             image={
-              <img src="https://hdwallsbox.com/wallpapers/l/1920x1080/73/trent-reznor-band-black-and-white-concert-1920x1080-72962.jpg" />
+              <img src="https://thump-images.vice.com/images/articles/meta/2015/07/08/i-went-to-a-music-festival-sober-and-this-is-what-i-learned-1436366844.jpg?crop=1xw%3A0.843328335832084xh%3Bcenter%2Ccenter&resize=2000%3A*" />
             }
           >
             <Caption placement="left">
