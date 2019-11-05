@@ -3,14 +3,14 @@ const bcrypt = require('bcrypt');
 const passport = require('passport')
 
 const router = express.Router();
-const User = require('../models/user');
+const User = require('../models/users');
 
 const saltRounds = 10;
 const someOtherPlaintextPassword = 'not_bacon';
 
 /* GET users listing. */
 
-router.get('/getsession/', async (req, res) => {
+router.get('/getsession/', async (req, res) => {  
   req.session.user ? res.json(req.session.user) : res.json(null);
 })
 
@@ -29,6 +29,8 @@ router.put('/registration/', async (req, res) => {
     })
     await user.save();
     req.session.user = user
+    console.log(user);
+    
     res.json(user);
   }
 });
@@ -36,12 +38,16 @@ router.put('/registration/', async (req, res) => {
 
 
 router.post('/login/', async (req, res) => {
+  
   const user = await User.findOne({
     username: req.body.user.username,
   })
   if (user.password === req.body.user.password) {
-    req.session.user = user
-    res.json(user);
+    req.session.user = user;
+    console.log(user);
+    
+    res.json(req.session.user);
+    
   } else {
     res.json({ eror: 'wrong password' })
   }

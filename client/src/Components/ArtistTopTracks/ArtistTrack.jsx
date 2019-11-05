@@ -5,6 +5,9 @@ import { playTrackFromListAC } from "../../Redux/youtubeReducer/youtubeActions";
 import axios from "axios";
 import get from "lodash.get";
 
+import PlayArrowIcon from "@material-ui/icons/PlayArrow";
+import IconButton from "@material-ui/core/IconButton";
+
 const youTubeApikey = process.env.REACT_APP_YOUTUBE_API_KEY_SECOND;
 
 class ArtistTrack extends Component {
@@ -27,8 +30,10 @@ class ArtistTrack extends Component {
   render() {
     return (
       <div>
-        <div>{`${this.props.trackNum + 1} - ${this.props.trackName}`}</div>
-        <button onClick={this.playButtonClick}>play</button>
+        <IconButton onClick={this.playButtonClick}>
+          <PlayArrowIcon />
+        </IconButton>
+        <span>{`${this.props.trackNum + 1} - ${this.props.trackName}`}</span>
       </div>
     );
   }

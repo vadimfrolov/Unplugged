@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { setUserAC } from '../../Redux/UserAuth/actions/userAuth'
+import { loginAC, logoutAC } from '../../Redux/UserAuth/actions/userAuth'
 
 class Login extends Component {
   constructor(props) {
@@ -18,25 +18,15 @@ class Login extends Component {
     this.setState({ password: e.target.value })
   }
 
-  login = async () => {
-    const data = this.state;
-    const response = await fetch('/users/login/', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ user: data }),
-    });
-    const user = await response.json();
-    this.props.setUserAC({user: user});
+  logout = () => {
+    this.props.logoutAC()
   }
 
-  logout = async () => {
-    await fetch('/users/logout/');
-    const user = null;
-    this.props.setUserAC({user: user});
+  login = () => {
+    this.props.loginAC(this.state)
   }
+
+
   render() {
     return (
       <div>
@@ -56,7 +46,8 @@ function mapStateToProps(store) {
 }
 
 const mapDispatchToProps = {
-  setUserAC
+  loginAC,
+  logoutAC
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)

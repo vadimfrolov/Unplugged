@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { setUserAC } from '../../Redux/UserAuth/actions/userAuth'
+import { setUserAC, registrationAC } from '../../Redux/UserAuth/actions/userAuth'
 
 class Registration extends Component {
     constructor(props) {
@@ -23,18 +23,8 @@ class Registration extends Component {
       this.setState({ password: e.target.value })
     }
 
-    registration = async () => {
-      const data = this.state;
-      const response = await fetch('/users/registration/', {
-        method: 'PUT',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ user: data }),
-      });
-      const user = await response.json();
-      this.props.setUser(user);
+    registration = () => {
+      this.props.registrationAC(this.state)
     }
 
     render() {
@@ -55,10 +45,8 @@ function mapStateToProps(store) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    setUser: (user) => dispatch(setUserAC(user)),
-  }
-}
+const mapDispatchToProps = {
+  registrationAC
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Registration)

@@ -22,7 +22,7 @@ const app = express();
 
 app.use(
   session({
-    store: new FileStore({}),
+    store: new FileStore({logFn: function(){}}),
     key: 'user_sid',
     secret: 'anything here',
     resave: false,
@@ -38,7 +38,7 @@ app.use(passport.session());
 
 // mongoose 
 
-connect("mongodb://localhost:27017/Final", {
+connect("mongodb://localhost:27017/final", {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
@@ -51,8 +51,8 @@ app.use(
     store: new FileStore({}),
     key: 'user_sid',
     secret: 'anything here',
-    resave: false,
-    saveUninitialized: false,
+    resave: true,
+    saveUninitialized: true,
     cookie: {
       expires: 60000000,
     },
@@ -81,6 +81,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+// Подключаем mongoose.
+const mongoose = require("mongoose");
+mongoose.connect("mongodb://localhost:27017/final", {
+  useNewUrlParser: true
+});
 
 app.use('/', indexRouter);
 app.use('/users/', usersRouter);

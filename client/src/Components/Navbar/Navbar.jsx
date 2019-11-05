@@ -6,8 +6,12 @@ import {
   fetchArtistInfoAC
 } from "../../Redux/artistReducer/artistActions";
 import {
-  setUserAC
+  setUserAC,
+  logoutAC
 } from "../../Redux/UserAuth/actions/userAuth";
+
+import "./navbar.css";
+
 
 import Youtube from "../Youtube/Youtube"
 
@@ -33,18 +37,19 @@ class Navbar extends Component {
 
   checkSession = async () => {
     const response = await fetch('/users/getsession/');
+    
     const user = await response.json();
-    this.props.setUserAC({user: user});
+    console.log(user);
+    this.props.setUserAC(user);
   }
 
-  logout = async () => {
-    await fetch('/users/logout/');
-    const user = null;
-    this.props.setUserAC({user: user});
+  logout = () => {
+    this.props.logoutAC()
   }
 
   handleInput = e => {
     this.setState({ text: e.target.value });
+   
   };
 
   onClick = async () => {
@@ -63,17 +68,17 @@ class Navbar extends Component {
             <NavLink activeClassName={"Active"} to={"/fbpanel"}>
               FBpanel
           </NavLink>
-            { !this.props.user.user ?
-                <div>
-                  <NavLink activeClassName={"Active"} to={"/login"}>
-                    Log in
+            {!this.props.user.user ?
+              <div>
+                <NavLink activeClassName={"Active"} to={"/login"}>
+                  Log in
                 </NavLink>
                   <NavLink activeClassName={"Active"} to={"/registration"}>
-                    Registration
+                  <div> Registration </div>
                 </NavLink>
                 </div> :
                 <div>
-                  <NavLink activeClassName={"Active"} to={"/userUpdate"}>
+                  <NavLink activeClassName={"Active"} to={"/dashboard"}>
                     {this.props.user.user.username}
                   </NavLink>
                   <button onClick={this.logout}> Log out </button>
@@ -82,7 +87,7 @@ class Navbar extends Component {
 
             {/* <NavLink activeClassName={"Active"} to={"/artist/:id"}> */}
             <div>
-              <input name="bandInput" type="text" value={this.state.text} onChange={this.handleInput} />
+              <input className="input" name="bandInput" type="text" value={this.state.text} onChange={this.handleInput} />
               <button onClick={this.onClick}> search band </button>
             </div>
             <Youtube />
@@ -102,7 +107,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   fetchArtistIdAC,
   fetchArtistInfoAC,
-  setUserAC
+  setUserAC,
+  logoutAC
 };
 
 
