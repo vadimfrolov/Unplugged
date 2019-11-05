@@ -2,7 +2,7 @@ import { TYPES } from "../actions/userAuth";
 
 
 const initialState = {
-  user: null
+  user: ''
 }
 
 export default (state = initialState, { type, payload }) => {
