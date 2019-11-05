@@ -1,9 +1,15 @@
 import React, { Component } from "react";
+<<<<<<< HEAD
 import axios from "axios";
 import Sky from "react-sky";
 import { connect } from "react-redux";
 import dataUser from "../../Data/dataUser";
 import { Icon, Button } from "react-materialize";
+=======
+import MusicPlayer from "../../Components/MusicPlayer/MusicPlayer";
+import axios from "axios";
+import Sky from "react-sky";
+>>>>>>> style
 
 import "./user.css";
 
@@ -180,9 +186,13 @@ class User extends Component {
 
             <p className="selected"> Recomendations:</p>
           </div>
+<<<<<<< HEAD
         </div> */}
           </div>
         )}
+=======
+        </div>
+>>>>>>> style
       </div>
     );
   }
