@@ -29,15 +29,8 @@ class DataClick extends Component {
   }
 }
 
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     fetchPastDates: page => dispatch(fetchPastDates(page)),
-//     fetchPastDatesAC: arr => dispatch(fetchPastDatesAC(arr))
-//   };
-// }
 
 function mapStateToProps(store) {
-  // console.log("D", store.concerts);
   return {
     concerts: store.concerts
   };

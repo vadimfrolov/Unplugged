@@ -1,5 +1,3 @@
-// import axios from "axios";
-// import get from "lodash.get";
 require("dotenv").config();
 let songkickKey = process.env.REACT_APP_SONGKICK_KEY;
 
@@ -52,7 +50,6 @@ export const fetchDate = (id, year) => {
     const data = await resp.json();
    
     const events = data.resultsPage.results.event;
-    console.log('olo1', events)
     let objStore = {};
     let finalArr = [];
     events &&
@@ -68,8 +65,7 @@ export const fetchDate = (id, year) => {
         finalArr.push(objStore);
       });
 
-    const newArr = finalArr; //.sort((a,b)=>b.date-a.date)
-    console.log(`data ${newArr}`);
+    const newArr = finalArr;
 
     dispatch(fetchDateAC(newArr));
   };

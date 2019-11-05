@@ -11,8 +11,16 @@ export const TYPES = {
   FETCH_TOUR_SNIPPET_REQUEST: 'FETCH_TOUR_SNIPPET_REQUEST',
   FETCH_TOUR_SNIPPET_SUCCESS: 'FETCH_TOUR_SNIPPET_SUCCESS',
   FETCH_TOUR_SNIPPET_FAILURE: 'FETCH_TOUR_SNIPPET_FAILURE',
+  SWITCH_SEARCH_BAR: 'SWITCH_SEARCH_BAR',
 }
 
+
+export const switchSearchBarAC = () => async dispatch => {
+  dispatch({
+    type: TYPES.SWITCH_SEARCH_BAR,
+    payload: true,
+  });
+};
 
 export const fetchArtistIdAC = (text) => async dispatch => {
   dispatch({ type: TYPES.FETCH_ARTIST_ID_REQUEST });
@@ -36,11 +44,13 @@ export const fetchArtistInfoAC = text => async dispatch => {
   try {
     const res = await axios.post("/search", { text });
     const artist = get(res, "data.dataSearch.artist", {});
+    const pic = get(res, "data.pic.items[0].snippet.thumbnails.high.url", {});
 
     dispatch({
       type: TYPES.FETCH_ARTIST_INFO_SUCCESS,
       payload: {
         ...artist,
+        pic: pic,
         tags: artist.tags.tag,
         similar: artist.similar.artist
       },

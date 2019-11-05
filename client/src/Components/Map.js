@@ -25,7 +25,7 @@ class Map extends Component {
   }
 
   geoSuccess = (pos) => {
-    let crd = {lat:pos.coords.latitude, lng:pos.coords.latitude };
+    let crd = { lat: pos.coords.latitude, lng: pos.coords.latitude };
     console.log(crd);
 
   }
@@ -55,7 +55,7 @@ class Map extends Component {
         zoom={8}
         style={mapStyles}
         initialCenter={{ lat: 47.3084488, lng: -122.176 }} >
-          {this.displayMarkers()}
+        {this.displayMarkers()}
       </GoogleMap>
 
     )
