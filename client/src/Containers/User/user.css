@@ -1,0 +1,80 @@
+.Block {
+  margin: 3%;
+  color: white;
+  font-size: 30px;
+  width: 100%;
+}
+
+.userWrapper {
+  margin: 5%;
+  display: flex;
+  flex-wrap: nowrap;
+  font-size: 30px;
+  color: white;
+}
+
+.avatarWrapper {
+  font-size: 30px;
+  color: white;
+  margin: 5%;
+}
+
+.bordRad {
+  margin: 10px;
+  font-size: 15px;
+  margin-left: 125px
+}
+
+.rec {
+  font-size: 30px;
+  font-weight: 600;
+  border-radius: 15px;
+  text-align: center;
+  width: 300px;
+  height: 35px;
+  background-color: black;
+}
+
+.captionUser {
+  color: darkgrey;
+  font-size: 30px;
+  font-weight: 200;
+  margin-bottom: 20px;
+}
+
+.blockUser {
+  margin-right: 20px;
+
+  background-color: black;
+  border-radius: 15px;
+  width: 30%;
+  padding: 23px;
+}
+
+.User {
+  font-size: 40px;
+  font-weight: 600;
+  margin: 2%;
+}
+
+.selected {
+  font-size: 35px;
+  font-weight: 600;
+  margin-bottom: 3%;
+}
+
+.avatar {
+  margin: 2%;
+}
+
+.dateConcert {
+  color: #e6e6fa;
+}
+
+.groupConcert {
+  font-weight: 600;
+}
+
+.table {
+  width: 100%;
+}

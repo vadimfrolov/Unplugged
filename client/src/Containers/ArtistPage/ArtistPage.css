@@ -1,0 +1,17 @@
+.groupName {
+  font-size: 30px;
+  font-weight: 600;
+  margin: 10px
+}
+
+.genresName {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 10px
+}
+
+.groupDescription {
+  font-size: 20px;
+  font-weight: 300;
+  margin: 10px
+}

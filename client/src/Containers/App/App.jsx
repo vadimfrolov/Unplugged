@@ -13,7 +13,7 @@ import Login from '../../Components/User/login'
 import Registration from '../../Components/User/registration'
 import User from "../User/User";
 import ConcertYear from "../../Components/Concert-by-artist/ConcertYear";
-
+import MapContainer from '../../Components/Map/Map'
 
 import "./styles.css";
 
@@ -26,7 +26,7 @@ class App extends React.Component {
         <Router>
           <Navbar />
           <Switch>
-            <Route exact path="/" component={Home} />
+            <Route exact path="/" component={LandingPage} />
             <Route path="/login" component={Login} />
             <Route path="/registration" component={Registration}/>
             <Route path={`/dashboard`} component={User} />
@@ -35,6 +35,7 @@ class App extends React.Component {
             <Route path={`/artists/:id`} component={ArtistPage} />
             <Route path={`/concerts/:id`} component={ConcertYear} />
             <Route path={`/concert/:id`} component={ConcertPage} />
+            <Route path='/map/:id' component={MapContainer}/>
           </Switch>
         </Router>
       </div>

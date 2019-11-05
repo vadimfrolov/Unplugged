@@ -1,12 +1,13 @@
 var express = require("express");
 const fetch = require("node-fetch");
+const axios = require("axios");
 
 const Concert = require("../models/concert");
 
 require("dotenv").config();
 var router = express.Router();
-let SongKickKey = process.env.SONGKICK_KEY;
-let LastFmKey = process.env.LASTFM_KEY;
+let SongKickKey = process.env.REACT_APP_SONGKICK_KEY;
+let LastFmKey = process.env.REACT_APP_LASTFM_API_KEY;
 
 router.post("/getId", async (req, res) => {
   let bandInput = req.body.text;
@@ -14,7 +15,9 @@ router.post("/getId", async (req, res) => {
     `https://api.songkick.com/api/3.0/search/artists.json?apikey=${SongKickKey}&query=${bandInput}`
   );
   const dataID = await resID.json();
+  console.log(resID, dataID);
   const id = dataID.resultsPage.results.artist[0].id;
+  
   res.json({ id });
 });
 
@@ -24,12 +27,16 @@ router.post("/search", async (req, res) => {
     `http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${bandInput}&api_key=${LastFmKey}&format=json`
   );
   const dataSearch = await resSearch.json();
+  const topTracksApiCall = await axios.get(
+    `http://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&artist=${bandInput}&api_key=${LastFmKey}&format=json`
+  );
+
+  dataSearch.topTracks = topTracksApiCall.data.toptracks.track.slice(0, 10);
   res.json({ dataSearch });
 });
 
 router.get("/concert/:id", async (req, res) => {
   let concertId = req.params.id;
-
   const resConcertInfo = await fetch(
     `https://api.songkick.com/api/3.0/events/${concertId}.json?apikey=${SongKickKey}`
   );
