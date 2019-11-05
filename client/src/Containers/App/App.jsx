@@ -13,7 +13,6 @@ import Login from '../../Components/User/login'
 import Registration from '../../Components/User/registration'
 import User from "../User/User";
 import ConcertYear from "../../Components/Concert-by-artist/ConcertYear";
-import CommentUser from "../../Components/commentsUser/CommentsUser"
 import MapContainer from '../../Components/Map/Map'
 
 import "./styles.css";

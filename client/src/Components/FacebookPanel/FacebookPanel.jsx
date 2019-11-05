@@ -11,7 +11,7 @@ export default class FBpanel extends Component {
         <div>
           <InstaGrid account="elbrus.bootcamp" numberOfMediaElements={9} />
         </div>
-        <div class="elfsight-app-ca9b3796-6542-48be-a4b4-2e2be5fa2221"></div>
+        <div className="elfsight-app-ca9b3796-6542-48be-a4b4-2e2be5fa2221"></div>
 
         <FacebookProvider appId="2488352004782403">
           <Page href="https://www.facebook.com/Metallica/" tabs="timeline" />

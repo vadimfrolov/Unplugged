@@ -2,11 +2,10 @@ const mongoose = require("mongoose");
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const concertSchema = new mongoose.Schema({
-  nameArtists: [String],
-  idArtist: String,
+  nameArtists: [],
   idConcert: String,
   comments: [
-    { nameUser: String, idUser: ObjectId, text: String, data: String }
+    { nameUser: String, idUser: String, text: String, date: String }
   ],
   attendees: [{ nameUser: String, idUser: ObjectId }],
   photos: [

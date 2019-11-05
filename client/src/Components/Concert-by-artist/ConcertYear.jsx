@@ -10,7 +10,7 @@ import {
   fetchDate
 } from "../../Redux/concertsReducer/concertsActions";
 
-import DataClick from "./DataClick";
+import ConcertsByYear from "./ConcertsByYear";
 
 class ConcertYear extends Component {
   state = {
@@ -46,7 +46,7 @@ class ConcertYear extends Component {
               </button>
             );
           })}
-        <DataClick nameArtist={this.props.artist.name}/>
+        <ConcertsByYear nameArtist={this.props.artist.name}/>
       </div>
     );
   }
