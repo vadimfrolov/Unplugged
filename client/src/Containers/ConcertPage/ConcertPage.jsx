@@ -6,7 +6,8 @@ import { withRouter, Link } from 'react-router-dom';
 import { fetchConcertInfoAC } from "../../Redux/concertPageReducer/concertPageActions";
 
 import Flashmob from "../../Components/Flashmob";
-import CommentSection from '../../Components/CommentSection';
+import CommentSection from "../../Components/CommentsConcert";
+import CommentList from "../../Components/CommentsConcert/CommentList";
 
 
 class ConcertPage extends Component {
@@ -19,12 +20,14 @@ class ConcertPage extends Component {
   render() {
     const { concertPage } = this.props;
 
+    const id = get(concertPage, "id");
     const name = get(concertPage, "displayName");
     const date = get(concertPage, "start.date");
     const time = get(concertPage, "start.time");
     const venue = get(concertPage, "venue.displayName");
     const performers = get(concertPage, "performance");
     const location = get(concertPage, "location.city");
+    const comments = get(concertPage, "comments");
 
     return (
       <div>
@@ -44,7 +47,8 @@ class ConcertPage extends Component {
         </p>
         <button>I'll be there!</button>
         <Flashmob />
-        <CommentSection />
+        <CommentSection nameArtist={performers} idConcert={id} />
+        <CommentList comments={comments} />
       </div>
     );
   }
@@ -52,11 +56,14 @@ class ConcertPage extends Component {
 
 
 const mapStateToProps = store => ({
+  artist: store.artist,
+  concerts: store.concerts,
   concertPage: store.concertPage,
+  // concerts: store.concertPage
 });
 
 const mapDispatchToProps = {
-  fetchConcertInfoAC,
+  fetchConcertInfoAC
 };
 
 

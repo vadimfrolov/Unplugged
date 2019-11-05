@@ -2,9 +2,13 @@
   "name": "api",
   "version": "0.0.0",
   "private": true,
-  "proxy": "http://localhost:9000",
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "nodemon --ignore sessions/ ./bin/www"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "sessions/*"
+    ]
   },
   "dependencies": {
     "axios": "^0.19.0",

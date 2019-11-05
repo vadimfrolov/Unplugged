@@ -5,13 +5,13 @@ const userSchema = new mongoose.Schema({
   email: String,
   password: String,
   favouriteGroups: [],
-  upcomingConcerts: [],
-  previousConcerts: [],
+  upcomingConcerts: [{group:String, date:Date, location: String},],
+  previousConcerts: [{group:String, date:Date, location: String}, ],
   city: String,
   comments: [],
   recommendations: [],
   role: String,
-  userPic: ''
+  userPic: String
 });
 
 module.exports = mongoose.model("User", userSchema);

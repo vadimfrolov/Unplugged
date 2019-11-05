@@ -15,6 +15,23 @@
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <!-- Import Google Icon Font -->
+    <link
+      href="http://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <!-- Import materialize.css -->
+    <link href="CDN OR PATH TO NODE_MODULES.css" rel="stylesheet" />
+    <!--Import Google Icon Font-->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <!-- Compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.3/css/materialize.min.css"
+    />
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -24,12 +41,16 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-   
+
     <title>React App</title>
   </head>
   <body>
     <script src="https://apps.elfsight.com/p/platform.js" defer></script>
     <noscript>You need to enable JavaScript to run this app.</noscript>
+    <!-- Import materialize.js -->
+    <script src="CDN OR PATH TO NODE_MODULES.js"></script>
+    <!-- And then your bundled js -->
+    <script src="path/to/your/bundle.js"></script>
     <div id="root"></div>
     <!--
       This HTML file is a template.
@@ -41,16 +62,5 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-    <!-- <script src="https://connect.soundcloud.com/sdk/sdk-3.3.2.js"></script>
-    <script>
-    SC.initialize({
-      client_id: 'c5a171200f3a0a73a523bba14a1e0a29'
-    });
-    
-    var track_url = 'https://soundcloud.com/officialmetallica';
-    SC.oEmbed(track_url, { auto_play: true }).then(function(oEmbed) {
-      console.log('oEmbed response: ', oEmbed);
-    });
-    </script> -->
   </body>
 </html>

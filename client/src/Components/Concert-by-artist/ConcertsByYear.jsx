@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Link } from "react-router-dom";
 import { connect } from "react-redux";
 let moment = require("moment");
 
-class DataClick extends Component {
+class ConcertsByYear extends Component {
   render() {
     return (
       <>
@@ -15,11 +15,9 @@ class DataClick extends Component {
                 <Link to={`/concert/${event.idConcert}`}>
                   <div>{moment(event.date).format("ll")}</div>
                 </Link>
-
                 <div>{this.props.nameArtist}</div>
                 <div>{event.country}</div>
-                {/* <div>{event.location.lat}</div>
-                <div>{event.location.lng}</div> */}
+            
                 <div>-------------</div>
               </div>
             );
@@ -36,4 +34,4 @@ function mapStateToProps(store) {
   };
 }
 
-export default connect(mapStateToProps)(DataClick);
+export default connect(mapStateToProps)(ConcertsByYear);

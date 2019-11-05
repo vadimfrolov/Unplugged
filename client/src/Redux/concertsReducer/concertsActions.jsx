@@ -1,5 +1,5 @@
 require("dotenv").config();
-let songkickKey = process.env.REACT_APP_SONGKICK_KEY;
+let songkickKey = process.env.REACT_APP_SONGKICK_API_KEY;
 
 export const TYPES = {
   FETCH_PAST_DATES: "FETCH_PAST_DATES",
@@ -27,7 +27,7 @@ export const fetchPastDates = (id, page) => {
       `https://api.songkick.com/api/3.0/artists/${id}/gigography.json?apikey=${songkickKey}&page=${page}`
     );
     const data = await resp.json();
-
+      
     const arrayData = data.resultsPage.results.event;
     if (arrayData === undefined) {
       return false;
@@ -48,7 +48,7 @@ export const fetchDate = (id, year) => {
       `https://api.songkick.com/api/3.0/artists/${id}/gigography.json?apikey=${songkickKey}&min_date=${year}-01-01&max_date=${year}-12-31`
     );
     const data = await resp.json();
-   
+   console.log("privet", data)
     const events = data.resultsPage.results.event;
     let objStore = {};
     let finalArr = [];

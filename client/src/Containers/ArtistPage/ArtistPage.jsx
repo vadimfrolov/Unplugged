@@ -8,9 +8,12 @@ import { fetchArtistIdAC, fetchArtistInfoAC } from '../../Redux/artistReducer/ar
 import TourSnippetList from '../../Components/TourSnippet/TourSnippetList';
 import TagsList from '../../Components/TagsList';
 import SimilarArtistsList from '../../Components/SimilarArtists/SimilarArtistsList';
-import CommentSection from '../../Components/CommentSection';
 import FacebookPanel from '../../Components/FacebookPanel';
 import ShowAll from '../../Components/TourSnippet/ShowAll';
+import ArtistTopTracks from "../../Components/ArtistTopTracks";
+import ShowMap from '../../Components/Map/ShowMap'
+
+import "./ArtistPage.css";
 
 
 class ArtistInfo extends Component {
@@ -39,17 +42,20 @@ class ArtistInfo extends Component {
 
     return (
       <div>
-        <p>{name}</p>
         <div>
           <img src={pic} style={{ maxHeight: '300px' }} />
         </div>
-        <p>{content}</p>
+        <p className="groupName">{name}</p>
+        <p className="groupDescription">{content}</p>
+        <p className="genresName">Genres:</p>
         <TagsList />
+        <p className="genresName">Similar artists:</p>
         <SimilarArtistsList />
         <FacebookPanel />
         <TourSnippetList />
         <ShowAll id={artist.id} />
-        <CommentSection />
+        <ShowMap id={artist.id} />
+        <ArtistTopTracks />
       </div>
     );
   }
