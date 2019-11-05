@@ -21,7 +21,7 @@ export const logoutAC = (data) => async dispatch => {
   dispatch({ type: TYPES.FETCH_USER_REQUEST });
   
   try {
-    await axios.put('/users/registration/', { user: data });
+    await axios.get('/users/logout/');
     dispatch(setUserAC( null ));  
   } catch (err) {
     dispatch({ type: TYPES.FETCH_USER_FAILURE });
