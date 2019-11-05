@@ -13,6 +13,7 @@ import Registration from '../../Components/User/registration'
 import User from "../User/User";
 import ConcertYear from "../../Components/Concert-by-artist/ConcertYear";
 import CommentUser from "../../Components/commentsUser/CommentsUser"
+import MapContainer from '../../Components/Map/Map'
 
 import "./styles.css";
 
@@ -33,6 +34,7 @@ class App extends React.Component {
             <Route path="/landing" component={LandingPage} />
             <Route path={`/artists/:id`} component={ArtistPage} />
             <Route path={`/concerts/:id`} component={ConcertYear} />
+            <Route path='/map/:id' component={MapContainer}/>
             <Route exact path={`/concert/:id`} component={CommentUser} />
           </Switch>
         </Router>

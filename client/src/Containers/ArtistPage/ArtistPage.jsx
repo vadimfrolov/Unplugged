@@ -9,6 +9,7 @@ import SimilarArtistsList from '../../Components/SimilarArtists/SimilarArtistsLi
 import CommentSection from '../../Components/CommentSection';
 
 import ShowAll from "../../Components/TourSnippet/ShowAll"
+import ShowMap from '../../Components/Map/ShowMap'
 
 class ArtistInfo extends Component {
   render() {
@@ -25,6 +26,7 @@ class ArtistInfo extends Component {
         <TagsList />
         <SimilarArtistsList />
         <ShowAll id={artist.id}/>
+        <ShowMap id={artist.id}/>
         <TourSnippetList/>
         <CommentSection />
       </div>
