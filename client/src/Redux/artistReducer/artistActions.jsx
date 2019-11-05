@@ -36,13 +36,15 @@ export const fetchArtistInfoAC = text => async dispatch => {
   try {
     const res = await axios.post("/search", { text });
     const artist = get(res, "data.dataSearch.artist", {});
+    const topTracks = get(res, "data.dataSearch.topTracks", {});
 
     dispatch({
       type: TYPES.FETCH_ARTIST_INFO_SUCCESS,
       payload: {
         ...artist,
         tags: artist.tags.tag,
-        similar: artist.similar.artist
+        similar: artist.similar.artist,
+        topTracks: topTracks
       },
     });
   } catch (err) {
