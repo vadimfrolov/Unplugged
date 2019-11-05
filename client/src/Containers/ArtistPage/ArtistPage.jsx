@@ -9,7 +9,10 @@ import SimilarArtistsList from '../../Components/SimilarArtists/SimilarArtistsLi
 import CommentSection from '../../Components/CommentSection';
 import ArtistTopTracks from "../../Components/ArtistTopTracks"
 
+import "./ArtistPage.css";
+
 import ShowAll from "../../Components/TourSnippet/ShowAll"
+import ShowMap from '../../Components/Map/ShowMap'
 
 class ArtistInfo extends Component {
   render() {
@@ -20,11 +23,14 @@ class ArtistInfo extends Component {
 
     return (
       <div>
-        <p>{name}</p>
-        <p>{content}</p>
+        <p className="groupName">{name}</p>
+        <p className="groupDescription">{content}</p>
+        <p className="genresName">Genres:</p>
         <TagsList />
+        <p className="genresName">Similar artists:</p>
         <SimilarArtistsList />
         <ShowAll id={artist.id}/>
+        <ShowMap id={artist.id}/>
         <ArtistTopTracks />
         <TourSnippetList/>
         <CommentSection />
