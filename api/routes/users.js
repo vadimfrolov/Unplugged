@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const passport = require('passport')
 
 const router = express.Router();
-const User = require('../models/user');
+const User = require('../models/users');
 
 const saltRounds = 10;
 const someOtherPlaintextPassword = 'not_bacon';

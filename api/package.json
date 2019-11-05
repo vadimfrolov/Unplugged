@@ -4,8 +4,10 @@
   "private": true,
   "proxy": "http://localhost:9000",
   "nodemonConfig": {
-    "ignore": ["sessions/*"]
- },
+    "ignore": [
+      "sessions/*"
+    ]
+  },
   "scripts": {
     "start": "nodemon ./bin/www"
   },
