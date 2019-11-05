@@ -38,7 +38,7 @@ app.use(passport.session());
 
 // mongoose 
 
-connect("mongodb://localhost:27017/Final", {
+connect("mongodb://localhost:27017/final", {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });

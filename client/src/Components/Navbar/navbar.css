@@ -1,0 +1,39 @@
+.NavLinks {
+  
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  font-size: calc(10px + 2vmin);
+  color: whitesmoke
+}
+
+.Active {
+  color: red
+}
+
+.landingPage {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center
+}
+
+.userWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center
+}
+
+.picWrapper {
+  display: flex;
+
+  justify-content: center
+}
+
+.Home-header {
+  height: 140px;
+
+}
+
+.input {
+  color: white;
+}

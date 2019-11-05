@@ -9,6 +9,9 @@ import {
   setUserAC
 } from "../../Redux/UserAuth/actions/userAuth";
 
+import "./navbar.css";
+
+
 import Youtube from "../Youtube/Youtube"
 
 
@@ -45,6 +48,7 @@ class Navbar extends Component {
 
   handleInput = e => {
     this.setState({ text: e.target.value });
+   
   };
 
   onClick = async () => {
@@ -69,11 +73,11 @@ class Navbar extends Component {
                     Log in
                 </NavLink>
                   <NavLink activeClassName={"Active"} to={"/registration"}>
-                    Registration
+                  <div> Registration </div>
                 </NavLink>
                 </div> :
                 <div>
-                  <NavLink activeClassName={"Active"} to={"/userUpdate"}>
+                  <NavLink activeClassName={"Active"} to={"/dashboard"}>
                     {this.props.user.user.username}
                   </NavLink>
                   <button onClick={this.logout}> Log out </button>
@@ -82,7 +86,7 @@ class Navbar extends Component {
 
             {/* <NavLink activeClassName={"Active"} to={"/artist/:id"}> */}
             <div>
-              <input name="bandInput" type="text" value={this.state.text} onChange={this.handleInput} />
+              <input className="input" name="bandInput" type="text" value={this.state.text} onChange={this.handleInput} />
               <button onClick={this.onClick}> search band </button>
             </div>
             <Youtube />

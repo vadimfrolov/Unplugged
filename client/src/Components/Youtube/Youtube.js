@@ -191,7 +191,7 @@ class Youtube extends Component {
               ></Button>
 
               
-              <input
+              <input className="input"
                 placeholder="choose your song"
                 onChange={this.inputOnChange}
                 value={this.state.findInput}

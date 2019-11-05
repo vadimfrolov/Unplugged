@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "proxy": "http://localhost:9000",
+  "nodemonConfig": {
+    "ignore": ["sessions/*"]
+ },
   "scripts": {
     "start": "nodemon ./bin/www"
   },
