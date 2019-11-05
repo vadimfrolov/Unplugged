@@ -26,6 +26,7 @@ class ArtistInfo extends Component {
         <TagsList />
         <SimilarArtistsList />
         <ShowAll id={artist.id}/>
+        <ShowMap id={artist.id}/>
         <ArtistTopTracks />
         <TourSnippetList/>
         <CommentSection />

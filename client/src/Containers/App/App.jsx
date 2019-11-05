@@ -36,6 +36,7 @@ class App extends React.Component {
             <Route path={`/artists/:id`} component={ArtistPage} />
             <Route path={`/concerts/:id`} component={ConcertYear} />
             <Route path={`/concert/:id`} component={ConcertPage} />
+            <Route path='/map/:id' component={MapContainer}/>
           </Switch>
         </Router>
       </div>

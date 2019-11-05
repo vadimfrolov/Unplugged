@@ -78,9 +78,7 @@ class Map extends Component {
 
   geoSuccess = (pos) => {
     let crd = { lat: pos.coords.latitude, lng: pos.coords.longitude };
-    console.log(crd);
     this.setState({ geoposition: crd })
-    console.log(this.state.geoposition);
   }
 
   getLocation = () => {
@@ -108,7 +106,7 @@ class Map extends Component {
     return (
       <div>
         {!this.state.geoposition?
-          <></> :
+          <div>loading</div> :
           <GoogleMap
             google={this.props.google}
             zoom={4}
