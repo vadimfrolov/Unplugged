@@ -7,6 +7,7 @@ import TourSnippetList from "../../Components/TourSnippet/TourSnippetList";
 import TagsList from '../../Components/TagsList';
 import SimilarArtistsList from '../../Components/SimilarArtists/SimilarArtistsList';
 import CommentSection from '../../Components/CommentSection';
+import ArtistTopTracks from "../../Components/ArtistTopTracks"
 
 import ShowAll from "../../Components/TourSnippet/ShowAll"
 import ShowMap from '../../Components/Map/ShowMap'
@@ -16,7 +17,6 @@ class ArtistInfo extends Component {
     const { artist } = this.props;
 
     const name = get(artist, "name");
-    const id = get(artist, "id");
     const content = get(artist, "bio.content");
 
     return (
@@ -26,7 +26,7 @@ class ArtistInfo extends Component {
         <TagsList />
         <SimilarArtistsList />
         <ShowAll id={artist.id}/>
-        <ShowMap id={artist.id}/>
+        <ArtistTopTracks />
         <TourSnippetList/>
         <CommentSection />
       </div>

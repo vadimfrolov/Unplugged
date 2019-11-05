@@ -6,8 +6,9 @@ import get from "lodash.get";
 import Home from "../Home";
 import FaceBookPanel from "../../Components/FacebookPanel";
 import Navbar from "../../Components/Navbar";
-import LandingPage from "../LandingPage/LandingPage";
-import ArtistPage from "../ArtistPage/ArtistPage";
+import LandingPage from "../LandingPage";
+import ArtistPage from "../ArtistPage";
+import ConcertPage from "../ConcertPage";
 import Login from '../../Components/User/login'
 import Registration from '../../Components/User/registration'
 import User from "../User/User";
@@ -34,8 +35,7 @@ class App extends React.Component {
             <Route path="/landing" component={LandingPage} />
             <Route path={`/artists/:id`} component={ArtistPage} />
             <Route path={`/concerts/:id`} component={ConcertYear} />
-            <Route path='/map/:id' component={MapContainer}/>
-            <Route exact path={`/concert/:id`} component={CommentUser} />
+            <Route path={`/concert/:id`} component={ConcertPage} />
           </Switch>
         </Router>
       </div>

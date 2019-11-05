@@ -7,6 +7,7 @@ const initialState = {
   name: '',
   date: '',
   time: '',
+  venue: '',
   performers: [],
 };
 

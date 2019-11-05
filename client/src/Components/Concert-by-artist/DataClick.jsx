@@ -12,7 +12,7 @@ class DataClick extends Component {
           this.props.concerts.events.map((event, i) => {
             return (
               <div key={i}>
-                <Link to={`concert/${event.idConcert}`}>
+                <Link to={`/concert/${event.idConcert}`}>
                   <div>{moment(event.date).format("ll")}</div>
                 </Link>
 

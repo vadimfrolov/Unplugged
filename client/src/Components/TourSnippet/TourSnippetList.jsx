@@ -7,6 +7,7 @@ import { fetchArtistConcertAC } from "../../Redux/artistReducer/artistActions";
 
 import TourSnippet from './TourSnippet'
 
+
 class TourSnippetList extends Component {
   async componentDidMount() {
     await this.props.fetchArtistConcertAC(this.props.artist.id);
@@ -20,9 +21,10 @@ class TourSnippetList extends Component {
 
 
   render() {
-    return this.props.artist.tourSnippet.map(({ id, displayName, location, start }, i) => (
+    return (
+      this.props.artist && this.props.artist.tourSnippet.map(({ id, displayName, location, start }, i) => (
       <TourSnippet id={id} title={displayName} city={location.city} start={start.date} key={`${displayName}_${i}`} />
-    ));
+    )))
   }
 }
 
