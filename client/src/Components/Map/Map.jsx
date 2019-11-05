@@ -16,8 +16,8 @@ let iconPin = {
   scale: 0.0125, //to reduce the size of icons
  };
 
-require("dotenv").config();
-const mapKey = process.env.GOOGLE_MAPS_KEY;
+ require("dotenv").config();
+ const mapKey = process.env.REACT_APP_GOOGLE_MAPS_KEY;
 
 
 const mapStyles = {

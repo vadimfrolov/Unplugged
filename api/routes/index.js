@@ -3,15 +3,17 @@ const fetch = require("node-fetch");
 
 require('dotenv').config();
 var router = express.Router();
-let SongKickKey = process.env.SONGKICK_KEY;
-let LastFmKey = process.env.LASTFM_KEY;
+let SongKickKey = process.env.REACT_APP_SONGKICK_KEY;
+let LastFmKey = process.env.REACT_APP_LASTFM_API_KEY;
 
 
-router.post('/getId', async (req, res) => {
+router.post('/getId', async (req, res) => {  
   let bandInput = req.body.text;
   const resID = await fetch(`https://api.songkick.com/api/3.0/search/artists.json?apikey=${SongKickKey}&query=${bandInput}`);
   const dataID = await resID.json();
+  console.log(resID, dataID);
   const id = dataID.resultsPage.results.artist[0].id;
+  
   res.json({ id });
 });
 

@@ -2,7 +2,6 @@
   "name": "api",
   "version": "0.0.0",
   "private": true,
-  "proxy": "http://localhost:9000",
   "scripts": {
     "start": "nodemon --ignore sessions/ ./bin/www"
   },
