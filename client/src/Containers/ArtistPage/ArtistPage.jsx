@@ -12,6 +12,7 @@ import ArtistTopTracks from "../../Components/ArtistTopTracks"
 import "./ArtistPage.css";
 
 import ShowAll from "../../Components/TourSnippet/ShowAll"
+import ShowMap from '../../Components/Map/ShowMap'
 
 class ArtistInfo extends Component {
   render() {
@@ -29,6 +30,7 @@ class ArtistInfo extends Component {
         <p className="genresName">Similar artists:</p>
         <SimilarArtistsList />
         <ShowAll id={artist.id}/>
+        <ShowMap id={artist.id}/>
         <ArtistTopTracks />
         <TourSnippetList/>
         <CommentSection />

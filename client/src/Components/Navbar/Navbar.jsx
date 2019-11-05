@@ -6,7 +6,8 @@ import {
   fetchArtistInfoAC
 } from "../../Redux/artistReducer/artistActions";
 import {
-  setUserAC
+  setUserAC,
+  logoutAC
 } from "../../Redux/UserAuth/actions/userAuth";
 
 import "./navbar.css";
@@ -36,14 +37,14 @@ class Navbar extends Component {
 
   checkSession = async () => {
     const response = await fetch('/users/getsession/');
+    
     const user = await response.json();
-    this.props.setUserAC({user: user});
+    console.log(user);
+    this.props.setUserAC(user);
   }
 
-  logout = async () => {
-    await fetch('/users/logout/');
-    const user = null;
-    this.props.setUserAC({user: user});
+  logout = () => {
+    this.props.logoutAC()
   }
 
   handleInput = e => {
@@ -67,10 +68,10 @@ class Navbar extends Component {
             <NavLink activeClassName={"Active"} to={"/fbpanel"}>
               FBpanel
           </NavLink>
-            { !this.props.user.user ?
-                <div>
-                  <NavLink activeClassName={"Active"} to={"/login"}>
-                    Log in
+            {!this.props.user.user ?
+              <div>
+                <NavLink activeClassName={"Active"} to={"/login"}>
+                  Log in
                 </NavLink>
                   <NavLink activeClassName={"Active"} to={"/registration"}>
                   <div> Registration </div>
@@ -106,7 +107,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   fetchArtistIdAC,
   fetchArtistInfoAC,
-  setUserAC
+  setUserAC,
+  logoutAC
 };
 
 

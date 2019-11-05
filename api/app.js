@@ -22,7 +22,7 @@ const app = express();
 
 app.use(
   session({
-    store: new FileStore({}),
+    store: new FileStore({logFn: function(){}}),
     key: 'user_sid',
     secret: 'anything here',
     resave: false,
@@ -51,8 +51,8 @@ app.use(
     store: new FileStore({}),
     key: 'user_sid',
     secret: 'anything here',
-    resave: false,
-    saveUninitialized: false,
+    resave: true,
+    saveUninitialized: true,
     cookie: {
       expires: 60000000,
     },
