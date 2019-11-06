@@ -1,18 +1,39 @@
 import React from 'react'
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { fetchArtistIdAC, fetchArtistInfoAC, switchSearchBarAC } from '../../Redux/artistReducer/artistActions';
+
 
 import SimilarArtist from './SimilarArtist';
 
-const SimilarArtistsList = ({ similar }) => {
-  return similar.map(({ name }, i) => (
-    <SimilarArtist title={name} key={`${name}_${i}`} />
-  ));
+class SimilarArtistsList extends React.Component {
+  async onClick(name) {
+    await this.props.fetchArtistIdAC(name);
+    await this.props.fetchArtistInfoAC(name);
+    this.props.history.push(`/artists/${this.props.artist.id}`);
+  }
+
+  render() {
+    return this.props.artist.similar && this.props.artist.similar.map((el, i) => (
+      <button value={el.name} onClick={() => this.onClick(el.name)}>
+        <SimilarArtist title={el.name} key={`${el.name}_${i}`} />
+      </button>
+    ));
+  }
 }
 
-const mapStateToProps = (state) => ({
-  similar: state.artist.similar
+
+const mapStateToProps = (store) => ({
+  artist: store.artist,
 });
 
+const mapDispatchToProps = {
+  fetchArtistIdAC,
+  fetchArtistInfoAC
+};
+
+
 export default connect(
-  mapStateToProps
-)(SimilarArtistsList);
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(SimilarArtistsList));

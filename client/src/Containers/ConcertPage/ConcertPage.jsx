@@ -31,7 +31,8 @@ class ConcertPage extends Component {
 
     return (
       <div>
-        <p>{name}, 
+        <p>
+        {name}, 
         {date}, 
         {time}, 
         {venue}, 

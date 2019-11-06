@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import get from 'lodash.get';
 import { withRouter } from 'react-router-dom';
 
-import { fetchArtistIdAC, fetchArtistInfoAC } from '../../Redux/artistReducer/artistActions';
+import { fetchArtistIdAC, fetchArtistInfoAC, fetchArtistConcertAC } from '../../Redux/artistReducer/artistActions';
 
 import TourSnippetList from '../../Components/TourSnippet/TourSnippetList';
 import TagsList from '../../Components/TagsList';
@@ -17,7 +17,7 @@ import "./ArtistPage.css";
 
 
 class ArtistInfo extends Component {
-  componentDidMount() {
+  async componentDidMount() {
     if (this.props.isSearchBar) {
       console.log('ok')
     } else {
@@ -28,55 +28,53 @@ class ArtistInfo extends Component {
           this.props.fetchArtistIdAC(artist.displayName);
           this.props.fetchArtistInfoAC(artist.displayName);
         }
-      } else {
-        console.table('no artist in state', id)
-
       }
     }
   }
 
+    render() {
+      const { artist } = this.props;
 
-  render() {
-    const { artist } = this.props;
+      const name = get(artist, 'name');
+      const content = get(artist, 'bio.content');
+      const pic = get(artist, 'pic')
 
-    const name = get(artist, 'name');
-    const content = get(artist, 'bio.content');
-    const pic = get(artist, 'pic')
-
-    return (
-      <div>
+      return (
         <div>
-          <img src={pic} style={{ maxHeight: '300px' }} />
+          <div>
+            <img src={pic} style={{ maxHeight: '300px' }} />
+          </div>
+          <p className="groupName">{name}</p>
+          <p className="groupDescription">{content}</p>
+          <p className="genresName">Genres:</p>
+          <TagsList />
+          <p className="genresName">Similar artists:</p>
+          <SimilarArtistsList />
+          <FacebookPanel />
+          <TourSnippetList />
+          <ShowAll id={artist.id} />
+          <ShowMap id={artist.id} />
+          <ArtistTopTracks />
         </div>
-        <p className="groupName">{name}</p>
-        <p className="groupDescription">{content}</p>
-        <p className="genresName">Genres:</p>
-        <TagsList />
-        <p className="genresName">Similar artists:</p>
-        <SimilarArtistsList />
-        <FacebookPanel />
-        <TourSnippetList />
-        <ShowAll id={artist.id} />
-        <ShowMap id={artist.id} />
-        <ArtistTopTracks />
-      </div>
-    );
+      );
+    }
   }
-}
 
 
-const mapStateToProps = store => ({
-  artist: store.artist,
-  concertPage: store.concertPage,
-});
+  const mapStateToProps = store => ({
+    artist: store.artist,
+    concertPage: store.concertPage,
+    lastSearch:store.lastSearch,
+  });
 
-const mapDispatchToProps = {
-  fetchArtistIdAC,
-  fetchArtistInfoAC
-};
+  const mapDispatchToProps = {
+    fetchArtistIdAC,
+    fetchArtistInfoAC,
+    fetchArtistConcertAC
+  };
 
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(ArtistInfo));
+  export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(withRouter(ArtistInfo));
