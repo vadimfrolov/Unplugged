@@ -20,12 +20,10 @@ const youtubePlayerCloseAC = () => {
     type: TYPES.PLAYER_CLOSE,
     payload: {
       url: null,
-      playing: true,
+      playing: false,
       played: 0,
       loaded: 0,
       pip: false,
-      trackNum: null,
-      topTracks: null
     }
   };
 };

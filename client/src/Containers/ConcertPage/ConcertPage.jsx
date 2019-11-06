@@ -1,15 +1,23 @@
 import React, { Component } from "react";
-import { connect } from 'react-redux';
-import get from 'lodash.get';
-import { withRouter, Link } from 'react-router-dom';
+import { connect } from "react-redux";
+import get from "lodash.get";
+import { withRouter, Link } from "react-router-dom";
+
+import "./concertPage.css";
 
 import { fetchConcertInfoAC } from "../../Redux/concertPageReducer/concertPageActions";
 import { previousConcertAC, upcomingConcertAC, upcomingConcertCancelAC } from '../../Redux/UserActivity/activityActions'
 
-import Flashmob from "../../Components/Flashmob";
-import CommentSection from "../../Components/CommentsConcert";
-import CommentList from "../../Components/CommentsConcert/CommentList";
+// import Flashmob from "../../Components/Flashmob";
+// import CommentSection from "../../Components/CommentsConcert";
+// import CommentList from "../../Components/CommentsConcert/CommentList";
 
+import {
+  Row,
+  Col,
+  Card,
+  Button
+} from "react-materialize";
 
 class ConcertPage extends Component {
   constructor(props) {
@@ -40,7 +48,7 @@ class ConcertPage extends Component {
         eventLocation: this.props.concertPage.location,
       },
       this.props.concertPage.id)
-      this.concertActivityCheck()
+    this.concertActivityCheck()
   }
 
   concertActivityCheck = () => {
@@ -89,46 +97,67 @@ class ConcertPage extends Component {
 
 
     return (
-      <div>
-        <p>{name},
-        {date},
-        {time},
-        {venue},
-        {location},
-        {performers && performers.map(
-          (el, i) => (
-            <p key={`${name}_${i}`}>
-              <Link to={`/artists/${performers[i].id}`}>
-                {el.displayName}
-              </Link>
-            </p>
-          ))}
+      <div className="cardPage">
+        <Row>
+          <Col m={8} s={12}>
+            <Card
+              className="black"
+              textClassName="white-text"
+              title={name}
+              actions={[
+                this.convertDate() > Date.now() ?
+                  <>
+                    {!concertFlag ?
+                      <Button className="red darken-4" onClick={this.upcomingConcert}>I'll be there!</Button> :
+                      <Button className="red darken-4" onClick={this.upcomingConcertCancel}>Cancel</Button>
+                    }
+                  </> :
+                  <>
+                    <Button className="red darken-4" onClick={this.previousConcert}>I've been there!</Button>
+                  </>
+              ]}
+            >
+              <p className="pointConcert" >
+                <span className="red-text ">When:</span> {date} {time}
+              </p>
+              <p>
+                <span className="red-text ">Where: </span>
+                {venue}, {location},
+              </p>
+              <span className="red-text t">Perfomers:</span>
+
+              {performers &&
+                performers.map((el, i) => (
+                  <li className="perfomersList" key={`${name}_${i}`}>
+                    <Link to={`/artists/${performers[i].id}`}>
+                      {el.displayName}
+                    </Link>
+                  </li>
+                ))}
+
+            </Card>
+          </Col>
+        </Row>
+
+        {/* <p>
+          {name},{date},{time},{venue},{location},
+          {performers &&
+            performers.map((el, i) => (
+              <p key={`${name}_${i}`}>
+                <Link to={`/artists/${performers[i].id}`}>
+                  {el.displayName}
+                </Link>
+              </p>
+            ))}
         </p>
-        {!date ?
-          <></> :
-          <>
-            {this.convertDate() > Date.now() ?
-              <>
-                {!concertFlag ?
-                  <button onClick={this.upcomingConcert}>I'll be there!</button> :
-                  <button onClick={this.upcomingConcertCancel}>Cancel</button>
-                }
-              </> :
-              <>
-                {id}
-                <button onClick={this.previousConcert}>I've been there!</button>
-              </>
-            }
-          </>
-        }
-        <Flashmob />
+        <button>I'll be there!</button> */}
+        {/* <Flashmob />
         <CommentSection nameArtist={performers} idConcert={id} />
-        <CommentList comments={comments} />
+        <CommentList comments={comments} /> */}
       </div>
     );
   }
 }
-
 
 const mapStateToProps = store => ({
   artist: store.artist,
@@ -144,7 +173,6 @@ const mapDispatchToProps = {
   upcomingConcertAC,
   upcomingConcertCancelAC,
 };
-
 
 export default connect(
   mapStateToProps,

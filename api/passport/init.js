@@ -3,7 +3,6 @@ const google = require('./google')
 const User = require('../models/users');
 
 module.exports = (passport) => {
-  console.log('dsfnljsdnflksnfl');
   
   // Passport needs to be able to serialize and deserialize users to support persistent login sessions
   passport.serializeUser(function (user, done) {

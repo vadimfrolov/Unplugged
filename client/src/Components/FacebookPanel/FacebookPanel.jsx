@@ -22,8 +22,9 @@ class FBpanel extends Component {
     return (
       <div>
         <FacebookProvider appId="2488352004782403">
-          <Page
+          <Page className="pageFace"
             href={`https://www.facebook.com/${name}/`}
+           width="700px"
             tabs="timeline"
           />
           <Like

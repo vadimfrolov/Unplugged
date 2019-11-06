@@ -130,7 +130,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(store) {
-  console.log("ollo.llol", store);
   return {
     artist: store.artist,
     concerts: store.concerts
