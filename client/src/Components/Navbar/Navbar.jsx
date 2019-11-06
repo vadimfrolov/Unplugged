@@ -24,12 +24,6 @@ class Navbar extends Component {
     this.checkSession();
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.artist && prevProps.artist !== this.props.artist) {
-      this.props.history.push(`/artists/${this.props.artist.id}`);
-    }
-  }
-
   checkSession = async () => {
     const response = await fetch("/users/getsession/");
 
@@ -49,6 +43,7 @@ class Navbar extends Component {
     await this.props.fetchArtistIdAC(this.state.text);
     await this.props.fetchArtistInfoAC(this.state.text);
     await this.props.switchSearchBarAC();
+    this.props.history.push(`/artists/${this.props.artist.id}`);
   }
 
   render() {
