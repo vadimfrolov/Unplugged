@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
-import { Route, Switch, BrowserRouter as Router, Link } from "react-router-dom";
+import { Route, BrowserRouter as Router, Link } from "react-router-dom";
+import {
+
+Button
+} from "react-materialize";
 
 
 
@@ -7,7 +11,7 @@ export default class ShowMap extends Component{
     render(){
         return(
             <Link to={`/map/${this.props.id}`}>
-             <button>show map</button>
+             <Button className="red darken-4">Show map of all concerts</Button>
              </Link>
 
         )

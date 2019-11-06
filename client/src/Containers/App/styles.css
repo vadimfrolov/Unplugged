@@ -5,13 +5,13 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #F9F9F9
-  /* position: relative;
-  background: url('https://www.xmple.com/wallpaper/red-pink-3d-cubes-3200x1800-c3-b40431-790c28-450d1b-l-350-a-105-f-11.svg') no-repeat center center fixed; 
+  /* background-color: rgba(165, 162, 162, 0.623); */
+  position: relative;
+  background: url('http://www.cnvliquor.com.au/wp-content/uploads/2017/03/background-grey-1080.jpg') no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  background-size: cover; */
+  background-size: cover;
  
 }
 
@@ -30,6 +30,10 @@ code {
   justify-content: space-evenly;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+.AppBody {
+  margin:0 5%
 }
 
 a {

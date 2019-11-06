@@ -11,12 +11,12 @@ export const TYPES = {
   FETCH_CONCERTS_BY_DATE_FAILURE: 'FETCH_CONCERTS_BY_DATE_FAILURE',
 }
 
-export const fetchUpcomingConcertsAC = () => async dispatch => {
+export const fetchUpcomingConcertsAC = (page) => async dispatch => {
   dispatch({ type: TYPES.FETCH_UPCOMING_CONCERTS_REQUEST });
 
   try {
-    const res = await axios.get('/explore');
-    const data = get(res, "data.dataExplore.resultsPage.results.event", {});
+    const res = await axios.get(`/explore/${page}`, { page });
+    const data = get(res, "data.dataExplore.resultsPage.results.event", []);
 
     dispatch({
       type: TYPES.FETCH_UPCOMING_CONCERTS_SUCCESS,
