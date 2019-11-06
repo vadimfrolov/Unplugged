@@ -18,7 +18,8 @@ import {
 
 import {
   fetchArtistIdAC,
-  fetchArtistInfoAC
+  fetchArtistInfoAC,
+  fetchArtistConcertAC
 } from "../../Redux/artistReducer/artistActions";
 
 import TourSnippetList from "../../Components/TourSnippet/TourSnippetList";
@@ -32,7 +33,7 @@ import ShowMap from "../../Components/Map/ShowMap";
 import "./ArtistPage.css";
 
 class ArtistInfo extends Component {
-  componentDidMount() {
+  async componentDidMount() {
     if (this.props.isSearchBar) {
     } else {
       const id = this.props.match.params.id;
@@ -44,8 +45,6 @@ class ArtistInfo extends Component {
           this.props.fetchArtistIdAC(artist.displayName);
           this.props.fetchArtistInfoAC(artist.displayName);
         }
-      } else {
-        console.table("no artist in state", id);
       }
     }
   }
@@ -87,14 +86,14 @@ class ArtistInfo extends Component {
               title="Biography"
               actions={[
                 <Modal
-                  
+
                   trigger={<Button className="red darken-4"> Show full bio </Button>}
                 >
                   <p className="insideBio">{content}</p>
                 </Modal>
               ]}
             >
-            <div>{content}</div>
+              <div>{content}</div>
             </Card>
           </Col>
         </Row>
@@ -115,7 +114,8 @@ class ArtistInfo extends Component {
 
         <Row className="rowWrapper flex">
           <Col s={6} className="black white-text">
-            <p className="genresName">Genres:</p> <TagsList />
+            <p className="genresName">Genres:</p>
+            <TagsList />
             <p className="genresName">Similar artists:</p>
             <SimilarArtistsList />
             <ArtistTopTracks />
@@ -136,6 +136,7 @@ class ArtistInfo extends Component {
   }
 }
 
+
 const mapStateToProps = store => ({
   artist: store.artist,
   concertPage: store.concertPage
@@ -143,8 +144,10 @@ const mapStateToProps = store => ({
 
 const mapDispatchToProps = {
   fetchArtistIdAC,
-  fetchArtistInfoAC
+  fetchArtistInfoAC,
+  fetchArtistConcertAC
 };
+
 
 export default connect(
   mapStateToProps,

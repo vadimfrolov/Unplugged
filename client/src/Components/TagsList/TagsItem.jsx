@@ -4,9 +4,9 @@ import { Chip } from "react-materialize";
 const TagsItem = ({ title }) => {
   return (
     <span className="simAr">
-    <Chip> {title}</Chip>
+    <Chip>{title}</Chip>
     </span>
   )
 }
 
-export default TagsItem
+export default TagsItem;

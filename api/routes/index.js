@@ -11,18 +11,20 @@ let YouTubeKey = process.env.SECOND_YOUTUBE_API_KEY;
 const Concert = require("../models/concert");
 
 router.post("/getId", async (req, res) => {
-  let bandInput = req.body.text;
+  let bandInput = encodeURIComponent(`${req.body.text}`);
   const resID = await fetch(
     `https://api.songkick.com/api/3.0/search/artists.json?apikey=${SongKickKey}&query=${bandInput}`
   );
   const dataID = await resID.json();
   const id = dataID.resultsPage.results.artist[0].id;
-  
+  // const name = dataID.resultsPage.results.artist[0].displayName;
+  // console.log(dataID.resultsPage.results.artist[0].displayName)
+
   res.json({ id });
 });
 
 router.post("/search", async (req, res) => {
-  let bandInput = req.body.text;
+  let bandInput = encodeURIComponent(`${req.body.text}`);
   const resSearch = await fetch(`http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${bandInput}&api_key=${LastFmKey}&format=json`);
   const dataSearch = await resSearch.json();
   const resPic = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=${bandInput}&key=${YouTubeKey}`);
@@ -79,18 +81,20 @@ router.get("/artists/:id", async (req, res) => {
   res.json({ dataConcerts });
 });
 
-router.get('/explore', async (req, res) => {
-  const resExplore = await fetch(`https://api.songkick.com/api/3.0/metro_areas/32051/calendar.json?apikey=${SongKickKey}`);
+router.get('/explore/:page', async (req, res) => {
+  const page = req.params.page;
+  console.log(page)
+  const resExplore = await fetch(`https://api.songkick.com/api/3.0/metro_areas/32051/calendar.json?apikey=${SongKickKey}&page=${page}`);
   const dataExplore = await resExplore.json();
-  res.json({dataExplore})
+  console.log(dataExplore)
+  res.json({ dataExplore })
 });
 
-router.post('/explore/:id', async (req, res) => {
+router.post('/explore/:date', async (req, res) => {
   let date = req.body.formattedDate;
   const resDate = await fetch(`https://api.songkick.com/api/3.0/metro_areas/32051/calendar.json?apikey=${SongKickKey}&min_date=${date}&max_date=${date}`);
   const dataDate = await resDate.json();
-  res.json({dataDate})
+  res.json({ dataDate })
 });
-
 
 module.exports = router;

@@ -12,7 +12,6 @@ import { fetchConcertInfoAC } from "../../Redux/concertPageReducer/concertPageAc
 // import CommentList from "../../Components/CommentsConcert/CommentList";
 
 import {
-
   Row,
   Col,
   Card,
@@ -57,16 +56,16 @@ class ConcertPage extends Component {
                 {venue}, {location},
               </p>
               <span className="red-text t">Perfomers:</span>
-          
-                {performers &&
-                  performers.map((el, i) => (
-                    <li className="perfomersList" key={`${name}_${i}`}>
-                      <Link to={`/artists/${performers[i].id}`}>
-                        {el.displayName}
-                      </Link>
-                    </li>
-                  ))}
-        
+
+              {performers &&
+                performers.map((el, i) => (
+                  <li className="perfomersList" key={`${name}_${i}`}>
+                    <Link to={`/artists/${performers[i].id}`}>
+                      {el.displayName}
+                    </Link>
+                  </li>
+                ))}
+
             </Card>
           </Col>
         </Row>

@@ -172,7 +172,6 @@ class Youtube extends Component {
 
   render() {
     const { url, playing, controls, volume, muted, played, pip } = this.state;
-    console.log("DEBUG", this.props.url, Math.random());
 
     return (
       <div className="app">
