@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import get from "lodash.get";
 import { withRouter } from "react-router-dom";
 
+import { addToFavoriteAC, removeFavoriteAC } from '../../Redux/UserActivity/activityActions';
 import M from "materialize-css";
 import {
   CollapsibleItem,
@@ -33,7 +34,13 @@ import ShowMap from "../../Components/Map/ShowMap";
 import "./ArtistPage.css";
 
 class ArtistInfo extends Component {
-  async componentDidMount() {
+  constructor(props) {
+    super(props);
+    this.state = {
+      favorite: false,
+    };
+  };
+  componentDidMount = async () => {
     if (this.props.isSearchBar) {
     } else {
       const id = this.props.match.params.id;
@@ -42,11 +49,31 @@ class ArtistInfo extends Component {
           item => item.id == id
         );
         if (artist !== undefined) {
-          this.props.fetchArtistIdAC(artist.displayName);
-          this.props.fetchArtistInfoAC(artist.displayName);
+          await this.props.fetchArtistIdAC(artist.displayName);
+          await this.props.fetchArtistInfoAC(artist.displayName);
         }
       }
     }
+
+    this.checkFavorite()
+  }
+
+  addToFavorite = async () => {
+    await this.props.addToFavoriteAC(this.props.user._id, this.props.match.params.id)
+    this.checkFavorite()
+  }
+
+  removeFavorite = async () => {
+    await this.props.removeFavoriteAC(this.props.user._id, this.props.match.params.id)
+    this.checkFavorite()
+  }
+
+  checkFavorite = async () => {
+    const check = await this.props.user.favouriteGroups.findIndex((e) => {
+      return e == this.props.match.params.id
+    })
+    const state = check === -1
+    this.setState({ favorite: state })
   }
 
   render() {
@@ -124,6 +151,15 @@ class ArtistInfo extends Component {
           <Col s={6} className="black white-text">
             <p className="genresName">Upcoming concerts:</p>
             <TourSnippetList />
+            {!this.props.user ?
+          <></> :
+          <>
+          {this.state.favorite?
+            <button onClick={this.addToFavorite}>add to favorite </button>:
+              <button onClick={this.removeFavorite}>remove from fav </button>
+            }
+          </>
+        }
             <ShowAll id={artist.id} />
             <ShowMap id={artist.id} />
             <div style={{ width: "700px" }}>
@@ -139,13 +175,15 @@ class ArtistInfo extends Component {
 
 const mapStateToProps = store => ({
   artist: store.artist,
-  concertPage: store.concertPage
+  concertPage: store.concertPage,
+  user: store.user.user,
 });
 
 const mapDispatchToProps = {
   fetchArtistIdAC,
   fetchArtistInfoAC,
-  fetchArtistConcertAC
+  addToFavoriteAC,
+  removeFavoriteAC
 };
 
 
