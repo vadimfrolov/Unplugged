@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { loginAC, logoutAC } from '../../Redux/UserAuth/actions/userAuth'
+import { loginAC, logoutAC, FBloginAC } from '../../Redux/UserAuth/actions/userAuth'
 
 class Login extends Component {
   constructor(props) {
@@ -26,6 +26,10 @@ class Login extends Component {
     this.props.loginAC(this.state)
   }
 
+  fb = () => {
+    this.props.FBloginAC()
+  }
+  
 
   render() {
     return (
@@ -33,6 +37,7 @@ class Login extends Component {
         <input placeholder='login' onChange={this.onChangeUsername}></input>
         <input placeholder='password' type='password' onChange={this.onChangePassword}></input>
         <button onClick={this.login}>login</button>
+        {/* <button onClick={this.fb}>FB</button>  */}
       </div>
     )
   }
@@ -47,7 +52,8 @@ function mapStateToProps(store) {
 
 const mapDispatchToProps = {
   loginAC,
-  logoutAC
+  logoutAC,
+  FBloginAC
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)

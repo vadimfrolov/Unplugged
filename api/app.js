@@ -15,10 +15,9 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const testAPIRouter = require("./routes/testAPI");
 const instaRouter = require("./routes/insta");
+const initPassport = require('./passport/init');
 
 const app = express();
-
-// passport
 
 app.use(
   session({
@@ -33,34 +32,14 @@ app.use(
   }),
 );
 
-app.use(passport.initialize());
-app.use(passport.session());
-
-// mongoose 
-
-connect("mongodb://localhost:27017/Final", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
-
 
 // passport
 
-app.use(
-  session({
-    store: new FileStore({}),
-    key: 'user_sid',
-    secret: 'anything here',
-    resave: true,
-    saveUninitialized: true,
-    cookie: {
-      expires: 60000000,
-    },
-  }),
-);
+
 
 app.use(passport.initialize());
 app.use(passport.session());
+initPassport(passport)
 
 // mongoose 
 
