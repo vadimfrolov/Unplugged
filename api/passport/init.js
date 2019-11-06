@@ -1,5 +1,6 @@
 const fb = require('./fb')
-const User = require('../models/user');
+const google = require('./google')
+const User = require('../models/users');
 
 module.exports = (passport) => {
   
@@ -13,6 +14,7 @@ module.exports = (passport) => {
       done(err, user);
     });
   })
-    
+  
   fb(passport)
+  // google(passport)
 } 

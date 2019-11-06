@@ -16,7 +16,7 @@ export const setUserAC = (user) => {
   }
 };
 
-export const logoutAC = (data) => async dispatch => {
+export const logoutAC = () => async dispatch => {
 
   dispatch({ type: TYPES.FETCH_USER_REQUEST });
   
@@ -58,4 +58,19 @@ export const loginAC = (data) => async dispatch => {
     console.log(err);
   }
 }
+
+// export const FBloginAC = () => async dispatch => {
+
+//   dispatch({ type: TYPES.FETCH_USER_REQUEST });
+
+//   try{   
+//   const response = await axios.get('/users/login/facebook/');
+//   const user = await get(response, "data")
+//   console.log('sadzzzzzzzzzzzzzzzzasda',user); 
+//   dispatch(setUserAC( user ))
+//   } catch(err) {
+//     dispatch({ type: TYPES.FETCH_USER_FAILURE });
+//     console.log(err);
+//   }
+// }
 

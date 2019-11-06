@@ -15,10 +15,9 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const testAPIRouter = require("./routes/testAPI");
 const instaRouter = require("./routes/insta");
+const initPassport = require('./passport/init');
 
 const app = express();
-
-// passport
 
 app.use(
   session({
@@ -33,34 +32,15 @@ app.use(
   }),
 );
 
-app.use(passport.initialize());
-app.use(passport.session());
-
-// mongoose 
-
-connect("mongodb://localhost:27017/final", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
-
 
 // passport
 
-app.use(
-  session({
-    store: new FileStore({}),
-    key: 'user_sid',
-    secret: 'anything here',
-    resave: true,
-    saveUninitialized: true,
-    cookie: {
-      expires: 60000000,
-    },
-  }),
-);
+
 
 app.use(passport.initialize());
 app.use(passport.session());
+initPassport(passport)
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -72,6 +52,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+// Подключаем mongoose.
+const mongoose = require("mongoose");
+mongoose.connect("mongodb://localhost:27017/final", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
 
 app.use('/', indexRouter);
 app.use('/users/', usersRouter);

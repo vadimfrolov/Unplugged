@@ -3,18 +3,14 @@ import { NavLink, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import {
   fetchArtistIdAC,
-  fetchArtistInfoAC
+  fetchArtistInfoAC,
+  switchSearchBarAC
 } from "../../Redux/artistReducer/artistActions";
-import {
-  setUserAC,
-  logoutAC
-} from "../../Redux/UserAuth/actions/userAuth";
+import { setUserAC, logoutAC } from "../../Redux/UserAuth/actions/userAuth";
 
 import "./navbar.css";
 
-
-import Youtube from "../Youtube/Youtube"
-
+import Youtube from "../Youtube/Youtube";
 
 class Navbar extends Component {
   constructor(props) {
@@ -25,35 +21,29 @@ class Navbar extends Component {
   }
 
   componentDidMount() {
-    this.checkSession()
+    this.checkSession();
   }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.artist && prevProps.artist !== this.props.artist) {
-      this.props.history.push(`/artists/${this.props.artist.id}`);
-    }
-  }
-
 
   checkSession = async () => {
-    const response = await fetch('/users/getsession/');
-    
+    const response = await fetch("/users/getsession/");
+
     const user = await response.json();
     this.props.setUserAC(user);
-  }
+  };
 
   logout = () => {
-    this.props.logoutAC()
-  }
+    this.props.logoutAC();
+  };
 
   handleInput = e => {
     this.setState({ text: e.target.value });
-   
   };
 
   onClick = async () => {
     await this.props.fetchArtistIdAC(this.state.text);
     await this.props.fetchArtistInfoAC(this.state.text);
+    await this.props.switchSearchBarAC();
+    this.props.history.push(`/artists/${this.props.artist.id}`);
   }
 
   render() {
@@ -63,7 +53,7 @@ class Navbar extends Component {
           <div className="NavLinks">
             <NavLink activeClassName={"Active"} exact={true} to={"/"}>
               Index
-          </NavLink>
+            </NavLink>
             <NavLink activeClassName={"Active"} to={"/fbpanel"}>
               FBpanel
           </NavLink>
@@ -72,23 +62,28 @@ class Navbar extends Component {
                 <NavLink activeClassName={"Active"} to={"/login"}>
                   Log in
                 </NavLink>
-                  <NavLink activeClassName={"Active"} to={"/registration"}>
-                  <div> Registration </div>
+                <NavLink activeClassName={"Active"} to={"/registration"}>
+                  Registration
                 </NavLink>
-                </div> :
-                <div>
-                  <NavLink activeClassName={"Active"} to={"/dashboard"}>
-                    {this.props.user.user.username}
-                  </NavLink>
-                  <button onClick={this.logout}> Log out </button>
-                </div>
+              </div> :
+              <div>
+                <NavLink activeClassName={"Active"} to={"/userUpdate"}>
+                  {this.props.user.user.username}
+                </NavLink>
+                <button onClick={this.logout}> Log out </button>
+              </div>
             }
-
-            {/* <NavLink activeClassName={"Active"} to={"/artist/:id"}> */}
             <div>
-              <input className="input" name="bandInput" type="text" value={this.state.text} onChange={this.handleInput} />
+              <input
+                className="input"
+                name="bandInput"
+                type="text"
+                value={this.state.text}
+                onChange={this.handleInput}
+              />
               <button onClick={this.onClick}> search band </button>
             </div>
+            <NavLink activeClassName={"Active"} to={"/explore"}>Explore</NavLink>
             <Youtube />
           </div>
         </div>
@@ -96,7 +91,6 @@ class Navbar extends Component {
     );
   }
 }
-
 
 const mapStateToProps = state => ({
   artist: state.artist,
@@ -106,10 +100,10 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   fetchArtistIdAC,
   fetchArtistInfoAC,
+  switchSearchBarAC,
   setUserAC,
   logoutAC
 };
-
 
 export default withRouter(
   connect(

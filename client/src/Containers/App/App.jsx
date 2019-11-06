@@ -27,22 +27,20 @@ class App extends React.Component {
       <div>
         <Router>
           <Navbar />
-          <div className="Home-body">
-            <Switch>
-              <Route exact path="/" component={LandingPage} />
-              <Route path="/login" component={Login} />
-              <Route path="/registration" component={Registration} />
-              <Route path={`/dashboard`} component={User} />
-              <Route path="/fbpanel" component={FaceBookPanel} />
-              <Route path="/landing" component={LandingPage} />
-              <Route path={`/artists/:id`} component={ArtistPage} />
-              <Route path={`/concerts/:id`} component={ConcertYear} />
-              <Route path={`/concert/:id`} component={ConcertPage} />
-              <Route exact path="/explore" component={ConcertExplore} />
-              <Route path={`/explore/:id`} component={DateConcerts} />
-              <Route path="/map/:id" component={MapContainer} />
-            </Switch>
-          </div>
+          <Switch>
+            <Route exact path="/" component={LandingPage} />
+            <Route path="/login" component={Login} />
+            <Route path="/registration" component={Registration}/>
+            <Route path={`/dashboard`} component={User} />
+            <Route path="/fbpanel" component={FaceBookPanel} />
+            <Route path="/landing" component={LandingPage} />
+            <Route path={`/artists/:id`} component={ArtistPage} />
+            <Route path={`/concerts/:id`} component={ConcertYear} />
+            <Route path={`/concert/:id`} component={ConcertPage} />
+            <Route exact path="/explore" component={ConcertExplore} />
+            <Route path={`/explore/:id`} component={DateConcerts} />
+            <Route path='/map/:id' component={MapContainer}/>
+          </Switch>
         </Router>
       </div>
     );

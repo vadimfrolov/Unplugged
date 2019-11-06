@@ -1,7 +1,5 @@
-// import axios from "axios";
-// import get from "lodash.get";
 require("dotenv").config();
-let songkickKey = process.env.REACT_APP_SONGKICK_KEY;
+let songkickKey = process.env.REACT_APP_SONGKICK_API_KEY;
 
 export const TYPES = {
   FETCH_PAST_DATES: "FETCH_PAST_DATES",
@@ -29,7 +27,6 @@ export const fetchPastDates = (id, page) => {
       `https://api.songkick.com/api/3.0/artists/${id}/gigography.json?apikey=${songkickKey}&page=${page}`
     );
     const data = await resp.json();
-    console.log('saljdhpijsqjq[oks[',data, songkickKey);
       
     const arrayData = data.resultsPage.results.event;
     if (arrayData === undefined) {
@@ -51,9 +48,8 @@ export const fetchDate = (id, year) => {
       `https://api.songkick.com/api/3.0/artists/${id}/gigography.json?apikey=${songkickKey}&min_date=${year}-01-01&max_date=${year}-12-31`
     );
     const data = await resp.json();
-   
+   console.log("privet", data)
     const events = data.resultsPage.results.event;
-    // console.log('olo1', events)
     let objStore = {};
     let finalArr = [];
     events &&
@@ -69,8 +65,7 @@ export const fetchDate = (id, year) => {
         finalArr.push(objStore);
       });
 
-    const newArr = finalArr; //.sort((a,b)=>b.date-a.date)
-    // console.log(`data ${newArr}`);
+    const newArr = finalArr;
 
     dispatch(fetchDateAC(newArr));
   };

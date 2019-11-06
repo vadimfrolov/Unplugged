@@ -28,7 +28,7 @@ import FastRewindOutlinedIcon from "@material-ui/icons/FastRewindOutlined";
 import CloseIcon from "@material-ui/icons/Close";
 import IconButton from "@material-ui/core/IconButton";
 
-const youTubeApikey = process.env.REACT_APP_YOUTUBE_API_KEY_SECOND;
+const youTubeApikey = process.env.REACT_APP_YOUTUBE_API_KEY;
 
 class Youtube extends Component {
   state = {
