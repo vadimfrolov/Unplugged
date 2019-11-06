@@ -53,4 +53,24 @@ router.get("/artists/:id", async (req, res) => {
   res.json({ dataConcerts });
 });
 
+router.get('/explore', async (req, res) => {
+  const resExplore = await fetch(`https://api.songkick.com/api/3.0/metro_areas/32051/calendar.json?apikey=${SongKickKey}`);
+  const dataExplore = await resExplore.json();
+  res.json({dataExplore})
+});
+
+router.get('/explore/:page', async (req, res) => {
+  const resExplore = await fetch(`https://api.songkick.com/api/3.0/metro_areas/32051/calendar.json?apikey=${SongKickKey}&page=${req.params.page}`);
+  const dataExplore = await resExplore.json();
+  res.json({dataExplore})
+});
+
+router.post('/explore/:id', async (req, res) => {
+  let date = req.body.formattedDate;
+  const resDate = await fetch(`https://api.songkick.com/api/3.0/metro_areas/32051/calendar.json?apikey=${SongKickKey}&min_date=${date}&max_date=${date}`);
+  const dataDate = await resDate.json();
+  res.json({dataDate})
+});
+
+
 module.exports = router;
