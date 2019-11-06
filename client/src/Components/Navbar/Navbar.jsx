@@ -39,7 +39,6 @@ class Navbar extends Component {
     const response = await fetch('/users/getsession/');
     
     const user = await response.json();
-    console.log(user);
     this.props.setUserAC(user);
   }
 

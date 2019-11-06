@@ -50,7 +50,6 @@ class LandingPage extends Component {
 
   handleClick = async e => {
     // console.dir(e);
-    console.log(e.target.name);
     await this.setState({ text: e.target.name });
     await this.props.fetchArtistIdAC(this.state.text);
     await this.props.fetchArtistInfoAC(this.state.text);

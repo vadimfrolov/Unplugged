@@ -62,15 +62,6 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-// mongoose 
-
-connect("mongodb://localhost:27017/final", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
-
-
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -81,13 +72,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-
-// Подключаем mongoose.
-const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost:27017/final", {
-  useNewUrlParser: true
-});
 
 app.use('/', indexRouter);
 app.use('/users/', usersRouter);
