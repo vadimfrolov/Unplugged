@@ -15,6 +15,7 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const testAPIRouter = require("./routes/testAPI");
 const instaRouter = require("./routes/insta");
+const useractivityRouter = require("./routes/userActivity")
 const initPassport = require('./passport/init');
 
 const app = express();
@@ -65,6 +66,7 @@ app.use('/', indexRouter);
 app.use('/users/', usersRouter);
 app.use("/testAPI", testAPIRouter);
 app.use('/insta', instaRouter);
+app.use('/useractivity', useractivityRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

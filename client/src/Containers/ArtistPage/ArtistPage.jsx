@@ -4,6 +4,7 @@ import get from 'lodash.get';
 import { withRouter } from 'react-router-dom';
 
 import { fetchArtistIdAC, fetchArtistInfoAC } from '../../Redux/artistReducer/artistActions';
+import { addToFavoriteAC, removeFavoriteAC } from '../../Redux/UserActivity/activityActions';
 
 import TourSnippetList from '../../Components/TourSnippet/TourSnippetList';
 import TagsList from '../../Components/TagsList';
@@ -17,7 +18,13 @@ import "./ArtistPage.css";
 
 
 class ArtistInfo extends Component {
-  componentDidMount() {
+  constructor(props) {
+    super(props);
+    this.state = {
+      favorite: false,
+    };
+  };
+  componentDidMount = async () => {
     if (this.props.isSearchBar) {
       console.log('ok')
     } else {
@@ -25,14 +32,33 @@ class ArtistInfo extends Component {
       if (this.props.concertPage.performance !== undefined) {
         const artist = this.props.concertPage.performance.find(item => item.id == id);
         if (artist !== undefined) {
-          this.props.fetchArtistIdAC(artist.displayName);
-          this.props.fetchArtistInfoAC(artist.displayName);
+          await this.props.fetchArtistIdAC(artist.displayName);
+          await this.props.fetchArtistInfoAC(artist.displayName);
         }
       } else {
         console.table('no artist in state', id)
-
       }
     }
+
+    this.checkFavorite()
+  }
+
+  addToFavorite = async () => {
+    await this.props.addToFavoriteAC(this.props.user._id, this.props.match.params.id)
+    this.checkFavorite()
+  }
+
+  removeFavorite = async () => {
+    await this.props.removeFavoriteAC(this.props.user._id, this.props.match.params.id)
+    this.checkFavorite()
+  }
+
+  checkFavorite = async () => {
+    const check = await this.props.user.favouriteGroups.findIndex((e) => {
+      return e == this.props.match.params.id
+    })
+    const state = check === -1
+    this.setState({ favorite: state })
   }
 
 
@@ -56,6 +82,15 @@ class ArtistInfo extends Component {
         <SimilarArtistsList />
         <FacebookPanel />
         <TourSnippetList />
+        {!this.props.user ?
+          <></> :
+          <>
+          {this.state.favorite?
+            <button onClick={this.addToFavorite}>add to favorite </button>:
+              <button onClick={this.removeFavorite}>remove from fav </button>
+            }
+          </>
+        }
         <ShowAll id={artist.id} />
         <ShowMap id={artist.id} />
         <ArtistTopTracks />
@@ -68,11 +103,14 @@ class ArtistInfo extends Component {
 const mapStateToProps = store => ({
   artist: store.artist,
   concertPage: store.concertPage,
+  user: store.user.user,
 });
 
 const mapDispatchToProps = {
   fetchArtistIdAC,
-  fetchArtistInfoAC
+  fetchArtistInfoAC,
+  addToFavoriteAC,
+  removeFavoriteAC
 };
 
 
