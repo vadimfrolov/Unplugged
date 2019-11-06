@@ -7,6 +7,10 @@ import {
   switchSearchBarAC
 } from "../../Redux/artistReducer/artistActions";
 import { setUserAC, logoutAC } from "../../Redux/UserAuth/actions/userAuth";
+import {
+
+Button
+} from "react-materialize";
 
 import "./navbar.css";
 
@@ -67,7 +71,7 @@ class Navbar extends Component {
                 </NavLink>
               </div> :
               <div>
-                <NavLink activeClassName={"Active"} to={"/userUpdate"}>
+                <NavLink activeClassName={"Active"} to={"/dashboard"}>
                   {this.props.user.user.username}
                 </NavLink>
                 <button onClick={this.logout}> Log out </button>
@@ -81,7 +85,7 @@ class Navbar extends Component {
                 value={this.state.text}
                 onChange={this.handleInput}
               />
-              <button onClick={this.onClick}> search band </button>
+              <Button className="red darken-4 white-text" onClick={this.onClick}> search band </Button>
             </div>
             <NavLink activeClassName={"Active"} to={"/explore"}>Explore</NavLink>
             <Youtube />

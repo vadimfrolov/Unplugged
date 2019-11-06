@@ -30,7 +30,7 @@ class ArtistTrack extends Component {
   render() {
     return (
       <div>
-        <IconButton onClick={this.playButtonClick}>
+        <IconButton color="secondary" onClick={this.playButtonClick}>
           <PlayArrowIcon />
         </IconButton>
         <span>{`${this.props.trackNum + 1} - ${this.props.trackName}`}</span>
