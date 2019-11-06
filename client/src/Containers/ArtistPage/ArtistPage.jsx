@@ -28,6 +28,9 @@ class ArtistInfo extends Component {
           this.props.fetchArtistIdAC(artist.displayName);
           this.props.fetchArtistInfoAC(artist.displayName);
         }
+      } else {
+        console.table('no artist in state', id)
+
       }
     }
   }
