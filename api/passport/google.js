@@ -1,7 +1,7 @@
 require('dotenv').config();
 let GOOGLE_CONSUMER_KEY = process.env.REACT_GOOGLE_OAUTH_KLIENT_ID_KEY;
 let GOOGLE_CONSUMER_SECRET = process.env.REACT_GOOGLE_OAUTH_KLIENT_SECRET;
-
+const User = require('../models/users');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth').OAuthStrategy;
 

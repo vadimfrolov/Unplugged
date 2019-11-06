@@ -1,9 +1,9 @@
 import React from 'react'
 
-const TourSnippet = ({ title, city, start }) => {
+const TourSnippet = ({ title, city }) => {
   return (
     <div>
-      <h2>{title}, {city}, {start}</h2>
+      <h2>{title}, {city}</h2>
     </div>
   )
 }

@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import get from "lodash.get";
-// import { Route, Switch, BrowserRouter as Router,Link } from "react-router-dom";
 
 import { connect } from "react-redux";
 
@@ -10,7 +8,7 @@ import {
   fetchDate
 } from "../../Redux/concertsReducer/concertsActions";
 
-import DataClick from "./DataClick";
+import ConcertsByYear from "./ConcertsByYear";
 
 class ConcertYear extends Component {
   state = {
@@ -19,7 +17,6 @@ class ConcertYear extends Component {
 
   componentDidMount = async () => {
     const id  = this.props.match.params.id;
-    // const id = this.props.artist.id;
     let page = 1;
     let res = await this.props.fetchPastDates(id, page);
     while (res) {
@@ -46,7 +43,7 @@ class ConcertYear extends Component {
               </button>
             );
           })}
-        <DataClick nameArtist={this.props.artist.name}/>
+        <ConcertsByYear nameArtist={this.props.artist.name}/>
       </div>
     );
   }
@@ -61,11 +58,9 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(store) {
-  console.log("ollo.llol", store);
   return {
     artist: store.artist,
     concerts: store.concerts
-    // events: store.events
   };
 }
 

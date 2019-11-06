@@ -10,5 +10,4 @@ export default {
   }
 }
 
-// [ '05.11.15 AC/DC', '02.10.14 Radiohead', '21.09.17 Madonna'],
-// [ '07.11 Chrysta Bell', '07.12 Дельфин', '15.12 Нейромонах Феофан'], [{group:'Chrysta Bell', date:'07.11'},
+

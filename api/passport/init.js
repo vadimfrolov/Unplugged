@@ -1,6 +1,6 @@
 const fb = require('./fb')
 const google = require('./google')
-const User = require('../models/user');
+const User = require('../models/users');
 
 module.exports = (passport) => {
   console.log('dsfnljsdnflksnfl');

@@ -25,10 +25,6 @@ class Login extends Component {
   login = () => {
     this.props.loginAC(this.state)
   }
-
-  fb = () => {
-    this.props.FBloginAC()
-  }
   
 
   render() {
@@ -37,7 +33,6 @@ class Login extends Component {
         <input placeholder='login' onChange={this.onChangeUsername}></input>
         <input placeholder='password' type='password' onChange={this.onChangePassword}></input>
         <button onClick={this.login}>login</button>
-        {/* <button onClick={this.fb}>FB</button>  */}
       </div>
     )
   }
@@ -53,7 +48,6 @@ function mapStateToProps(store) {
 const mapDispatchToProps = {
   loginAC,
   logoutAC,
-  // FBloginAC
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)
