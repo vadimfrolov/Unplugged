@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { loginAC, logoutAC, FBloginAC } from '../../Redux/UserAuth/actions/userAuth'
+import { loginAC, logoutAC } from '../../Redux/UserAuth/actions/userAuth'
 
 class Login extends Component {
   constructor(props) {
@@ -53,7 +53,7 @@ function mapStateToProps(store) {
 const mapDispatchToProps = {
   loginAC,
   logoutAC,
-  FBloginAC
+  // FBloginAC
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)
