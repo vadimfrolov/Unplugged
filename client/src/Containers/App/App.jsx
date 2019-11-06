@@ -9,13 +9,13 @@ import Navbar from "../../Components/Navbar";
 import LandingPage from "../LandingPage";
 import ArtistPage from "../ArtistPage";
 import ConcertPage from "../ConcertPage";
-import Login from '../../Components/User/login'
-import Registration from '../../Components/User/registration'
+import Login from "../../Components/User/login";
+import Registration from "../../Components/User/registration";
 import User from "../User/User";
 import ConcertYear from "../../Components/Concert-by-artist/ConcertYear";
 import ConcertExplore from "../../Components/ConcertExplore";
-import DateConcerts from "../../Components/DateConcerts"
-import MapContainer from '../../Components/Map/Map'
+import DateConcerts from "../../Components/DateConcerts";
+import MapContainer from "../../Components/Map/Map";
 
 import "./styles.css";
 

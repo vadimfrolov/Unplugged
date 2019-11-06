@@ -14,7 +14,6 @@ import {
 } from "../../Redux/artistReducer/artistActions";
 import { setUserAC } from "../../Redux/UserAuth/actions/userAuth";
 
-
 const Pulse = styled.div`
   animation: 5s ${keyframes`${fadeIn}`};
 `;
@@ -27,20 +26,13 @@ class LandingPage extends Component {
     };
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.artist && prevProps.artist !== this.props.artist) {
-      this.props.history.push(`/artists/${this.props.artist.id}`)
-    }
-  }
-
   handleClick = async e => {
     await this.setState({ text: e.target.name });
     await this.props.fetchArtistIdAC(this.state.text);
     await this.props.fetchArtistInfoAC(this.state.text);
+    this.props.history.push(`/artists/${this.props.artist.id}`);
+    window.scrollTo(0, 0);
   };
-
-             
-           
 
   render() {
     return (
@@ -48,11 +40,20 @@ class LandingPage extends Component {
         <div className="info">
           <p className="caption">Discover perfect concert in your city </p>
           <div className="bord">Participate in contests </div>
-          <p className="bordBot">Choose the best live music, tailored to your music taste.</p>
-          <Link to={"/explore"}>  <Button waves="light" style={{ marginLeft: "0px" }} className="bordRad deep-orange accent-4 ">
-            Find a concert
-            <Icon right>music_note</Icon>  
-          </Button>   </Link>
+          <p className="bordBot">
+            Choose the best live music, tailored to your music taste.
+          </p>
+          <Link to={"/explore"}>
+            {" "}
+            <Button
+              waves="light"
+              style={{ marginLeft: "0px" }}
+              className="bordRad deep-orange accent-4 "
+            >
+              Find a concert
+              <Icon right>music_note</Icon>
+            </Button>{" "}
+          </Link>
         </div>
 
         <Slider>
@@ -64,7 +65,7 @@ class LandingPage extends Component {
             <Caption placement="left">
               <p className="bigLetters">For everyone </p>
               <h4 className="capt light #d50000-text text-lighten-3">
-              who loves the music
+                who loves the music
               </h4>
             </Caption>
           </Slide>

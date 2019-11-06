@@ -27,7 +27,7 @@ import TagsList from "../../Components/TagsList";
 import SimilarArtistsList from "../../Components/SimilarArtists/SimilarArtistsList";
 import FacebookPanel from "../../Components/FacebookPanel";
 import ShowAll from "../../Components/TourSnippet/ShowAll";
-import ArtistTopTracks from "../../Components/ArtistTopTracks";
+import ArtistTopTracks from "../../Components/Youtube/ArtistTopTracks";
 import ShowMap from "../../Components/Map/ShowMap";
 
 import "./ArtistPage.css";

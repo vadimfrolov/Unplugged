@@ -31,7 +31,10 @@
 
 .Home-header {
   height: 140px;
+}
 
+.Home-body {
+  margin: 0 10%;
 }
 
 .input {
