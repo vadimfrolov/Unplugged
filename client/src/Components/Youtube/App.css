@@ -66,13 +66,17 @@ progress::-webkit-progress-value {
 /*  */
 
 input[type="range"] {
+  background: #7c8186;
+  border: 0px solid #000000;
   height: 3px;
   -webkit-appearance: none;
   margin: 10px 0;
-  width: 100%;
+  width: 57%;
 }
 input[type="range"]:focus {
   outline: none;
+  border: 0px solid #000000;
+  background: #7c8186;
 }
 input[type="range"]::-webkit-slider-runnable-track {
   width: 100%;
@@ -97,4 +101,5 @@ input[type="range"]::-webkit-slider-thumb {
 
 .input {
   color: white;
+  background: #7c8186;
 }

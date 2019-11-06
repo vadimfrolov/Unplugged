@@ -24,10 +24,11 @@ class App extends React.Component {
     const id = get(this.props, "artist.id");
 
     return (
-      <div>
+      <div >
         <Router>
           <Navbar />
-          <Switch>
+          <div className="AppBody">
+          <Switch >
             <Route exact path="/" component={LandingPage} />
             <Route path="/login" component={Login} />
             <Route path="/registration" component={Registration}/>
@@ -41,6 +42,7 @@ class App extends React.Component {
             <Route path={`/explore/:id`} component={DateConcerts} />
             <Route path='/map/:id' component={MapContainer}/>
           </Switch>
+          </div>
         </Router>
       </div>
     );

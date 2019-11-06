@@ -10,7 +10,7 @@ module.exports = (passport) => {
     profileFields: ['id', 'displayName', 'email']
   }, async (access_token, refresh_token, profile, done) => {
 
-    console.log('sdlfnsdlkfnslkfnlskdn');
+  
     
     // find the user in the database based on their facebook id
     const user = await User.findOne({ fb_id: profile.id })
@@ -18,7 +18,7 @@ module.exports = (passport) => {
       return done(null, user); // user found, return that user
     } else {
       // if there is no user found with that facebook id, create them
-      console.log(profile);
+
       
       const newUser = new User(
         {
