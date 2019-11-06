@@ -10,7 +10,7 @@ const someOtherPlaintextPassword = "not_bacon";
 
 /* GET users listing. */
 
-router.get("/getsession/", async (req, res) => {
+router.get('/getsession/', async (req, res) => {
   req.session.user ? res.json(req.session.user) : res.json(null);
 });
 
@@ -27,7 +27,7 @@ router.put("/registration/", async (req, res) => {
       password: req.body.user.password
     });
     await user.save();
-    req.session.user = user;
+    req.session.user = user
     res.json(user);
   }
 });
@@ -35,33 +35,48 @@ router.put("/registration/", async (req, res) => {
 
 
 router.post('/login/', async (req, res) => {
-  
+
   const user = await User.findOne({
     username: req.body.user.username
   });
   console.log(user);
   if (user.password === req.body.user.password) {
     req.session.user = user;
-    res.json(user);
+    res.json(req.session.user);
+
   } else {
     res.json({ eror: "wrong password" });
   }
 });
 
-router.get(
-  "/login/facebook",
-  passport.authenticate("facebook", { authType: "rerequest" })
-);
+// router.get(
+//   "/login/facebook",
+//   passport.authenticate("facebook", { authType: "rerequest" })
+// );
 
-router.get(
-  "/auth/facebook/callback",
-  passport.authenticate("facebook", { failureRedirect: "/login" }),
-  (req, res) => {
-    req.session.user = req.user;
-    // Successful authentication, redirect home.
-    res.json(user);
-  }
-);
+// router.get('/login/facebook',
+//   passport.authenticate('facebook', { authType: 'rerequest' }));
+
+// router.get('/login/facebook/callback',
+//   passport.authenticate('facebook'),
+//   (req, res) => {
+//     console.log('askjdhoqwh');
+
+//     req.session.user = req.user
+//   });
+
+// router.get('/login/google',
+//   passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] }));
+
+// router.get('/auth/google/callback',
+//   passport.authenticate('google'), (req, res) => {
+//     console.log(req.user);
+    
+//     req.session.user = req.user
+//     // Successful authentication, redirect home.
+//     res.json(req.user);
+//   })
+
 
 router.patch("/update/", async (req, res) => {
   console.log(req.body.user);
@@ -81,8 +96,7 @@ router.get("/logout/", async (req, res, next) => {
   if (req.session.user) {
     try {
       await req.session.destroy();
-      req.session.user = null;
-      res.redirect("/");
+      res.send('ok')
     } catch (error) {
       next(error);
     }

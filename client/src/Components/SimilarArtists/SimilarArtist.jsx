@@ -1,10 +1,13 @@
 import React from 'react'
+import { Chip } from "react-materialize";
+
 
 const SimilarArtist = ({ title }) => {
   return (
-    <div>
-      <h2>{title}</h2>
-    </div>
+    <span className="simAr">
+      
+    <Chip> {title} </Chip>
+    </span>
   )
 }
 

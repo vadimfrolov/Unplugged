@@ -3,9 +3,13 @@ import { connect } from "react-redux";
 import moment from "moment";
 import { withRouter, Link } from "react-router-dom";
 
-import { fetchUpcomingConcertsAC, fetchConcertsByDateAC } from "../../Redux/ConcertExploreReducer/ConcertExploreActions";
+import {
+  fetchUpcomingConcertsAC,
+  fetchConcertsByDateAC
+} from "../../Redux/ConcertExploreReducer/ConcertExploreActions";
 import { switchSearchBarAC } from "../../Redux/artistReducer/artistActions";
 
+import "./ConcertExplore.css";
 
 class ConcertExplore extends Component {
   constructor(props) {
@@ -24,7 +28,7 @@ class ConcertExplore extends Component {
   };
 
   onClick = async () => {
-    await this.props.fetchConcertsByDateAC(this.state.date)
+    await this.props.fetchConcertsByDateAC(this.state.date);
     const date = moment(this.state.date).format("YYYY-MM-DD");
     this.props.history.push(`/explore/${date}`);
   }
@@ -50,7 +54,6 @@ class ConcertExplore extends Component {
   }
 }
 
-
 const mapStateToProps = store => ({
   events: store.events
 });
@@ -61,7 +64,7 @@ const mapDispatchToProps = {
   switchSearchBarAC
 };
 
-
 export default connect(
-  mapStateToProps, mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(withRouter(ConcertExplore));

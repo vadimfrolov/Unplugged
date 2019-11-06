@@ -1,10 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { fetchArtistIdAC, fetchArtistInfoAC, switchSearchBarAC } from '../../Redux/artistReducer/artistActions';
+import { fetchArtistIdAC, fetchArtistInfoAC } from '../../Redux/artistReducer/artistActions';
+import { Chip } from "react-materialize";
 
-
-import SimilarArtist from './SimilarArtist';
+import SimilarArtist from "./SimilarArtist";
 
 class SimilarArtistsList extends React.Component {
   async onClick(name) {
@@ -15,9 +15,9 @@ class SimilarArtistsList extends React.Component {
 
   render() {
     return this.props.artist.similar && this.props.artist.similar.map((el, i) => (
-      <button value={el.name} onClick={() => this.onClick(el.name)}>
+      <Chip value={el.name} onClick={() => this.onClick(el.name)}>
         <SimilarArtist title={el.name} key={`${el.name}_${i}`} />
-      </button>
+      </Chip>
     ));
   }
 }

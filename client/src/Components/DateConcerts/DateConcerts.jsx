@@ -16,7 +16,7 @@ class DateConcerts extends Component {
 
   async componentDidMount() {
     const id = this.props.match.params.id
-    console.log(id)
+
     await this.props.fetchConcertsByDateAC(id);
   }
 
