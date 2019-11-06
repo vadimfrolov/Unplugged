@@ -204,10 +204,10 @@ class Youtube extends Component {
                   onDuration={this.handleDuration}
                 />
               </div>
-              <div className="player-close-icon">
+              <div className="player-close-icon" color="error">
                 {this.props.url && (
-                  <IconButton onClick={this.handleStop} color="primary">
-                    <CloseIcon />
+                  <IconButton onClick={this.handleStop} color="error">
+                    <CloseIcon color="error"/>
                   </IconButton>
                 )}
               </div>
@@ -216,21 +216,21 @@ class Youtube extends Component {
 
           <ButtonGroup
             className="player-controls"
-            color="secondary"
             aria-label="outlined primary button group"
+            color="secondary"
           >
-            <Button onClick={this.playPrevious}>
-              <FastRewindOutlinedIcon />
+            <Button onClick={this.playPrevious} >
+              <FastRewindOutlinedIcon color="error"/>
             </Button>
-            <Button onClick={this.handlePlayPause}>
+            <Button onClick={this.handlePlayPause} >
               {playing ? (
-                <PauseCircleOutlineOutlinedIcon />
+                <PauseCircleOutlineOutlinedIcon color="error"/>
               ) : (
-                <PlayCircleOutlineOutlinedIcon />
+                <PlayCircleOutlineOutlinedIcon color="error"/>
               )}
             </Button>
-            <Button onClick={this.playNext}>
-              <FastForwardOutlinedIcon />
+            <Button onClick={this.playNext} >
+              <FastForwardOutlinedIcon color="error"/>
             </Button>
 
             {/* <input

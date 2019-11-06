@@ -14,8 +14,7 @@ const youTubeApikey = process.env.REACT_APP_YOUTUBE_API_KEY;
 class ArtistTrack extends Component {
   playButtonClick = async () => {
     const { artist } = this.props;
-    const text = encodeURIComponent(artist);
-    const response = await axios.post("/search", { text });
+    const response = await axios.post("/search", { text: artist });
     const topTracks = get(response, "data.dataSearch.topTracks", []);
     const trackName = topTracks[0].name;
     const query = encodeURIComponent(`${artist} ${trackName}`);
