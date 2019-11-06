@@ -27,16 +27,6 @@ class LandingPage extends Component {
     };
   }
 
-  componentDidMount() {
-    this.checkSession();
-  }
-
-  checkSession = async () => {
-    const response = await fetch("/users/getsession/");
-    const user = await response.json();
-    this.props.setUserAC({ user: user });
-  };
-
   componentDidUpdate(prevProps) {
     if (this.props.artist && prevProps.artist !== this.props.artist) {
       this.props.history.push(`/artists/${this.props.artist.id}`)
