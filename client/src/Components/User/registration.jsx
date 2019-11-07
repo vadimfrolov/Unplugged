@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { setUserAC, registrationAC } from '../../Redux/UserAuth/actions/userAuth';
+import { registrationAC } from '../../Redux/UserAuth/actions/userAuth';
 
 import M from "materialize-css";
 import {
@@ -8,8 +8,7 @@ import {
   Card,
   Row,
   Col,
-  Button,
-  TextInput
+  Button
 } from "react-materialize";
 
 class Registration extends Component {

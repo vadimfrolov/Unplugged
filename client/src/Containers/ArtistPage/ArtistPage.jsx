@@ -3,6 +3,10 @@ import { connect } from "react-redux";
 import get from "lodash.get";
 import { withRouter } from "react-router-dom";
 
+import {
+  addToFavoriteAC,
+  removeFavoriteAC
+} from "../../Redux/UserActivity/activityActions";
 import M from "materialize-css";
 import {
   Card,
@@ -21,15 +25,25 @@ import {
 import TourSnippetList from "../../Components/TourSnippet/TourSnippetList";
 import TagsList from "../../Components/TagsList";
 import SimilarArtistsList from "../../Components/SimilarArtists/SimilarArtistsList";
-import FacebookPanel from "../../Components/FacebookPanel";
+import CommentArtist from "../../Components/CommentsArtist/CommentArtist";
+import CommentListArtist from "../../Components/CommentsArtist/CommentListArtist";
+
 import ShowAll from "../../Components/TourSnippet/ShowAll";
-import ArtistTopTracks from "../../Components/ArtistTopTracks";
+import ArtistTopTracks from "../../Components/Youtube/ArtistTopTracks";
 import ShowMap from "../../Components/Map/ShowMap";
+
+import FacebookPanel from "../../Components/FacebookPanel";
 
 import "./ArtistPage.css";
 
 class ArtistInfo extends Component {
-  async componentDidMount() {
+  constructor(props) {
+    super(props);
+    this.state = {
+      favorite: false
+    };
+  }
+  componentDidMount = async () => {
     if (this.props.isSearchBar) {
     } else {
       const id = this.props.match.params.id;
@@ -38,16 +52,41 @@ class ArtistInfo extends Component {
           item => item.id == id
         );
         if (artist !== undefined) {
-          this.props.fetchArtistIdAC(artist.displayName);
-          this.props.fetchArtistInfoAC(artist.displayName);
+          await this.props.fetchArtistIdAC(artist.displayName);
+          await this.props.fetchArtistInfoAC(artist.displayName);
         }
       }
     }
-  }
+
+    // this.checkFavorite()
+  };
+
+  addToFavorite = async () => {
+    await this.props.addToFavoriteAC(
+      this.props.user._id,
+      this.props.match.params.id
+    );
+    this.checkFavorite();
+  };
+
+  removeFavorite = async () => {
+    await this.props.removeFavoriteAC(
+      this.props.user._id,
+      this.props.match.params.id
+    );
+    this.checkFavorite();
+  };
+
+  checkFavorite = async () => {
+    const check = await this.props.user.favouriteGroups.findIndex(e => {
+      return e == this.props.match.params.id;
+    });
+    const state = check === -1;
+    this.setState({ favorite: state });
+  };
 
   render() {
     const { artist } = this.props;
-
     const name = get(artist, "name");
     const content = get(artist, "bio.content");
     const pic = get(artist, "pic");
@@ -91,6 +130,19 @@ class ArtistInfo extends Component {
             <p className="genresName">Upcoming concerts:</p>
             <TourSnippetList />
             <div style={{marginBottom: "100px", marginRight: "100px"}}>
+            {!this.props.user ? (
+              <></>
+            ) : (
+              <>
+                {this.state.favorite ? (
+                  <button onClick={this.addToFavorite}>add to favorite </button>
+                ) : (
+                  <button onClick={this.removeFavorite}>
+                    remove from fav{" "}
+                  </button>
+                )}
+              </>
+            )}
             <ShowAll id={artist.id} />
             <ShowMap id={artist.id}/>
             </div>
@@ -99,23 +151,25 @@ class ArtistInfo extends Component {
             </div>
           </Col>
         </Row>
+        <CommentArtist nameArtist={artist.name} idArtist={artist.id} />
+        <CommentListArtist commentsArtists={artist.comments} />
       </div>
     );
   }
 }
 
-
 const mapStateToProps = store => ({
   artist: store.artist,
-  concertPage: store.concertPage
+  concertPage: store.concertPage,
+  user: store.user.user
 });
 
 const mapDispatchToProps = {
   fetchArtistIdAC,
   fetchArtistInfoAC,
-  fetchArtistConcertAC
+  addToFavoriteAC,
+  removeFavoriteAC
 };
-
 
 export default connect(
   mapStateToProps,

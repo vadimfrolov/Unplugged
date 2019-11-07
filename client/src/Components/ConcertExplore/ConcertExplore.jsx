@@ -8,6 +8,7 @@ import {
   fetchConcertsByDateAC
 } from "../../Redux/ConcertExploreReducer/ConcertExploreActions";
 import { switchSearchBarAC } from "../../Redux/artistReducer/artistActions";
+import PlayArtistTopTracks from "../Youtube/PlayArtistTopTracks";
 
 import M from "materialize-css";
 import {
@@ -39,12 +40,12 @@ class ConcertExplore extends Component {
     await this.props.fetchConcertsByDateAC(this.state.date);
     const date = moment(this.state.date).format("YYYY-MM-DD");
     this.props.history.push(`/explore/${date}`);
-  }
+  };
 
-  onClickPagination = async (e) => {
-    await this.props.fetchUpcomingConcertsAC(e.target.innerText)
-  }
-
+  onClickPagination = async e => {
+    await this.props.fetchUpcomingConcertsAC(e.target.innerText);
+    window.scrollTo(0, 0)
+  };
 
   render() {
     return (
@@ -57,15 +58,17 @@ class ConcertExplore extends Component {
         </Row>
         <Row style={{ marginTop: "80px" }}>
           <ul>
-          {this.props.events.allEvents && this.props.events.allEvents.map((el, i) =>
-            <Link to={`/concert/${this.props.events.allEvents[i].id}`}>
+            {this.props.events.allEvents && this.props.events.allEvents.map((el, i) =>
               <li style={{ padding: "22px", border: "1px solid #424242", marginTop: "10px", textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap", color: "white" }} key={i}>
-              <Col m={4} style={{ fontWeight:"bold", textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap", color: "white" }}><i style={{ marginRight:"20px" }} class="small material-icons">date_range</i>{moment(new Date(el.start.date)).format("ll")}</Col>
-              <Col m={4} style={{ textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap", color: "white" }}><i style={{ marginRight:"20px" }} class="small material-icons">face</i>{el.performance[0] ? el.performance[0].displayName : el.displayName}</Col>
-              <Col m={4} style={{ textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap", color: "white" }}><i style={{ marginRight:"20px" }} class="small material-icons">location_city</i>{el.venue && el.venue.displayName}</Col>
+                <Link to={`/concert/${this.props.events.allEvents[i].id}`}>
+                  <Col m={3} style={{ fontWeight: "bold", textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap", color: "white" }}><i style={{ marginRight: "20px" }} class="small material-icons">date_range</i>{moment(new Date(el.start.date)).format("ll")}</Col>
+                  <Col m={3} style={{ textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap", color: "white" }}><i style={{ marginRight: "20px" }} class="small material-icons">face</i>{el.performance[0] ? el.performance[0].displayName : el.displayName}</Col>
+                  <Col m={4} style={{ textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap", color: "white" }}><i style={{ marginRight: "20px" }} class="small material-icons">location_city</i>{el.venue && el.venue.displayName}</Col>
+                </Link>
+                <Col style={{textAlign: "right"}} m={2}><PlayArtistTopTracks artist={el.performance[0].displayName} concertPage={true} /></Col>
               </li>
-              </Link>
-          )}
+            )}
+          </ul>
           <Col m={4}></Col><Col style={{ margin: "40px 0px" }}>
             <Button style={{ backgroundColor: "#b71c1c" }} onClick={this.onClickPagination}>1</Button>
             <Button style={{ backgroundColor: "#b71c1c" }} onClick={this.onClickPagination}>2</Button>
@@ -73,7 +76,7 @@ class ConcertExplore extends Component {
             <Button style={{ backgroundColor: "#b71c1c" }} onClick={this.onClickPagination}>4</Button>
             <Button style={{ backgroundColor: "#b71c1c" }} onClick={this.onClickPagination}>5</Button>
           </Col>
-          </ul>
+
         </Row>
       </Container>
     );
