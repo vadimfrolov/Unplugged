@@ -1,5 +1,5 @@
 .Block {
-  margin: 3%;
+  margin: 2%;
   color: white;
   font-size: 30px;
   width: 100%;
@@ -12,12 +12,27 @@
   color: white;
 }
 
-.avatarWrapper {
+.geoBlock {
+  background-color: black;
+  text-align: center;
+  width: 12vw;
+  height: 4vw;
+  padding-top: 10%;
+  font-size: 40px;
+  border-radius: 15px;
+  font-weight: 500;
+  margin-bottom: 3%
+}
 
-  display: flex;
+.avatarWrapper {
   font-size: 30px;
   color: white;
   margin-top: 5vh;
+}
+
+.geo {
+  margin-left: 5%;
+  margin-top: -2%;
 }
 
 .bordRad {
@@ -26,9 +41,10 @@
   margin-left: 30%;
 }
 
-/* .avatar {
-  width: 10%;
-} */
+.avatarMap {
+  display: flex;
+  margin-bottom: 5%;
+}
 
 .userAvatar {
   width: 8vw
