@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { NavLink, withRouter } from "react-router-dom";
+import { NavLink, withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import {
   fetchArtistIdAC,
@@ -13,7 +13,7 @@ import {
 } from "react-materialize";
 
 import "./navbar.css";
-// import {Navbar, NavItem } from "react-materialize";
+import {Icon } from "react-materialize";
 
 import Youtube from "../Youtube/Youtube";
 
@@ -72,7 +72,7 @@ class Navbar1 extends Component {
               ? <NavLink activeClassName={"Active"} to={"/registration"}>
                 Registration
                 </NavLink>
-              : <Button flat style={{ color: "white", fontSize: "28px" }} onClick={this.logout}>Log out</Button>}
+              : <Button flat style={{ color: "white", fontSize: "28px" }} onClick={this.logout}> <Link to={"/landing"}>Log out</Link ></Button>}
             <div>
               <input
                 className="input"
@@ -81,7 +81,7 @@ class Navbar1 extends Component {
                 value={this.state.text}
                 onChange={this.handleInput}
               />
-              <Button className="red darken-4 white-text" onClick={this.onClick}>Search</Button>
+              <Button className="red darken-4 white-text" onClick={this.onClick}>Search<Icon right>search</Icon></Button>
             </div>
             <NavLink activeClassName={"Active"} to={"/explore"}>Explore</NavLink>
             <Youtube />

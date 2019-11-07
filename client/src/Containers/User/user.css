@@ -1,28 +1,53 @@
 .Block {
-  margin: 3%;
+  margin: 2%;
   color: white;
   font-size: 30px;
   width: 100%;
 }
 
 .userWrapper {
-  margin: 5%;
   display: flex;
   flex-wrap: nowrap;
-  font-size: 30px;
+  font-size: 25px;
   color: white;
+}
+
+.geoBlock {
+  background-color: black;
+  text-align: center;
+  width: 12vw;
+  height: 4vw;
+  padding-top: 10%;
+  font-size: 40px;
+  border-radius: 15px;
+  font-weight: 500;
+  margin-bottom: 3%
 }
 
 .avatarWrapper {
   font-size: 30px;
   color: white;
-  margin: 5%;
+  margin-top: 5vh;
+}
+
+.geo {
+  margin-left: 5%;
+  margin-top: -2%;
 }
 
 .bordRad {
-  margin: 10px;
-  font-size: 15px;
-  margin-left: 125px
+  margin-top: 3%;
+  font-size: 0.7em;
+  margin-left: 30%;
+}
+
+.avatarMap {
+  display: flex;
+  margin-bottom: 5%;
+}
+
+.userAvatar {
+  width: 8vw
 }
 
 .rec {
@@ -41,20 +66,24 @@
   font-weight: 200;
   margin-bottom: 20px;
 }
+.userHead {
+  font-size: 1.0em;
+}
+
 
 .blockUser {
   margin-right: 20px;
-
   background-color: black;
   border-radius: 15px;
   width: 30%;
   padding: 23px;
 }
 
+
 .User {
-  font-size: 40px;
+  font-size: 1.8em;
   font-weight: 600;
-  margin: 2%;
+
 }
 
 .selected {
@@ -63,9 +92,7 @@
   margin-bottom: 3%;
 }
 
-.avatar {
-  margin: 2%;
-}
+
 
 .dateConcert {
   color: #e6e6fa;

@@ -50,7 +50,7 @@ class LandingPage extends Component {
             <Button
               waves="light"
               style={{ marginLeft: "0px" }}
-              className="bordRad deep-orange accent-4 "
+              className="bordRad red darken-4"
             >
               Find a concert
               <Icon right>music_note</Icon>
@@ -66,16 +66,12 @@ class LandingPage extends Component {
           >
             <Caption placement="left">
               <p className="bigLetters">For everyone </p>
-              <h4 className="capt light #d50000-text text-lighten-3" style={{ fontSize: "30px", marginLeft: '-80px' }}>
-                who loves the music
+              <h4 className="capt light #b71c1c-text text-lighten-3" style={{ fontSize: "30px", marginLeft: '-80px' }}>
+                who loves music
               </h4>
             </Caption>
           </Slide>
-          <Slide
-            image={
-              <img src="http://pavbca.com/walldb/original/6/9/b/705333.jpg" />
-            }
-          >
+          <Slide image={<img src="http://pavbca.com/walldb/original/6/9/b/705333.jpg" />}>
             <Caption placement="right">
               <p className="bigLetters">Find your favorite artist</p>
               <h5 className="capt light #d50000-text text-lighten-3">

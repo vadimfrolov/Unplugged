@@ -2,13 +2,19 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import get from "lodash.get";
 import { withRouter, Link } from "react-router-dom";
+import { parse, format } from 'date-fns'
 import moment from "moment";
 
 import "./concertPage.css";
 
 import { fetchArtistIdAC, fetchArtistInfoAC, keepArtistNameAC } from "../../Redux/artistReducer/artistActions";
 import { fetchConcertInfoAC } from "../../Redux/concertPageReducer/concertPageActions";
-import { previousConcertAC, upcomingConcertAC, upcomingConcertCancelAC } from '../../Redux/UserActivity/activityActions'
+import {
+  previousConcertAC,
+  upcomingConcertAC,
+  upcomingConcertCancelAC,
+  previousConcertRemoveAC
+} from '../../Redux/UserActivity/activityActions'
 
 import CommentConcert from "../../Components/CommentsConcert";
 import CommentList from "../../Components/CommentsConcert/CommentList";
@@ -28,13 +34,16 @@ class ConcertPage extends Component {
     super(props);
     this.state = {
       concertGo: false,
+      concertBeen: false,
     };
   };
 
   componentDidMount = async () => {
     const id = this.props.match.params.id
     await this.props.fetchConcertInfoAC(id);
-    await this.concertActivityCheck()
+    this.concertActivityCheck()
+    this.previousConcertActivityCheck()
+
   }
 
 
@@ -44,15 +53,20 @@ class ConcertPage extends Component {
   }
 
   previousConcert = async () => {
+    const formatD = format(parse(this.props.concertPage.start.date, 'yyyy-MM-dd', new Date()), 'MM.dd.yy')
+    console.log('sjadhoidhfjkhoiwjqw', format);
+
     await this.props.previousConcertAC(
       {
         userId: this.props.user._id,
         eventName: this.props.concertPage.displayName,
         eventDate: this.props.concertPage.start.date,
+        formatDate: formatD,
         eventLocation: this.props.concertPage.location,
+        performers: this.props.concertPage.performance,
       },
       this.props.concertPage.id)
-    this.concertActivityCheck()
+    this.previousConcertActivityCheck()
   }
 
   concertActivityCheck = () => {
@@ -67,13 +81,28 @@ class ConcertPage extends Component {
 
   }
 
+  previousConcertActivityCheck = () => {
+
+    const check = this.props.user.previousConcerts.find((e) => {
+      return e.concertId == this.props.concertPage.id
+    })
+
+    !check ?
+      this.setState({ concertBeen: false }) :
+      this.setState({ concertBeen: true });
+
+  }
+
   upcomingConcert = async () => {
+    const formatD = format(parse(this.props.concertPage.start.date, 'yyyy-MM-dd', new Date()), 'MM.dd.yy')
     await this.props.upcomingConcertAC(
       {
         userId: this.props.user._id,
         eventName: this.props.concertPage.displayName,
         eventDate: this.props.concertPage.start.date,
+        formatDate: formatD,
         eventLocation: this.props.concertPage.location,
+        performers: this.props.concertPage.performance,
       },
       this.props.concertPage.id)
 
@@ -94,9 +123,15 @@ class ConcertPage extends Component {
     this.props.history.push(`/artists/${this.props.artist.id}`);
   }
 
+  previousConcertRemove = async () => {
+    await this.props.previousConcertRemoveAC(this.props.user._id, this.props.concertPage.id)
+    this.previousConcertActivityCheck()
+  }
+
   render() {
     const { concertPage } = this.props;
     const concertFlag = this.state.concertGo
+    const prevFlag = this.state.concertBeen
 
     const id = get(concertPage, "id");
     const name = get(concertPage, "displayName");
@@ -115,6 +150,23 @@ class ConcertPage extends Component {
             <Card
               className="black"
               textClassName="white-text"
+              title={name}
+              actions={[
+                this.convertDate() > Date.now() ?
+                  <>
+                    {!concertFlag ?
+
+                      <Button className="red darken-4" onClick={this.upcomingConcert}>I'll be there!</Button> :
+                      <Button className="red darken-4" onClick={this.upcomingConcertCancel}>Cancel</Button>
+                    }
+                  </> :
+                  <>
+                    {!prevFlag ?
+                      <Button className="red darken-4" onClick={this.previousConcert}>I've been there!</Button> :
+                      <Button className="red darken-4" onClick={this.previousConcertRemove}>Remove!</Button>
+                    }
+                  </>
+              ]}
             >
               <Row>
                 <Col m={9}>
@@ -177,7 +229,8 @@ const mapDispatchToProps = {
   upcomingConcertCancelAC,
   fetchArtistIdAC,
   fetchArtistInfoAC,
-  keepArtistNameAC
+  keepArtistNameAC,
+  previousConcertRemoveAC
 };
 
 export default connect(

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { loginAC, logoutAC } from '../../Redux/UserAuth/actions/userAuth';
 
+import { Link } from "react-router-dom";
+
 import M from "materialize-css";
 import {
   Container,
@@ -48,7 +50,7 @@ class Login extends Component {
               <div>
                 <input style={{ color: "white" }} type="text" placeholder="Username" name="username" onChange={this.onChangeUsername} />
                 <input style={{ color: "white" }} type="password" placeholder="Password" name="password" onChange={this.onChangePassword} />
-                <Button style={{ backgroundColor: "#b71c1c" }} onClick={this.login}>Log In</Button>
+                <Link to={"/dashboard"}> <Button style={{ backgroundColor: "#b71c1c" }} onClick={this.login}>Log In</Button>     </Link >
               </div>
             </Card>
           </Col>

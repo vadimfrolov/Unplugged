@@ -15,6 +15,7 @@ import ConcertYear from "../../Components/Concert-by-artist/ConcertYear";
 import ConcertExplore from "../../Components/ConcertExplore";
 import DateConcerts from "../../Components/DateConcerts";
 import MapContainer from "../../Components/Map/Map";
+import UserMapContainer from '../../Components/UserGeo/UserMap'
 
 import "./styles.css";
 
@@ -39,6 +40,7 @@ class App extends React.Component {
               <Route exact path="/explore" component={ConcertExplore} />
               <Route path={`/explore/:id`} component={DateConcerts} />
               <Route path='/map/:id' component={MapContainer} />
+              {/* <Route path='user/map/' component={UserMapContainer} /> */}
             </Switch>
           </div>
         </Router>

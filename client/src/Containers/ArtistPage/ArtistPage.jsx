@@ -14,7 +14,8 @@ import {
   Row,
   Col,
   Modal,
-  Button
+  Button,
+  Icon
 } from "react-materialize";
 
 import {
@@ -33,6 +34,7 @@ import CommentListArtist from "../../Components/CommentsArtist/CommentListArtist
 import ShowAll from "../../Components/TourSnippet/ShowAll";
 import ArtistTopTracks from "../../Components/Youtube/ArtistTopTracks";
 import ShowMap from "../../Components/Map/ShowMap";
+import LikeButton from './LikeButton'
 
 import FacebookPanel from "../../Components/FacebookPanel";
 
@@ -48,17 +50,17 @@ class ArtistInfo extends Component {
   componentDidMount = async () => {
     if (this.props.isSearchBar) {
       console.log('ok')
-    // } else if (!this.props.isSearchBar) {
-    //   const id = this.props.match.params.id;
-    //   if (this.props.concertPage.performance !== undefined) {
-    //     const artist = this.props.concertPage.performance.find(
-    //       item => item.id == id
-    //     );
-    //     if (artist !== undefined) {
-    //       await this.props.fetchArtistIdAC(artist.displayName);
-    //       await this.props.fetchArtistInfoAC(artist.displayName);
-    //     }
-    //   }
+      // } else if (!this.props.isSearchBar) {
+      //   const id = this.props.match.params.id;
+      //   if (this.props.concertPage.performance !== undefined) {
+      //     const artist = this.props.concertPage.performance.find(
+      //       item => item.id == id
+      //     );
+      //     if (artist !== undefined) {
+      //       await this.props.fetchArtistIdAC(artist.displayName);
+      //       await this.props.fetchArtistInfoAC(artist.displayName);
+      //     }
+      //   }
     } else {
       console.log('ololololo')
       const id = this.props.match.params.id
@@ -115,7 +117,7 @@ class ArtistInfo extends Component {
               title="Biography"
               actions={[
                 <Modal
-                  trigger={<Button className="red darken-4">Show full bio</Button>}
+                  trigger={<Button className="red darken-4">Show full bio<Icon right>zoom_out_map</Icon></Button>}
                 >
                   <p className="insideBio">{content}</p>
                 </Modal>
@@ -145,13 +147,7 @@ class ArtistInfo extends Component {
                 <></>
               ) : (
                   <>
-                    {!this.state.favorite ? (
-                      <Button className="red darken-4" onClick={this.addToFavorite}>Add to favourites</Button>
-                    ) : (
-                        <Button className="red darken-4" onClick={this.removeFavorite}>
-                          Remove from favourites{" "}
-                        </Button>
-                      )}
+                    <LikeButton user={this.props.user} />
                   </>
                 )}
               <ShowAll id={artist.id} />

@@ -8,7 +8,7 @@ import M from "materialize-css";
 import {
   Row,
   Button,
-  Textarea
+  Textarea, Icon
 } from "react-materialize";
 
 class CommentArtist extends Component {
