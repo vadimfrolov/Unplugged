@@ -10,7 +10,6 @@ import Flashmob from "../../Components/Flashmob";
 import CommentConcert from "../../Components/CommentsConcert";
 import CommentList from "../../Components/CommentsConcert/CommentList";
 
-
 class ConcertPage extends Component {
   async componentDidMount() {
     const id = this.props.match.params.id;
@@ -39,7 +38,7 @@ class ConcertPage extends Component {
 
         <button>I'll be there!</button>
         <Flashmob />
-     
+
         <CommentConcert nameArtist={performers} idConcert={id} />
         <CommentList comments={comments} />
       </div>
