@@ -96,7 +96,7 @@ class LandingPage extends Component {
         {dataArtists.artists.map(group => (
           <div style={{ margin: "40px" }}>
             <Pulse>
-              <div className="hoverable" onClick={this.handleClick} name={group.name}>
+              <div className="hoverable responsive-video" onClick={this.handleClick} name={group.name}>
                 <img
                   style={{ borderRadius: "15px" }}
                   src={group.profilePic}
