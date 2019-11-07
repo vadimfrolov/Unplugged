@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import get from "lodash.get";
 import { connect } from "react-redux";
 
-import { fetchAddCommentAC } from "../../Redux/concertPageReducer/concertPageActions";
+import { fetchAddCommentArtistAC } from "../../Redux/artistReducer/artistActions";
 
 
-class CommentConcert extends Component {
+class CommentArtist extends Component {
   state = {
     text: "",
     date: ""
@@ -14,17 +14,18 @@ class CommentConcert extends Component {
     e.preventDefault();
     this.setState({
       text: e.target.value,
-      date: new Date()  
+      date: new Date()   //moment(new Date()).format("LLL")
     });
   };
+
   onClick = async () => {
-    const { nameArtist, idConcert, user } = this.props;
+    const { nameArtist, idArtist, user } = this.props;
     const nameuser = get(user, "user.username");
     const iduser = get(user, "user._id");
     const { text, date } = this.state;
-    let concert = {
-      nameArtists: nameArtist,
-      idConcert: idConcert,
+    let comment = {
+      nameArtist: nameArtist,
+      idArtist: idArtist,
       comments: {
         nameUser: nameuser,
         idUser: iduser,
@@ -32,11 +33,12 @@ class CommentConcert extends Component {
         date: date
       }
     };
-    await this.props.fetchAddCommentAC(concert);
+    await this.props.fetchAddCommentArtistAC(comment);
     await this.setState({ text: "", data: "" });
   };
 
   render() {
+
     return (
       <div>
         <input
@@ -55,7 +57,7 @@ class CommentConcert extends Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchAddCommentAC: comment => dispatch(fetchAddCommentAC(comment))
+    fetchAddCommentArtistAC: comment => dispatch(fetchAddCommentArtistAC(comment))
   };
 }
 
@@ -68,4 +70,4 @@ function mapStateToProps(store) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(CommentConcert);
+)(CommentArtist);

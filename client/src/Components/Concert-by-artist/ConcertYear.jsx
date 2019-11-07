@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import get from "lodash.get";
-// import { Route, Switch, BrowserRouter as Router,Link } from "react-router-dom";
 
+
+import UpcomingConcert from "./UpcomingConcert";
 import { connect } from "react-redux";
 
 import {
@@ -14,12 +14,14 @@ import ConcertsByYear from "./ConcertsByYear";
 
 class ConcertYear extends Component {
   state = {
-    year: []
+    year: [],
+    isLoading: true,
+
   };
 
   componentDidMount = async () => {
+    this.setState({isLoading:false})
     const id  = this.props.match.params.id;
-    // const id = this.props.artist.id;
     let page = 1;
     let res = await this.props.fetchPastDates(id, page);
     while (res) {
@@ -36,8 +38,11 @@ class ConcertYear extends Component {
   };
 
   render() {
+    const id  = this.props.match.params.id;
     return (
       <div>
+        {/* {this.state.isLoading?} */}
+        <UpcomingConcert artistId ={id}/>
         {this.props.concerts.years &&
           this.props.concerts.years.map((el, i) => {
             return (
@@ -61,11 +66,11 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(store) {
-  console.log("ollo.llol", store);
+
   return {
     artist: store.artist,
     concerts: store.concerts
-    // events: store.events
+ 
   };
 }
 

@@ -2,10 +2,8 @@ const createError = require('http-errors');
 const express = require('express');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
-const { connect } = require('mongoose');
-const bodyParser = require("body-parser");
 const passport = require('passport');
-const FacebookStrategy = require('passport-facebook')
+
 const path = require('path');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
@@ -18,7 +16,7 @@ const instaRouter = require("./routes/insta");
 
 const app = express();
 
-// passport
+
 
 app.use(
   session({
@@ -36,12 +34,6 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-// mongoose 
-
-// connect("mongodb://localhost:27017/final", {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true
-// });
 
 
 // passport
@@ -62,13 +54,6 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-// mongoose 
-
-// connect("mongodb://localhost:27017/final", {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true
-// });
-
 
 
 // view engine setup
@@ -86,7 +71,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Подключаем mongoose.
 const mongoose = require("mongoose");
 mongoose.connect("mongodb://localhost:27017/final", {
-  useNewUrlParser: true
+  useNewUrlParser: true,
+  useUnifiedTopology: true 
 });
 
 app.use('/', indexRouter);

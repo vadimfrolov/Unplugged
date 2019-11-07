@@ -6,7 +6,8 @@ import { withRouter } from "react-router-dom";
 import TourSnippetList from "../../Components/TourSnippet/TourSnippetList";
 import TagsList from '../../Components/TagsList';
 import SimilarArtistsList from '../../Components/SimilarArtists/SimilarArtistsList';
-import CommentSection from '../../Components/CommentsConcert';
+import CommentArtist from '../../Components/CommentsArtist/CommentArtist';
+import CommentListArtist from '../../Components/CommentsArtist/CommentListArtist'
 import ArtistTopTracks from "../../Components/ArtistTopTracks"
 
 import "./ArtistPage.css";
@@ -15,12 +16,15 @@ import ShowAll from "../../Components/TourSnippet/ShowAll"
 import ShowMap from '../../Components/Map/ShowMap'
 
 class ArtistInfo extends Component {
+
+  
   render() {
     const { artist } = this.props;
 
     const name = get(artist, "name");
+
     const content = get(artist, "bio.content");
-    const id = get(artist, 'id');
+   
     return (
       <div>
         <p className="groupName">{name}</p>
@@ -33,7 +37,8 @@ class ArtistInfo extends Component {
         <ShowMap id={artist.id}/>
         <ArtistTopTracks />
         <TourSnippetList/>
-        {/* <CommentSection  /> */}
+        <CommentArtist nameArtist={artist.name} idArtist={artist.id}/>
+        <CommentListArtist commentsArtists={artist.comments}/>
       </div>
     );
   }

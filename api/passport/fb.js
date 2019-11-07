@@ -16,21 +16,15 @@ module.exports = (passport) => {
       return done(null, user); // user found, return that user
     } else {
       // if there is no user found with that facebook id, create them
-      // console.log(profile);
+     
       
       const newUser = new User(
         {
           fb_id: profile.id,
-<<<<<<< HEAD
-          Password: access_token,
-          Username: profile.displayName,
-          Email: profile.email
-=======
           password: access_token,
           userName: profile.displayName,
           email: profile.email
 
->>>>>>> 87a53fb09606853a167d3fe2068bc6eeb16a7159
         })
       // save our user to the database
       await newUser.save(function (err) {

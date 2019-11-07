@@ -27,15 +27,7 @@ class LandingPage extends Component {
     };
   }
 
-  componentDidMount() {
-    this.checkSession();
-  }
-
-  checkSession = async () => {
-    const response = await fetch("/users/getsession/");
-    const user = await response.json();
-    this.props.setUserAC({ user: user });
-  };
+  
 
   componentDidUpdate(prevProps) {
     if (this.props.artist && prevProps.artist !== this.props.artist) {
@@ -43,14 +35,11 @@ class LandingPage extends Component {
     }
   }
 
-  // handleDiv = e => {
-  //   this.setState({ text: e.target.value });
-  //   console.log(e.target)
-  // };
+
 
   handleClick = async e => {
-    // console.dir(e);
-    console.log(e.target.name);
+  
+   
     await this.setState({ text: e.target.name });
     await this.props.fetchArtistIdAC(this.state.text);
     await this.props.fetchArtistInfoAC(this.state.text);

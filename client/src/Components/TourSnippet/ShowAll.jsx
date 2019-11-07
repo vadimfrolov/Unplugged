@@ -1,15 +1,16 @@
-import React, { Component } from 'react';
-import {BrowserRouter as Router, Link } from "react-router-dom";
+import React, { Component } from "react";
+import {  Link } from "react-router-dom";
 
 
 
-export default class ShowAll extends Component{
-    render(){
-        return(
-            <Link to={`/concerts/${this.props.id}`}>
-             <button>Show All</button>
-             </Link>
-
-        )
-    }
+export default class ShowAll extends Component {
+  render() {
+    return (
+      <div>
+        <Link to={`/concerts/${this.props.id}`}>
+          <button>Show All</button>
+        </Link>
+      </div>
+    );
+  }
 }

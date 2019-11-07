@@ -19,8 +19,7 @@ import "./styles.css";
 
 class App extends React.Component {
   render() {
-    const id = get(this.props, "artist.id");
-
+  
     return (
       <div>
         <Router>

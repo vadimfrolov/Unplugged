@@ -6,24 +6,17 @@ import { withRouter } from "react-router-dom";
 import { fetchConcertInfoAC } from "../../Redux/concertPageReducer/concertPageActions";
 
 import Flashmob from "../../Components/Flashmob";
-import TagsList from "../../Components/TagsList";
-import SimilarArtistsList from "../../Components/SimilarArtists/SimilarArtistsList";
-import CommentSection from "../../Components/CommentsConcert";
+
+import CommentConcert from "../../Components/CommentsConcert";
 import CommentList from "../../Components/CommentsConcert/CommentList";
+
 
 class ConcertPage extends Component {
   async componentDidMount() {
     const id = this.props.match.params.id;
+
     await this.props.fetchConcertInfoAC(id);
   }
-
-  // async componentDidUpdate(prevProps) {
-  //   const id = this.props.match.params.id
-  //   if (id && prevProps.concerts.idConcert !== id) {
-  //     await this.props.fetchConcertInfoAC(id);
-  //   }
-  // }
-
   render() {
     const { concertPage } = this.props;
 
@@ -43,9 +36,11 @@ class ConcertPage extends Component {
             <p key={`${name}_${i}`}>{el.displayName}</p>
           ))}
         </p>
+
         <button>I'll be there!</button>
         <Flashmob />
-        <CommentSection nameArtist={performers} idConcert={id} />
+     
+        <CommentConcert nameArtist={performers} idConcert={id} />
         <CommentList comments={comments} />
       </div>
     );

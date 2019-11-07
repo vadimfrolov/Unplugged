@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { setUserAC, registrationAC } from '../../Redux/UserAuth/actions/userAuth'
+import {  registrationAC } from '../../Redux/UserAuth/actions/userAuth'
 
 class Registration extends Component {
     constructor(props) {
