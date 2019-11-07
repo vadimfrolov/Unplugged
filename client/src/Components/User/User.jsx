@@ -17,7 +17,7 @@ const User = () => {
         </ul>
         <ul>
           <h2>Upcoming concerts:</h2>
-          {dataUser.user.upcomingConcerts.map((concert,i) => (
+          {this.props.user.upcomingConcerts.map((concert,i) => (
             <li key={i}>
               <span style={{ color: "blue" }}>{concert.date}</span>
               <span>{concert.group}</span>
@@ -59,4 +59,10 @@ const User = () => {
   );
 };
 
-export default User;
+function mapStateToProps(store) {
+  return {
+    user: store.user.user
+  }
+}
+
+export default connect(mapStateToProps, null)(User)

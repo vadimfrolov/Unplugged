@@ -7,10 +7,8 @@ import "./ConcertByYear.css";
 let moment = require("moment");
 
 
-
 class ConcertsByYear extends Component {
   render() {
-  
     return (
      <div className="concertWrapper">
        
@@ -24,7 +22,7 @@ class ConcertsByYear extends Component {
                   </Link>
                   <div className="styleHead red-text">{this.props.nameArtist}</div>
                   <div className="styleHead white-text">{event.location.city}</div>
-                  {/* <div>-------------</div> */}
+    
                 </div>
               
               );
@@ -43,5 +41,6 @@ function mapStateToProps(store) {
     concerts: store.concerts
   };
 }
+
 
 export default connect(mapStateToProps)(ConcertsByYear);

@@ -6,10 +6,9 @@
 }
 
 .userWrapper {
-  margin: 5%;
   display: flex;
   flex-wrap: nowrap;
-  font-size: 30px;
+  font-size: 25px;
   color: white;
 }
 
@@ -22,7 +21,8 @@
 .bordRad {
   margin: 10px;
   font-size: 15px;
-  margin-left: 125px
+  margin-left: 125px;
+  align-self: flex-end;
 }
 
 .rec {
@@ -41,20 +41,24 @@
   font-weight: 200;
   margin-bottom: 20px;
 }
+.userHead {
+  font-size: 1.0em;
+}
+
 
 .blockUser {
   margin-right: 20px;
-
   background-color: black;
   border-radius: 15px;
   width: 30%;
   padding: 23px;
 }
 
+
 .User {
-  font-size: 40px;
+  font-size: 50px;
   font-weight: 600;
-  margin: 2%;
+
 }
 
 .selected {

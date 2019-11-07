@@ -12,7 +12,7 @@ import {
 } from "react-materialize";
 
 import "./navbar.css";
-// import {Navbar, NavItem } from "react-materialize";
+import {Icon } from "react-materialize";
 
 import Youtube from "../Youtube/Youtube";
 
@@ -79,7 +79,7 @@ class Navbar1 extends Component {
                 value={this.state.text}
                 onChange={this.handleInput}
               />
-              <Button className="red darken-4 white-text" onClick={this.onClick}>Search</Button>
+              <Button className="red darken-4 white-text" onClick={this.onClick}>Search<Icon right>search</Icon></Button>
             </div>
             <NavLink activeClassName={"Active"} to={"/explore"}>Explore</NavLink>
             <Youtube />

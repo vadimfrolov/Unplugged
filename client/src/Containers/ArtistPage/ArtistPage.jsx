@@ -7,13 +7,15 @@ import {
   addToFavoriteAC,
   removeFavoriteAC
 } from "../../Redux/UserActivity/activityActions";
+
 import M from "materialize-css";
 import {
   Card,
   Row,
   Col,
   Modal,
-  Button
+  Button, 
+  Icon
 } from "react-materialize";
 
 import {
@@ -62,12 +64,12 @@ class ArtistInfo extends Component {
   };
 
   addToFavorite = async () => {
-    await this.props.addToFavoriteAC(
-      this.props.user._id,
-      this.props.match.params.id
-    );
-    this.checkFavorite();
-  };
+    await this.props.addToFavoriteAC({
+      id: this.props.user._id,
+      artist: this.props.artist.name,
+    }, this.props.match.params.id)
+    this.checkFavorite()
+  }
 
   removeFavorite = async () => {
     await this.props.removeFavoriteAC(
@@ -78,12 +80,12 @@ class ArtistInfo extends Component {
   };
 
   checkFavorite = async () => {
-    const check = await this.props.user.favouriteGroups.findIndex(e => {
-      return e == this.props.match.params.id;
-    });
-    const state = check === -1;
-    this.setState({ favorite: state });
-  };
+    const check = await this.props.user.favouriteGroups.findIndex((e) => {
+      return e.id == this.props.match.params.id
+    })
+    const state = check === -1
+    this.setState({ favorite: state })
+  }
 
   render() {
     const { artist } = this.props;
@@ -107,7 +109,7 @@ class ArtistInfo extends Component {
               title="Biography"
               actions={[
                 <Modal
-                  trigger={<Button className="red darken-4">Show full bio</Button>}
+                  trigger={<Button className="red darken-4">Show full bio<Icon right>zoom_out_map</Icon></Button>}
                 >
                   <p className="insideBio">{content}</p>
                 </Modal>
@@ -119,27 +121,30 @@ class ArtistInfo extends Component {
         </Row>
         <Row className="rowWrapper flex">
           <Col s={6} className="black white-text">
-            <p className="genresName">Genres:</p>
+            <p className="genresName">Genres</p>
             <TagsList />
-            <p style={{marginTop:"35px"}}  className="genresName">Similar artists:</p>
+            <p style={{marginTop:"35px"}}  className="genresName">Similar artists</p>
             <SimilarArtistsList />
             <ArtistTopTracks />
+            <p className="genresName">Comments</p>
+            <CommentArtist nameArtist={artist.name} idArtist={artist.id} />
+            <CommentListArtist commentsArtists={artist.comments} />
           </Col>
 
           <Col s={6} className="black white-text">
-            <p className="genresName">Upcoming concerts:</p>
+            <p className="genresName">Upcoming concerts</p>
             <TourSnippetList />
             <div style={{marginBottom: "100px", marginRight: "100px"}}>
             {!this.props.user ? (
               <></>
             ) : (
               <>
-                {this.state.favorite ? (
-                  <button onClick={this.addToFavorite}>add to favorite </button>
+                {!this.state.favorite ? (
+                  <Button className="red darken-4" onClick={this.addToFavorite}>Add to favourites<Icon right>favorite_border</Icon></Button>
                 ) : (
-                  <button onClick={this.removeFavorite}>
-                    remove from fav{" "}
-                  </button>
+                  <Button className="red darken-4" onClick={this.removeFavorite}>
+                    Remove from favourites{" "}
+                  </Button>
                 )}
               </>
             )}
@@ -151,8 +156,6 @@ class ArtistInfo extends Component {
             </div>
           </Col>
         </Row>
-        <CommentArtist nameArtist={artist.name} idArtist={artist.id} />
-        <CommentListArtist commentsArtists={artist.comments} />
       </div>
     );
   }
