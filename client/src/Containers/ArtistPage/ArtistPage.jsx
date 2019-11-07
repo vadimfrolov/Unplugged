@@ -32,6 +32,7 @@ import CommentListArtist from "../../Components/CommentsArtist/CommentListArtist
 import ShowAll from "../../Components/TourSnippet/ShowAll";
 import ArtistTopTracks from "../../Components/Youtube/ArtistTopTracks";
 import ShowMap from "../../Components/Map/ShowMap";
+import LikeButton from './LikeButton'
 
 import FacebookPanel from "../../Components/FacebookPanel";
 
@@ -58,33 +59,7 @@ class ArtistInfo extends Component {
         }
       }
     }
-
-    // this.checkFavorite()
   };
-
-  addToFavorite = async () => {
-    await this.props.addToFavoriteAC({
-      id: this.props.user._id,
-      artist: this.props.artist.name,
-    }, this.props.match.params.id)
-    this.checkFavorite()
-  }
-
-  removeFavorite = async () => {
-    await this.props.removeFavoriteAC(
-      this.props.user._id,
-      this.props.match.params.id
-    );
-    this.checkFavorite();
-  };
-
-  checkFavorite = async () => {
-    const check = await this.props.user.favouriteGroups.findIndex((e) => {
-      return e.id == this.props.match.params.id
-    })
-    const state = check === -1
-    this.setState({ favorite: state })
-  }
 
   render() {
     const { artist } = this.props;
@@ -138,13 +113,7 @@ class ArtistInfo extends Component {
               <></>
             ) : (
               <>
-                {!this.state.favorite ? (
-                  <Button className="red darken-4" onClick={this.addToFavorite}>Add to favourites</Button>
-                ) : (
-                  <Button className="red darken-4" onClick={this.removeFavorite}>
-                    Remove from favourites{" "}
-                  </Button>
-                )}
+                <LikeButton user={this.props.user}/>
               </>
             )}
             <ShowAll id={artist.id} />
