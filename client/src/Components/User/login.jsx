@@ -50,7 +50,9 @@ class Login extends Component {
               <div>
                 <input style={{ color: "white" }} type="text" placeholder="Username" name="username" onChange={this.onChangeUsername} />
                 <input style={{ color: "white" }} type="password" placeholder="Password" name="password" onChange={this.onChangePassword} />
-                <Link to={"/dashboard"}> <Button style={{ backgroundColor: "#b71c1c" }} onClick={this.login}>Log In</Button>     </Link >
+                <Link to={"/dashboard"}> 
+                <Button style={{ backgroundColor: "#b71c1c" }} onClick={this.login}>Log In</Button>    
+                 </Link >
               </div>
             </Card>
           </Col>

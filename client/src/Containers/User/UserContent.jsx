@@ -50,17 +50,12 @@ class UserContent extends Component {
               />
               <p className="User">{this.props.user.user.username}</p>
             </div>
-            <div className="geo">
-              <p className="geoBlock white-text" >User Geo:</p>
-              <UserMapContainer user={this.props.user} />
-            </div>
           </div>
 
           <div className="userWrapper" style={{ marginTop: "5%" }}>
             <div className="blockUser">
               <ul>
                 <h2 className="userHead red-text">I follow:</h2>
-
                 {this.props.user.user.favouriteGroups.slice(-7).map(group => (
                   <Link to={`/artist/${group.id}`}>
                     <li>{group.artist}</li>
@@ -68,7 +63,7 @@ class UserContent extends Component {
                 ))}
               </ul>
               <Button waves="light" className="bordRad deep-orange accent-4 ">
-                show all <Icon right>zoom_out_map</Icon>
+                show all <Icon right>zoom_out_map</Icon>Link
               </Button>
             </div>
             <div className="blockUser">
@@ -77,21 +72,22 @@ class UserContent extends Component {
                 {this.state.user.user.upcomingConcerts
                   .slice(-3)
                   .map(concert => (
-                    <li>
-                      <li
-                        style={{
-                          textOverflow: "ellipsis",
-                          overflow: "hidden",
-                          whiteSpace: "nowrap"
-                        }}
-                      >
-                        {" "}
-                        <span style={{ color: "red", marginRight: "5%" }}>
-                          {concert.formatDate}
-                        </span>
-                        {concert.group}
+                    <Link to={`/concert/${concert.concertId}`}>
+                      <li>
+                        <li
+                          style={{
+                            textOverflow: "ellipsis",
+                            overflow: "hidden",
+                            whiteSpace: "nowrap"
+                          }}
+                        >
+                          <span style={{ color: "red", marginRight: "5%" }}>
+                            {concert.formatDate}
+                          </span>
+                          {concert.group}
+                        </li>
                       </li>
-                    </li>
+                    </Link>
                   ))}
               </ul>
               <Button waves="light" className="bordRad deep-orange accent-4 ">
@@ -106,21 +102,23 @@ class UserContent extends Component {
                 {this.state.user.user.previousConcerts
                   .slice(-3)
                   .map(concert => (
-                    <li>
-                      <li
-                        style={{
-                          textOverflow: "ellipsis",
-                          overflow: "hidden",
-                          whiteSpace: "nowrap"
-                        }}
-                      >
-                        {" "}
-                        <span style={{ color: "red", marginRight: "5%" }}>
-                          {concert.formatDate}
-                        </span>
-                        {concert.group}
+                    <Link to={`concert/${concert.concertId}`}>
+                      <li>
+                        <li
+                          style={{
+                            textOverflow: "ellipsis",
+                            overflow: "hidden",
+                            whiteSpace: "nowrap"
+                          }}
+                        >
+                          {" "}
+                          <span style={{ color: "red", marginRight: "5%" }}>
+                            {concert.formatDate}
+                          </span>
+                          {concert.group}
+                        </li>
                       </li>
-                    </li>
+                    </Link>
                   ))}
               </ul>
               <Button waves="light" className="bordRad deep-orange accent-4 ">
@@ -129,6 +127,10 @@ class UserContent extends Component {
             </div>
           </div>
         </div>
+        <div className="geo">
+              <p className="geoBlock white-text" >User Geo:</p>
+              <UserMapContainer user={this.props.user} />
+            </div>
       </div>
     );
   }
