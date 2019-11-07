@@ -64,9 +64,9 @@ export const fetchDeleteCommentConcertAC = (
       id,
       idConcert
     });
-    console.log(11111111111111,res)
+  
     const data = get(res, "data.commentsConcert.comments", {});
-    console.log(11111111111,data)
+    
     const sortComments=data.sort((a,b)=>{
       return new Date(b.date)-new Date(a.date)
     })
