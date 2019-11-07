@@ -1,12 +1,9 @@
 const express = require("express");
-const bcrypt = require("bcrypt");
 const passport = require("passport");
 
 const router = express.Router();
 const User = require('../models/users');
 
-const saltRounds = 10;
-const someOtherPlaintextPassword = "not_bacon";
 
 /* GET users listing. */
 
@@ -15,8 +12,6 @@ router.get('/getsession/', async (req, res) => {
 });
 
 router.put("/registration/", async (req, res) => {
-  console.log(req.body.user);
-
   const chekEmail = User.findOne({ email: req.body.user.email });
   if (!chekEmail) {
     res.json({ error: "wrong email" });
@@ -35,11 +30,9 @@ router.put("/registration/", async (req, res) => {
 
 
 router.post('/login/', async (req, res) => {
-
   const user = await User.findOne({
     username: req.body.user.username
   });
-  console.log(user);
   if (user.password === req.body.user.password) {
     req.session.user = user;
     res.json(req.session.user);
@@ -79,7 +72,6 @@ router.post('/login/', async (req, res) => {
 
 
 router.patch("/update/", async (req, res) => {
-  console.log(req.body.user);
   const user = await User.findOneAndUpdate(
     { _id: req.body.user._id },
     {

@@ -7,12 +7,16 @@ import {
   switchSearchBarAC
 } from "../../Redux/artistReducer/artistActions";
 import { setUserAC, logoutAC } from "../../Redux/UserAuth/actions/userAuth";
+import {
+  Button
+} from "react-materialize";
 
 import "./navbar.css";
+// import {Navbar, NavItem } from "react-materialize";
 
 import Youtube from "../Youtube/Youtube";
 
-class Navbar extends Component {
+class Navbar1 extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -43,6 +47,7 @@ class Navbar extends Component {
     await this.props.fetchArtistIdAC(this.state.text);
     await this.props.fetchArtistInfoAC(this.state.text);
     await this.props.switchSearchBarAC();
+    this.setState({ text: '' })
     this.props.history.push(`/artists/${this.props.artist.id}`);
   }
 
@@ -51,28 +56,21 @@ class Navbar extends Component {
       <div className="Home">
         <div className="Home-header">
           <div className="NavLinks">
-            <NavLink activeClassName={"Active"} exact={true} to={"/"}>
+            <NavLink  activeClassName={"Active"} exact={true} to={"/"}>
               Index
             </NavLink>
-            <NavLink activeClassName={"Active"} to={"/fbpanel"}>
-              FBpanel
-          </NavLink>
-            {!this.props.user.user ?
-              <div>
-                <NavLink activeClassName={"Active"} to={"/login"}>
-                  Log in
+            {!this.props.user.user
+              ? <NavLink activeClassName={"Active"} to={"/login"}>
+                Log in
                 </NavLink>
-                <NavLink activeClassName={"Active"} to={"/registration"}>
-                  Registration
+              : <NavLink activeClassName={"Active"} to={"/dashboard"}>
+                {this.props.user.user.username}
+              </NavLink>}
+            {!this.props.user.user
+              ? <NavLink activeClassName={"Active"} to={"/registration"}>
+                Registration
                 </NavLink>
-              </div> :
-              <div>
-                <NavLink activeClassName={"Active"} to={"/dashboard"}>
-                  {this.props.user.user.username}
-                </NavLink>
-                <button onClick={this.logout}> Log out </button>
-              </div>
-            }
+              : <Button flat style={{ color: "white", fontSize: "28px" }} onClick={this.logout}>Log out</Button>}
             <div>
               <input
                 className="input"
@@ -81,7 +79,7 @@ class Navbar extends Component {
                 value={this.state.text}
                 onChange={this.handleInput}
               />
-              <button onClick={this.onClick}> search band </button>
+              <Button className="red darken-4 white-text" onClick={this.onClick}>Search</Button>
             </div>
             <NavLink activeClassName={"Active"} to={"/explore"}>Explore</NavLink>
             <Youtube />
@@ -109,5 +107,5 @@ export default withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps
-  )(Navbar)
+  )(Navbar1)
 );

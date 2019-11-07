@@ -1,9 +1,12 @@
+import axios from "axios";
+import get from "lodash.get";
 require("dotenv").config();
 let songkickKey = process.env.REACT_APP_SONGKICK_API_KEY;
 
 export const TYPES = {
   FETCH_PAST_DATES: "FETCH_PAST_DATES",
-  FETCH_DATE: "FETCH_DATE"
+  FETCH_DATE: "FETCH_DATE",
+  FETCH_UPCOMING: "FETCH_UPCOMING"
 };
 
 export const fetchPastDatesAC = years => {
@@ -48,14 +51,25 @@ export const fetchDate = (id, year) => {
       `https://api.songkick.com/api/3.0/artists/${id}/gigography.json?apikey=${songkickKey}&min_date=${year}-01-01&max_date=${year}-12-31`
     );
     const data = await resp.json();
-   console.log("privet", data)
+
     const events = data.resultsPage.results.event;
+
+    dispatch(fetchDateAC(events));
+  };
+};
+
+export const fetchUpcomingAC = id => async dispatch => {
+  try {
+    const res = await axios.post(`/upcoming`, { id });
+    const data = get(res, "data", {});
+
+    const events = data.dataConcert.resultsPage.results.event;
     let objStore = {};
     let finalArr = [];
     events &&
       events.map(event => {
         objStore = {};
-        objStore.idConcert=event.id
+        objStore.idConcert = event.id;
         objStore.date = event.start.date;
         objStore.country = event.location.city;
         objStore.location = {
@@ -64,9 +78,11 @@ export const fetchDate = (id, year) => {
         };
         finalArr.push(objStore);
       });
-
-    const newArr = finalArr;
-
-    dispatch(fetchDateAC(newArr));
-  };
+    dispatch({
+      type: TYPES.FETCH_UPCOMING,
+      payload: events
+    });
+  } catch (err) {
+    console.log(err);
+  }
 };

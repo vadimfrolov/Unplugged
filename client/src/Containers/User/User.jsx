@@ -8,6 +8,9 @@ import UserContent, {userContent} from './UserContent'
 
 import "./user.css";
 
+// !!!!! Подключение юзера !!!
+// import UserComponent from "../../Components/UserComponent/UserComponent";
+
 class User extends Component {
   constructor(props) {
     super(props);
@@ -23,17 +26,6 @@ class User extends Component {
     const sortPrevConc = this.props.user.user.upcomingConcerts.sort((a, b) => a.date >b.date ? 1 : -1)
     this.setState({prevConcerts: sortPrevConc, sortPrevConc: sortUpcomingConc})
   }
-
-  // callAPI = async () => {
-  //   const user = await axios.get("http://localhost:9000/testAPI");
-  //   this.setState({
-  //     user: user.data,
-  //     // group: user.data.favouriteGroups,
-  //     // newConcerts: user.data.upcomingConcerts,
-  //     // lastConcerts: user.data.previousConcerts
-  //   });
-  //   // console.log(new Date(this.state.lastConcerts[0].date));
-  // };
 
   render() {
     return (

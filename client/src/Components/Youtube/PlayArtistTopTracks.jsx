@@ -31,10 +31,13 @@ class ArtistTrack extends Component {
 
   render() {
     return (
-      <div style={{display: 'inline'}}>
+      <div style={{ display: 'inline' }}>
         {this.props.concertPage && (
-          <IconButton onClick={this.playButtonClick}>
-            <PlayArrowIcon />
+          <IconButton
+            onClick={this.playButtonClick}
+            fontSize="large"
+            color="secondary">
+            <PlayArrowIcon color="secondary" fontSize="large" />
           </IconButton>
         )}
 

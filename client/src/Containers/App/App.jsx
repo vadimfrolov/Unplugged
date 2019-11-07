@@ -1,7 +1,6 @@
 import React from "react";
 import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 import { connect } from "react-redux";
-import get from "lodash.get";
 
 import Home from "../Home";
 import FaceBookPanel from "../../Components/FacebookPanel";
@@ -22,7 +21,6 @@ import "./styles.css";
 
 class App extends React.Component {
   render() {
-    const id = get(this.props, "artist.id");
 
     return (
       <div >

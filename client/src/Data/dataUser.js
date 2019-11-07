@@ -1,7 +1,7 @@
 export default {
   user: {
     name:"Jonh Doe",
-    profilePic: "https://pngimage.net/wp-content/uploads/2018/06/john-doe-png.png",
+    profilePic: "https://icon-library.net/images/profile-png-icon/profile-png-icon-2.jpg",
     follow: ['Metallica', 'M.I.A.', 'Britney Spears'],
     upcomingConcerts:  [{group:'Chrysta Bell', date:'07.11'}, {group:'Дельфин', date:'07.12'}, {group:'Нейромонах Феофан', date:'15.12'}],
     visitedConcerts:   [{group:'AC/DC', date:'05.11.15'}, {group:'Radiohead', date:'02.10.14'}, {group:'Madonna', date:'21.09.17'}],

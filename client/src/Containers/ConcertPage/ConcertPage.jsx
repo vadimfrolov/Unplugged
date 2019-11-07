@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import get from "lodash.get";
 import { withRouter, Link } from "react-router-dom";
 import { parse, format} from 'date-fns'
+import moment from "moment";
 
 import "./concertPage.css";
 
@@ -13,15 +14,17 @@ import {
   upcomingConcertCancelAC, 
   previousConcertRemoveAC } from '../../Redux/UserActivity/activityActions'
 
-// import Flashmob from "../../Components/Flashmob";
-// import CommentSection from "../../Components/CommentsConcert";
-// import CommentList from "../../Components/CommentsConcert/CommentList";
+import CommentConcert from "../../Components/CommentsConcert";
+import CommentList from "../../Components/CommentsConcert/CommentList";
+
 
 import {
+  Container,
   Row,
   Col,
   Card,
-  Button
+  Button,
+  Chip
 } from "react-materialize";
 
 class ConcertPage extends Component {
@@ -131,9 +134,9 @@ class ConcertPage extends Component {
 
 
     return (
-      <div className="cardPage">
+      <Container style={{ marginTop:"40px", padding: "0px 30px", borderRadius: "3%" }}>
         <Row>
-          <Col m={8} s={12}>
+          <Col m={12} s={12}>
             <Card
               className="black"
               textClassName="white-text"
@@ -155,44 +158,48 @@ class ConcertPage extends Component {
                   </>
               ]}
             >
-              <p className="pointConcert" >
-                <span className="red-text ">When:</span> {date} {time}
+              <Row>
+                <Col m={9}>
+                  <p style={{ fontSize: "35px", marginBottom: "25px" }} className="pointConcert" >
+                    {name}
+                  </p>
+                </Col>
+                <Col style={{ textAlign: "right" }} m={3}>
+                  {this.convertDate() > Date.now() ?
+                    <>
+                      {!concertFlag ?
+                        <Button large className="red darken-4" onClick={this.upcomingConcert}>I'll be there!</Button> :
+                        <Button large className="red darken-4" onClick={this.upcomingConcertCancel}>I won't go</Button>
+                      }
+                    </> :
+                    <>
+                      <Button large className="red darken-4" onClick={this.previousConcert}>I've been there!</Button>
+                    </>}
+                </Col>
+              </Row>
+              <p style={{ fontSize: "25px", marginBottom: "25px" }} className="pointConcert" >
+                <span style={{ fontWeight: "bold", fontSize: "35px", color: "#b71c1c", marginRight: "15px" }}>When:</span> {moment(new Date(date)).format("LL")}, {time}
               </p>
-              <p>
-                <span className="red-text ">Where: </span>
-                {venue}, {location},
+              <p style={{ fontSize: "25px", marginBottom: "25px" }}>
+                <span style={{ fontWeight: "bold", fontSize: "35px", color: "#b71c1c", marginRight: "15px" }}>Where:</span>
+                {venue}, {location}
               </p>
-              <span className="red-text t">Perfomers:</span>
-
-              {performers &&
-                performers.map((el, i) => (
-                  <li className="perfomersList" key={`${name}_${i}`}>
-                    <Link to={`/artists/${performers[i].id}`}>
+              <p style={{ fontSize: "25px", marginBottom: "25px" }}>
+                <span style={{ fontWeight: "bold", fontSize: "35px", color: "#b71c1c", marginRight: "15px" }}>Performers:</span>
+                {performers && performers.map((el, i) => (
+                  <Chip className="performersList" key={`${name}_${i}`}>
+                    <Link style={{ color: "black" }} to={`/artists/${performers[i].id}`}>
                       {el.displayName}
                     </Link>
-                  </li>
+                  </Chip>
                 ))}
-
+              </p>
+              <CommentConcert nameArtist={performers} idConcert={id} />
+              <CommentList comments={comments} />
             </Card>
           </Col>
         </Row>
-
-        {/* <p>
-          {name},{date},{time},{venue},{location},
-          {performers &&
-            performers.map((el, i) => (
-              <p key={`${name}_${i}`}>
-                <Link to={`/artists/${performers[i].id}`}>
-                  {el.displayName}
-                </Link>
-              </p>
-            ))}
-        </p>
-        <button>I'll be there!</button> */}
-        {/* <Flashmob />
-        <CommentSection nameArtist={performers} idConcert={id} />
-        <CommentList comments={comments} /> */}
-      </div>
+      </Container>
     );
   }
 }
@@ -216,4 +223,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRouter(ConcertPage));
+)(withRouter(ConcertPage))

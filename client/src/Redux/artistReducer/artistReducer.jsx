@@ -10,6 +10,7 @@ const initialState = {
   tags: [],
   similar: [],
   tourSnippet: [],
+  comments:[],
   isSearchBar: false,
 };
 
@@ -87,6 +88,23 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         isLoading: false,
         isSuccess: false,
+      }
+    }
+    case TYPES.FETCH_ADD_COMMENT_ARTIST: {
+      return {
+        ...state,
+        isLoading: false,
+        isSuccess: true,
+        comments:payload
+      }
+    }
+
+    case TYPES.SWITCH_SEARCH_BAR: {
+      return {
+        ...state,
+        isLoading: false,
+        isSuccess: false,
+        isSearchBar: payload
       }
     }
 

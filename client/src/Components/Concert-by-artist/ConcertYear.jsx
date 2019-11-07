@@ -5,10 +5,14 @@ import { connect } from "react-redux";
 import {
   fetchPastDates,
   fetchPastDatesAC,
-  fetchDate
+  fetchDate,
+  fetchUpcomingAC
 } from "../../Redux/concertsReducer/concertsActions";
 
+import { Button } from "react-materialize";
+
 import ConcertsByYear from "./ConcertsByYear";
+
 
 class ConcertYear extends Component {
   state = {
@@ -16,7 +20,7 @@ class ConcertYear extends Component {
   };
 
   componentDidMount = async () => {
-    const id  = this.props.match.params.id;
+    const id = this.props.match.params.id;
     let page = 1;
     let res = await this.props.fetchPastDates(id, page);
     while (res) {
@@ -28,32 +32,39 @@ class ConcertYear extends Component {
   };
 
   onClick = br => {
-    const id  = this.props.match.params.id;
+    const id = this.props.match.params.id;
     this.props.fetchDate(id, br);
+  };
+
+  onClickUpcoming = () => {
+    const id = this.props.match.params.id;
+    this.props.fetchUpcomingAC(id);
   };
 
   render() {
     return (
-      <div>
+      <div style={{ marginTop: "30px" }}>
+        <Button style={{ backgroundColor: "black" }} onClick={this.onClickUpcoming}>Upcoming</Button>
         {this.props.concerts.years &&
-          this.props.concerts.years.map((el, i) => {
-            return (
-              <button key={i} onClick={() => this.onClick(el)}>
-                {el}
-              </button>
-            );
-          })}
-        <ConcertsByYear nameArtist={this.props.artist.name}/>
+          this.props.concerts.years.map((el, i) => (
+            <Button className="red darken-4 white-text" key={i} onClick={() => this.onClick(el)}>
+              {el}
+            </Button>
+          ))
+        }
+        <ConcertsByYear nameArtist={this.props.artist.name} />
       </div>
     );
   }
 }
 
+
 function mapDispatchToProps(dispatch) {
   return {
     fetchPastDates: (id, page) => dispatch(fetchPastDates(id, page)),
     fetchPastDatesAC: arr => dispatch(fetchPastDatesAC(arr)),
-    fetchDate: (id, year) => dispatch(fetchDate(id, year))
+    fetchDate: (id, year) => dispatch(fetchDate(id, year)),
+    fetchUpcomingAC: id => dispatch(fetchUpcomingAC(id)),
   };
 }
 
@@ -64,7 +75,8 @@ function mapStateToProps(store) {
   };
 }
 
+
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(ConcertYear);
