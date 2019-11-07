@@ -61,11 +61,12 @@ class Map extends Component {
 
   displayMarkers = () => {
     return this.props.user.previousConcerts.map((store, index) => {
-      return <Marker key={index} id={index} icon={iconPin} position={{
+      return <Marker key={index} name={'Dolores park'} id={index} icon={iconPin} title={store.group} position={{
         lat: store.location.lat,
         lng: store.location.lng
       }}
-        onClick={() => console.log(store.group)} />
+        onClick={() => this.props.history.push(`/concert/${store.id}`)} 
+        />
     })
   }
 
