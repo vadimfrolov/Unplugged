@@ -143,4 +143,32 @@ router.post('/explore/:date', async (req, res) => {
   res.json({ dataDate })
 });
 
+router.post('/delete/:comment/:idArtist', async (req, res)=>{
+  const {comment, idArtist}= req.params
+const artist = await Artist.findOne({idArtist})
+  const indexComment = await artist.comments.findIndex((e) => {
+    return e._id == comment
+  })
+  await artist.comments.splice(indexComment, 1);
+  await artist.save();
+  const commentsArtist = await Artist.findOne({idArtist})
+  res.json({commentsArtist})
+ 
+})
+
+router.post('/remove/:comment/:idConcert', async (req, res)=>{
+  const {comment, idConcert}= req.params
+const concert = await Concert.findOne({idConcert})
+
+  const indexComment = await concert.comments.findIndex((e) => {
+    return e._id == comment
+  })
+ 
+  await concert.comments.splice(indexComment, 1);
+  await concert.save();
+  const commentsConcert = await Concert.findOne({idConcert})
+  res.json({commentsConcert})
+ 
+})
+
 module.exports = router;

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Map as GoogleMap, GoogleApiWrapper, Marker } from 'google-maps-react';
 import { connect } from "react-redux";
 
+import Spinner from '../Spinner/index'
 import {
   fetchPastDates,
   fetchPastDatesAC,
@@ -106,7 +107,7 @@ class Map extends Component {
     return (
       <div>
         {!this.state.geoposition?
-          <div>loading</div> :
+          <Spinner/> :
           <GoogleMap
             google={this.props.google}
             zoom={4}

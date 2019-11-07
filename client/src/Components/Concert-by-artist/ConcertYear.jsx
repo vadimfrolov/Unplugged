@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import UpcomingConcert from "./UpcomingConcert";
 import { connect } from "react-redux";
+import Spinner from "../Spinner/index";
 
 import {
   fetchPastDates,
@@ -13,9 +14,9 @@ import ConcertsByYear from "./ConcertsByYear";
 
 class ConcertYear extends Component {
   state = {
-    year: []
+    year: [],
+    isLoading: true
   };
-
   componentDidMount = async () => {
     const id = this.props.match.params.id;
     let page = 1;
@@ -26,6 +27,7 @@ class ConcertYear extends Component {
       page++;
       res = await this.props.fetchPastDates(id, page);
     }
+    this.setState({ isLoading: false});
   };
 
   onClick = br => {
@@ -36,18 +38,25 @@ class ConcertYear extends Component {
   render() {
     const id = this.props.match.params.id;
     return (
-      <div>
-        <UpcomingConcert artistId={id} />
-        {this.props.concerts.years &&
-          this.props.concerts.years.map((el, i) => {
-            return (
-              <button key={i} onClick={() => this.onClick(el)}>
-                {el}
-              </button>
-            );
-          })}
-        <ConcertsByYear nameArtist={this.props.artist.name} />
-      </div>
+      <>
+        {this.state.isLoading ? (
+          <Spinner />
+        ) : (
+          <>
+            {" "}
+            <UpcomingConcert artistId={id} />
+            {this.props.concerts.years &&
+              this.props.concerts.years.map((el, i) => {
+                return (
+                  <button key={i} onClick={() => this.onClick(el)}>
+                    {el}
+                  </button>
+                );
+              })}
+            <ConcertsByYear nameArtist={this.props.artist.name} />
+          </>
+        )}
+      </>
     );
   }
 }

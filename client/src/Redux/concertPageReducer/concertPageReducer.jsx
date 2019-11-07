@@ -41,7 +41,14 @@ export default (state = initialState, { type, payload }) => {
         isSuccess: true,
         comments: payload
       };
-    }
+    }  
+
+    case TYPES.FETCH_DELETE_COMMENT_CONCERT: {
+      return {
+        ...state,
+        comments: payload
+      };
+    } 
     default:
       return state;
   }
