@@ -12,10 +12,11 @@ import {
 } from "react-materialize";
 
 import "./navbar.css";
+// import {Navbar, NavItem } from "react-materialize";
 
 import Youtube from "../Youtube/Youtube";
 
-class Navbar extends Component {
+class Navbar1 extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -55,7 +56,7 @@ class Navbar extends Component {
       <div className="Home">
         <div className="Home-header">
           <div className="NavLinks">
-            <NavLink activeClassName={"Active"} exact={true} to={"/"}>
+            <NavLink  activeClassName={"Active"} exact={true} to={"/"}>
               Index
             </NavLink>
             {!this.props.user.user
@@ -106,5 +107,5 @@ export default withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps
-  )(Navbar)
+  )(Navbar1)
 );

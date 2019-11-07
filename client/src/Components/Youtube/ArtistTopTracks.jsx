@@ -19,6 +19,7 @@ class ArtistTopTracks extends Component {
             trackName={name}
             key={i}
             trackNum={i}
+      
           />
         ))}
       </div>
