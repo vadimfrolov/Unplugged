@@ -14,7 +14,8 @@ import {
   Row,
   Col,
   Modal,
-  Button
+  Button, 
+  Icon
 } from "react-materialize";
 
 import {
@@ -83,7 +84,7 @@ class ArtistInfo extends Component {
               title="Biography"
               actions={[
                 <Modal
-                  trigger={<Button className="red darken-4">Show full bio</Button>}
+                  trigger={<Button className="red darken-4">Show full bio<Icon right>zoom_out_map</Icon></Button>}
                 >
                   <p className="insideBio">{content}</p>
                 </Modal>

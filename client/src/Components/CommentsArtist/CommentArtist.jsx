@@ -8,7 +8,7 @@ import M from "materialize-css";
 import {
   Row,
   Button,
-  Textarea
+  Textarea, Icon
 } from "react-materialize";
 
 class CommentArtist extends Component {
@@ -56,7 +56,7 @@ class CommentArtist extends Component {
         onChange={this.handleChange}
         required />
       </Row>
-      <Button style={{ marginTop:"-60px" }} className="red darken-4" onClick={this.onClick}>Add</Button>
+      <Button style={{ marginTop:"-60px" }} className="red darken-4" onClick={this.onClick}>Add <Icon right>textsms</Icon></Button>
       </>
     );
   }

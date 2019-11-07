@@ -48,7 +48,7 @@ class LandingPage extends Component {
             <Button
               waves="light"
               style={{ marginLeft: "0px" }}
-              className="bordRad deep-orange accent-4 "
+              className="bordRad red darken-4"
             >
               Find a concert
               <Icon right>music_note</Icon>
@@ -64,7 +64,7 @@ class LandingPage extends Component {
           >
             <Caption placement="left">
               <p className="bigLetters">For everyone </p>
-              <h4 className="capt light #d50000-text text-lighten-3" style={{ fontSize: "30px", marginLeft: '-80px' }}>
+              <h4 className="capt light #b71c1c-text text-lighten-3" style={{ fontSize: "30px", marginLeft: '-80px' }}>
               who loves the music
               </h4>
             </Caption>
