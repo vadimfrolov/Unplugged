@@ -43,7 +43,7 @@ class DateConcerts extends Component {
 
   render() {
     return (
-      <Container style={{ backgroundColor: "black", padding: "0px 30px", borderRadius: "3%", fontSize: "25px" }}>
+      <Container style={{ backgroundColor: "black", padding: "0px 30px", fontSize: "25px" }}>
         <Row style={{ marginTop: "40px" }}>
           <Col m={4}></Col><Col m={4} style={{ color: "white", marginTop: "40px" }}>
             Choose a date: <input style={{ color: "white" }} type="date" value={this.state.date} onChange={this.handleInput}></input>
