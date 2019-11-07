@@ -7,6 +7,9 @@ import { Icon, Button } from "react-materialize";
 
 import "./user.css";
 
+// !!!!! Подключение юзера !!!
+// import UserComponent from "../../Components/UserComponent/UserComponent";
+
 class User extends Component {
   constructor(props) {
     super(props);
@@ -37,7 +40,7 @@ class User extends Component {
                 style={{ width: "150px" }}
                 alt="profile picture"
               />
-              {/* <img src={userPic} alt="profile picture" /> */}
+       
             </div>
             <div className="userWrapper" style={{ marginTop: "5%" }}>
               <div className="blockUser">
@@ -86,90 +89,13 @@ class User extends Component {
                   show all
                 </Button>
               </div>
-              {/* <div className="blockUser">
-                <ul>
-                  <h2>Mostly visited:</h2>
-                  {dataUser.user.mostlyVisited.map(favgroup => (
-                    <li>
-                      <span>{favgroup.group}</span>
-                      <span style={{ color: "black" }}>{favgroup.times}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div> */}
             </div>
-            <h2 className="rec">Recommendations:</h2>
-            <div className="picWrapper">
-              {dataUser.user.recommendations.map(recommendation => (
-                <p style={{ margin: "20px" }}>
-                  <img
-                    src={recommendation.imgSrc}
-                    style={{ width: "300px", borderRadius: "15px" }}
-                  />
-                  <div className="rec"> {recommendation.group}</div>
-                </p>
-              ))}
-            </div>
-            {/* <div>
-          <div className="Block">
-            <p className="selected">I follow:</p>
-            <span className="groupConcert">
-              {this.state.group.map(function(item, i) {
-                return <p key={i}>{item}</p>;
-              })}
-            </span>
-          </div>
-          <div className="Block">
-            <p className="selected">Upcoming concerts:</p>
 
-            <table className="table">
-              {this.state.newConcerts.map(function(item, i) {
-                return (
-                  <tr>
-                    <td>
-                      <span className="dateConcert">
-                        {new Date(item.date).toUTCString().slice(0, 16)}{" "}
-                      </span>
-                    </td>
-                    <td>
-                      <span className="groupConcert">{item.group}</span>
-                    </td>
-                    <td>{item.location}</td>
-                  </tr>
-                );
-              })}
-            </table>
-    
-          </div>
-          <div className="Block">
-            <p className="selected">I’ve visited this concerts recently</p>
+            {/* !!!!! Подключение юзера !!! */}
+            {/* <UserComponent/> */}
 
 
-            <table className="table">
-              {this.state.lastConcerts.map(function(item, i) {
-                return (
-                  <tr>
-                    <td>
-                      <span className="dateConcert">
-                        {new Date(item.date).toUTCString().slice(0, 16)}{" "}
-                      </span>
-                    </td>
-                    <td>
-                      <span className="groupConcert">{item.group}</span>
-                    </td>
-                    <td>{item.location}</td>
-                  </tr>
-                );
-              })}
-            </table>
-
-          </div>
-          <div className="Block">
-            <p className="selected">Mostly visited: </p>
-
-            <p className="selected"> Recomendations:</p>
-          </div>
-        </div> */}
+         
           </div>
         )}
       </div>
