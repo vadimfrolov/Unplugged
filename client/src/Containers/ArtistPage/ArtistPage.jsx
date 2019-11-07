@@ -31,12 +31,12 @@ import TagsList from "../../Components/TagsList";
 import SimilarArtistsList from "../../Components/SimilarArtists/SimilarArtistsList";
 import CommentArtist from "../../Components/CommentsArtist/CommentArtist";
 import CommentListArtist from "../../Components/CommentsArtist/CommentListArtist";
-import ArtistTopTracks from "../../Components/ArtistTopTracks";
+
+import ShowAll from "../../Components/TourSnippet/ShowAll";
+import ArtistTopTracks from "../../Components/Youtube/ArtistTopTracks";
+import ShowMap from "../../Components/Map/ShowMap";
 
 import FacebookPanel from "../../Components/FacebookPanel";
-import ShowAll from "../../Components/TourSnippet/ShowAll";
-
-import ShowMap from "../../Components/Map/ShowMap";
 
 import "./ArtistPage.css";
 
@@ -62,7 +62,7 @@ class ArtistInfo extends Component {
       }
     }
 
-    this.checkFavorite();
+    // this.checkFavorite()
   };
 
   addToFavorite = async () => {

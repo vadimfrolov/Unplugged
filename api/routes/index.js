@@ -26,19 +26,15 @@ router.post("/getId", async (req, res) => {
 });
 
 router.post("/search", async (req, res) => {
-  let bandInput = req.body.text;
   let artistinput = req.body.text.toLowerCase();
-  console.log(artistinput);
-  const resSearch = await fetch(
-    `http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${bandInput}&api_key=${LastFmKey}&format=json`
-  );
+  let bandInput = encodeURIComponent(`${req.body.text}`);
+  const resSearch = await fetch(`http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${bandInput}&api_key=${LastFmKey}&format=json`);
   const dataSearch = await resSearch.json();
   const resPic = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=${bandInput}&key=${YouTubeKey}`);
   const pic = await resPic.json();
   const topTracksApiCall = await axios.get(`http://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&artist=${bandInput}&api_key=${LastFmKey}&format=json`);
 
   dataSearch.topTracks = topTracksApiCall.data.toptracks.track.slice(0, 10);
-
   const artistComment = await Artist.findOne({ nameArtist: artistinput });
   if (!artistComment) {
     res.json({ dataSearch,pic, artistComment: [] });

@@ -12,6 +12,11 @@ import Flashmob from "../../Components/Flashmob";
 import CommentConcert from "../../Components/CommentsConcert";
 import CommentList from "../../Components/CommentsConcert/CommentList";
 
+// import Flashmob from "../../Components/Flashmob";
+// import CommentSection from "../../Components/CommentsConcert";
+// import CommentList from "../../Components/CommentsConcert/CommentList";
+
+
 import {
   Row,
   Col,
@@ -102,7 +107,7 @@ class ConcertPage extends Component {
           <Col m={8} s={12}>
             <Card
               className="black"
-              textClassName="white-text"ç
+              textClassName="white-text"
               title={name}
               actions={[
                 this.convertDate() > Date.now() ?

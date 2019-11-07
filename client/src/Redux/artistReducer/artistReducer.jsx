@@ -108,6 +108,15 @@ export default (state = initialState, { type, payload }) => {
       }
     }
 
+    case TYPES.SWITCH_SEARCH_BAR: {
+      return {
+        ...state,
+        isLoading: false,
+        isSuccess: false,
+        isSearchBar: payload
+      }
+    }
+
     default:
       return state;
   }
