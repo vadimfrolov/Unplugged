@@ -34,7 +34,6 @@ export const registrationAC = (data) => async dispatch => {
   dispatch({ type: TYPES.FETCH_USER_REQUEST });
 
   try {
-    console.log('aslkdkhqpjw;jkdmq',data);    
     const response = await axios.put('/users/registration/', { user: data });
     const user = await get(response, "data")
     dispatch(setUserAC( user ));  
@@ -51,7 +50,6 @@ export const loginAC = (data) => async dispatch => {
   try{   
   const response = await axios.post('/users/login/', { user: data });
   const user = await get(response, "data")
-  console.log('sadzzzzzzzzzzzzzzzzasda',user); 
   dispatch(setUserAC( user ))
   } catch(err) {
     dispatch({ type: TYPES.FETCH_USER_FAILURE });
@@ -66,7 +64,6 @@ export const loginAC = (data) => async dispatch => {
 //   try{   
 //   const response = await axios.get('/users/login/facebook/');
 //   const user = await get(response, "data")
-//   console.log('sadzzzzzzzzzzzzzzzzasda',user); 
 //   dispatch(setUserAC( user ))
 //   } catch(err) {
 //     dispatch({ type: TYPES.FETCH_USER_FAILURE });

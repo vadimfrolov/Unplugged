@@ -11,22 +11,19 @@ import get from "lodash.get";
 import {
   youtubePlayerCloseAC,
   youtubePlayerPlayPauseAC,
-  youtubePlayerChangeTrackAC,
+  youtubePlayerChangeTrackAC
 } from "../../Redux/youtubeReducer/youtubeActions";
 
 import "./reset.css";
 import "./defaults.css";
 import "./App.css";
 
-import Button from "@material-ui/core/Button";
-import ButtonGroup from "@material-ui/core/ButtonGroup";
+import { Button, ButtonGroup, IconButton } from "@material-ui/core";
 import PlayCircleOutlineOutlinedIcon from "@material-ui/icons/PlayCircleOutlineOutlined";
 import PauseCircleOutlineOutlinedIcon from "@material-ui/icons/PauseCircleOutlineOutlined";
 import FastForwardOutlinedIcon from "@material-ui/icons/FastForwardOutlined";
 import FastRewindOutlinedIcon from "@material-ui/icons/FastRewindOutlined";
-// import LocationSearchingIcon from '@material-ui/icons/LocationSearching';
 import CloseIcon from "@material-ui/icons/Close";
-import IconButton from "@material-ui/core/IconButton";
 
 const youTubeApikey = process.env.REACT_APP_YOUTUBE_API_KEY;
 
@@ -207,7 +204,7 @@ class Youtube extends Component {
               <div className="player-close-icon" color="error">
                 {this.props.url && (
                   <IconButton onClick={this.handleStop} color="error">
-                    <CloseIcon color="error"/>
+                    <CloseIcon color="error" />
                   </IconButton>
                 )}
               </div>
@@ -219,18 +216,18 @@ class Youtube extends Component {
             aria-label="outlined primary button group"
             color="secondary"
           >
-            <Button onClick={this.playPrevious} >
-              <FastRewindOutlinedIcon color="error"/>
+            <Button onClick={this.playPrevious}>
+              <FastRewindOutlinedIcon color="error" />
             </Button>
-            <Button onClick={this.handlePlayPause} >
+            <Button onClick={this.handlePlayPause}>
               {playing ? (
-                <PauseCircleOutlineOutlinedIcon color="error"/>
+                <PauseCircleOutlineOutlinedIcon color="error" />
               ) : (
-                <PlayCircleOutlineOutlinedIcon color="error"/>
+                <PlayCircleOutlineOutlinedIcon color="error" />
               )}
             </Button>
-            <Button onClick={this.playNext} >
-              <FastForwardOutlinedIcon color="error"/>
+            <Button onClick={this.playNext}>
+              <FastForwardOutlinedIcon color="error" />
             </Button>
 
             {/* <input
@@ -274,7 +271,7 @@ const mapDispatchToProps = dispatch => ({
   youtubePlayerPlayPause: playingToggle =>
     dispatch(youtubePlayerPlayPauseAC(playingToggle)),
   youtubePlayerChangeTrack: (url, trackNum) =>
-    dispatch(youtubePlayerChangeTrackAC(url, trackNum)),
+    dispatch(youtubePlayerChangeTrackAC(url, trackNum))
 });
 
 export default connect(

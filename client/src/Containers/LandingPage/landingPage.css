@@ -1,13 +1,16 @@
 .landingPage {
-  margin: 3%;
+  margin: 30px 0 0 0;
+}
 
+.landing-artist-div {
+  margin: 20px 20px 0px 20px;
 }
 
 .bigLetters {
   font-size: 35px;
-  margin-right: -200px;
-  margin-left: -120px;
-  margin-bottom: 10px;
+  margin-right: -16vw;
+  margin-left: -9.3vw;
+  margin-bottom: 1.3vh;
   font-weight: 600;
 }
 
@@ -19,19 +22,17 @@
 
 .bordRad {
   border-radius: 50px;
-  margin-right: -150px;
+  margin-right: -11.7vw;
 }
 
 .info {
-  padding-top: 30px;
+  padding: 20px;
   font-size: 30px;
-  width: 850px;
-  height: 240px;
   font-weight: 600;
   text-align: center;
   margin-bottom: 30px;
   background-color: black;
-  border-radius: 50px;
+  border-radius: 15px;
   color: white
 }
 

@@ -37,14 +37,13 @@ class LandingPage extends Component {
   render() {
     return (
       <div className="landingPage">
-        <div className="info">
-          <p className="caption">Discover perfect concert in your city </p>
-          <div className="bord">Participate in contests </div>
-          <p className="bordBot">
-            Choose the best live music, tailored to your music taste.
-          </p>
-          <Link to={"/explore"}>
-            {" "}
+        <Link to={"/explore"}>
+          <div className="info">
+            <p className="caption">Discover perfect concert in your city </p>
+            <div className="bord">Participate in contests </div>
+            <p className="bordBot">
+              Choose the best live music, tailored to your music taste.
+            </p>{" "}
             <Button
               waves="light"
               style={{ marginLeft: "0px" }}
@@ -53,8 +52,8 @@ class LandingPage extends Component {
               Find a concert
               <Icon right>music_note</Icon>
             </Button>{" "}
-          </Link>
-        </div>
+          </div>
+        </Link>
 
         <Slider>
           <Slide
@@ -94,7 +93,7 @@ class LandingPage extends Component {
         </Slider>
 
         {dataArtists.artists.map(group => (
-          <div style={{ margin: "40px" }}>
+          <div className="landing-artist-div">
             <Pulse>
               <div onClick={this.handleClick} name={group.name}>
                 <img
