@@ -10,7 +10,7 @@ class ArtistTopTracks extends Component {
     const { topTracks } = artist;
 
     return (
-      <div>
+      <div >
         {topTracks && <div className="genresName">Artist Top Tracks:</div>}
         {topTracks && topTracks.map(({ name }, i) => (
           <ArtistTrack
@@ -19,6 +19,7 @@ class ArtistTopTracks extends Component {
             trackName={name}
             key={i}
             trackNum={i}
+      
           />
         ))}
       </div>

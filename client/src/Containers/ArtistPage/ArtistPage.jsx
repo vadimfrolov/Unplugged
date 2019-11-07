@@ -78,7 +78,6 @@ class ArtistInfo extends Component {
           </Collapsible>
         </div> */}
 
-        <div>   </div>
         <Row>
           <Col m={12} s={12}>
             <Card
@@ -87,18 +86,18 @@ class ArtistInfo extends Component {
               title="Biography"
               actions={[
                 <Modal
-                  
-                  trigger={<Button className="red darken-4"> Show full bio </Button>}
+                  trigger={
+                    <Button className="red darken-4"> Show full bio </Button>
+                  }
                 >
                   <p className="insideBio">{content}</p>
                 </Modal>
               ]}
             >
-            <div>{content}</div>
+              <div style={{ fontSize: "30px" }}>{content}</div>
             </Card>
           </Col>
         </Row>
-
 
         {/* <div className="truncate bioPage black">{content}</div>
 

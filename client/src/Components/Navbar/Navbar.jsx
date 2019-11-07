@@ -55,7 +55,7 @@ class Navbar extends Component {
       <div className="Home">
         <div className="Home-header">
           <div className="NavLinks">
-            <NavLink activeClassName={"Active"} exact={true} to={"/"}>
+            <NavLink  activeClassName={"Active"} exact={true} to={"/"}>
               Index
             </NavLink>
             <NavLink activeClassName={"Active"} to={"/fbpanel"}>

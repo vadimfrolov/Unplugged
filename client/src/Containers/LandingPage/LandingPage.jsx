@@ -16,7 +16,7 @@ import { setUserAC } from "../../Redux/UserAuth/actions/userAuth";
 
 
 const Pulse = styled.div`
-  animation: 5s ${keyframes`${fadeIn}`};
+  animation: 4s ${keyframes`${fadeIn}`};
 `;
 
 class LandingPage extends Component {
@@ -27,16 +27,18 @@ class LandingPage extends Component {
     };
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.artist && prevProps.artist !== this.props.artist) {
-      this.props.history.push(`/artists/${this.props.artist.id}`)
-    }
-  }
+  // componentDidUpdate(prevProps) {
+  //   if (this.props.artist && prevProps.artist !== this.props.artist) {
+    
+  //   }
+  // }
 
   handleClick = async e => {
     await this.setState({ text: e.target.name });
     await this.props.fetchArtistIdAC(this.state.text);
     await this.props.fetchArtistInfoAC(this.state.text);
+    this.props.history.push(`/artists/${this.props.artist.id}`)
+    window.scrollTo(0, 0);
   };
 
              
@@ -58,19 +60,19 @@ class LandingPage extends Component {
         <Slider>
           <Slide
             image={
-              <img src="https://www.wallpaperup.com/uploads/wallpapers/2014/03/19/302666/355c1d5fb827c8b94b37ca8e59f81a16.jpg" />
+              <img src="https://lh6.googleusercontent.com/proxy/JOZmvGeMwd5c_Gh-A8jHjVp0yKDT4b3WCA5CuDGunX-5a0CBnBbZcblFKcm6H3mTjKNn6CWQOqx8nbmRelwDuw7S9TKJanpZVSi665F33MFjS8m4JIvxoGpd3rWWyEFv6p_p=s0-d" />
             }
           >
             <Caption placement="left">
               <p className="bigLetters">For everyone </p>
-              <h4 className="capt light #d50000-text text-lighten-3">
+              <h4 className="capt light #d50000-text text-lighten-3" style={{ fontSize: "30px", marginLeft: '-80px' }}>
               who loves the music
               </h4>
             </Caption>
           </Slide>
           <Slide
             image={
-              <img src="https://images.wallpaperscraft.com/image/guitarist_musician_concert_122198_3840x2400.jpg" />
+              <img src="http://pavbca.com/walldb/original/6/9/b/705333.jpg" />
             }
           >
             <Caption placement="right">
@@ -82,7 +84,7 @@ class LandingPage extends Component {
           </Slide>
           <Slide
             image={
-              <img src="https://thump-images.vice.com/images/articles/meta/2015/07/08/i-went-to-a-music-festival-sober-and-this-is-what-i-learned-1436366844.jpg?crop=1xw%3A0.843328335832084xh%3Bcenter%2Ccenter&resize=2000%3A*" />
+              <img src="https://www.elsetge.cat/myimg/f/26-267773_post-malone-at-the-rock-in-roma-festival.jpg" />
             }
           >
             <Caption placement="left">
@@ -95,12 +97,13 @@ class LandingPage extends Component {
         {dataArtists.artists.map(group => (
           <div style={{ margin: "40px" }}>
             <Pulse>
-              <div onClick={this.handleClick} name={group.name}>
+              <div className="hoverable" onClick={this.handleClick} name={group.name}>
                 <img
                   style={{ borderRadius: "15px" }}
                   src={group.profilePic}
                   alt="artist picture"
                   name={group.name}
+
                 ></img>
                 <div name={group.name} className="artistName">
                   {group.name}

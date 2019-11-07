@@ -29,11 +29,11 @@ class ArtistTrack extends Component {
 
   render() {
     return (
-      <div>
+      <div className="hoverable">
         <IconButton color="secondary" onClick={this.playButtonClick}>
           <PlayArrowIcon />
         </IconButton>
-        <span>{`${this.props.trackNum + 1} - ${this.props.trackName}`}</span>
+        <span >{`${this.props.trackNum + 1} - ${this.props.trackName}`}</span>
       </div>
     );
   }
