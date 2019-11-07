@@ -1,9 +1,11 @@
 import React from 'react'
+import { Chip } from "react-materialize";
 
-const TourSnippet = ({ title, city, start }) => {
+const TourSnippet = ({ title, city }) => {
   return (
-    <div>
-      <h2>{title}, {city}, {start}</h2>
+    <div >
+    <Chip>{title}, {city}</Chip>
+    {/* <Chip classname="truncate">{title}</Chip> */}
     </div>
   )
 }

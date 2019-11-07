@@ -22,12 +22,7 @@ export const fetchConcertInfoAC = id => async dispatch => {
     dispatch({
       type: TYPES.FETCH_CONCERT_INFO_SUCCESS,
       payload: {
-        id: data.id,
-        name: data.displayName,
-        date: data.start.date,
-        time: data.start.time,
-        venue: data.venue.displayName,
-        performers: data.performance,
+        ...data,
         comments: commentsSort
       }
     });

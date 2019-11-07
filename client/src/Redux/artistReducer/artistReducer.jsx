@@ -6,10 +6,12 @@ const initialState = {
   id: '',
   name: '',
   bio: '',
+  pic: '',
   tags: [],
   similar: [],
   tourSnippet: [],
   comments:[],
+  isSearchBar: false,
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -94,6 +96,15 @@ export default (state = initialState, { type, payload }) => {
         isLoading: false,
         isSuccess: true,
         comments:payload
+      }
+    }
+
+    case TYPES.SWITCH_SEARCH_BAR: {
+      return {
+        ...state,
+        isLoading: false,
+        isSuccess: false,
+        isSearchBar: payload
       }
     }
 

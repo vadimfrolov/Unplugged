@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
 import { fetchArtistConcertAC } from "../../Redux/artistReducer/artistActions";
 
@@ -22,11 +22,14 @@ class TourSnippetList extends Component {
 
   render() {
     return (
-      this.props.artist && this.props.artist.tourSnippet.map(({ id, displayName, location, start }, i) => (
-      <TourSnippet id={id} title={displayName} city={location.city} start={start.date} key={`${displayName}_${i}`} />
-    )))
+      this.props.artist && this.props.artist.tourSnippet.map(({ displayName, location }, i) => (
+        <Link to={`/concert/${this.props.artist.tourSnippet[i].id}`}>
+          <TourSnippet title={displayName} city={location.city} key={`${displayName}_${i}`} />
+        </Link>
+      )))
   }
 }
+
 
 const mapStateToProps = state => ({
   artist: state.artist,
@@ -35,6 +38,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   fetchArtistConcertAC,
 };
+
 
 export default withRouter(
   connect(

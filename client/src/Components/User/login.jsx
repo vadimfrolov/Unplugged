@@ -25,7 +25,7 @@ class Login extends Component {
   login = () => {
     this.props.loginAC(this.state)
   }
-
+  
 
   render() {
     return (
@@ -47,7 +47,7 @@ function mapStateToProps(store) {
 
 const mapDispatchToProps = {
   loginAC,
-  logoutAC
+  logoutAC,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)

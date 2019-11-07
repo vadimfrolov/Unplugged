@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
-import ArtistTrack from "./ArtistTrack";
+import ArtistTopTrack from "./ArtistTopTrack";
 
 class ArtistTopTracks extends Component {
   render() {
@@ -11,9 +11,9 @@ class ArtistTopTracks extends Component {
 
     return (
       <div>
-        {topTracks && <div>Artist Top Tracks:</div>}
+        {topTracks && <div className="genresName">Artist Top Tracks:</div>}
         {topTracks && topTracks.map(({ name }, i) => (
-          <ArtistTrack
+          <ArtistTopTrack
             artist={artist.name}
             topTracks={topTracks}
             trackName={name}

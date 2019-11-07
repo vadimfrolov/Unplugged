@@ -5,7 +5,7 @@ import dataArtists from "../../Data/dataArtists";
 import M from "materialize-css";
 import { Slider, Slide, Caption, Button, Icon } from "react-materialize";
 import "./landingPage.css";
-import { NavLink, withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 import {
@@ -13,7 +13,6 @@ import {
   fetchArtistInfoAC
 } from "../../Redux/artistReducer/artistActions";
 import { setUserAC } from "../../Redux/UserAuth/actions/userAuth";
-
 
 const Pulse = styled.div`
   animation: 5s ${keyframes`${fadeIn}`};
@@ -27,25 +26,13 @@ class LandingPage extends Component {
     };
   }
 
-  
-
-  componentDidUpdate(prevProps) {
-    if (this.props.artist && prevProps.artist !== this.props.artist) {
-      this.props.history.push(`/artists/${this.props.artist.id}`);
-    }
-  }
-
-
-
   handleClick = async e => {
-  
-   
     await this.setState({ text: e.target.name });
     await this.props.fetchArtistIdAC(this.state.text);
     await this.props.fetchArtistInfoAC(this.state.text);
+    this.props.history.push(`/artists/${this.props.artist.id}`);
+    window.scrollTo(0, 0);
   };
-
-
 
   render() {
     return (
@@ -53,11 +40,20 @@ class LandingPage extends Component {
         <div className="info">
           <p className="caption">Discover perfect concert in your city </p>
           <div className="bord">Participate in contests </div>
-          <p className="bordBot">Choose the best live music, tailored to your music taste.</p>
-          <Button waves="light" className="bordRad deep-orange accent-4 ">
-            Find a concert
-            <Icon right>music_note</Icon>
-          </Button>
+          <p className="bordBot">
+            Choose the best live music, tailored to your music taste.
+          </p>
+          <Link to={"/explore"}>
+            {" "}
+            <Button
+              waves="light"
+              style={{ marginLeft: "0px" }}
+              className="bordRad deep-orange accent-4 "
+            >
+              Find a concert
+              <Icon right>music_note</Icon>
+            </Button>{" "}
+          </Link>
         </div>
 
         <Slider>
@@ -67,10 +63,10 @@ class LandingPage extends Component {
             }
           >
             <Caption placement="left">
-              <p className="bigLetters">For everyone who loves the music</p>
-              <h5 className="capt light #d50000-text text-lighten-3">
-
-              </h5>
+              <p className="bigLetters">For everyone </p>
+              <h4 className="capt light #d50000-text text-lighten-3">
+                who loves the music
+              </h4>
             </Caption>
           </Slide>
           <Slide
@@ -136,4 +132,3 @@ export default withRouter(
     mapDispatchToProps
   )(LandingPage)
 );
-

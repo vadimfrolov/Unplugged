@@ -19,7 +19,6 @@ class ConcertsByYear extends Component {
                   </Link>
                   <div>{this.props.nameArtist}</div>
                   <div>{event.location.city}</div>
-
                   <div>-------------</div>
                 </div>
               );
@@ -32,7 +31,6 @@ class ConcertsByYear extends Component {
 
 
 function mapStateToProps(store) {
-
   return {
     concerts: store.concerts
   };

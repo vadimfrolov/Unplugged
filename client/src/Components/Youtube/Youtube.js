@@ -27,7 +27,7 @@ import FastRewindOutlinedIcon from "@material-ui/icons/FastRewindOutlined";
 import CloseIcon from "@material-ui/icons/Close";
 import IconButton from "@material-ui/core/IconButton";
 
-const youTubeApikey = process.env.REACT_APP_YOUTUBE_API_KEY_SECOND;
+const youTubeApikey = process.env.REACT_APP_YOUTUBE_API_KEY;
 
 class Youtube extends Component {
   state = {
@@ -157,7 +157,6 @@ class Youtube extends Component {
 
   render() {
     const { url, playing, controls, volume, muted, played, pip } = this.state;
-    console.log("DEBUG", this.props.url, Math.random());
 
     return (
       <div className="app">
@@ -188,10 +187,10 @@ class Youtube extends Component {
                   onDuration={this.handleDuration}
                 />
               </div>
-              <div className="player-close-icon">
+              <div className="player-close-icon" color="error">
                 {this.props.url && (
-                  <IconButton onClick={this.handleStop} color="primary">
-                    <CloseIcon />
+                  <IconButton onClick={this.handleStop} color="error">
+                    <CloseIcon color="error"/>
                   </IconButton>
                 )}
               </div>
@@ -200,21 +199,21 @@ class Youtube extends Component {
 
           <ButtonGroup
             className="player-controls"
-            color="secondary"
             aria-label="outlined primary button group"
+            color="secondary"
           >
-            <Button onClick={this.playPrevious}>
-              <FastRewindOutlinedIcon />
+            <Button onClick={this.playPrevious} >
+              <FastRewindOutlinedIcon color="error"/>
             </Button>
-            <Button onClick={this.handlePlayPause}>
+            <Button onClick={this.handlePlayPause} >
               {playing ? (
-                <PauseCircleOutlineOutlinedIcon />
+                <PauseCircleOutlineOutlinedIcon color="error"/>
               ) : (
-                <PlayCircleOutlineOutlinedIcon />
+                <PlayCircleOutlineOutlinedIcon color="error"/>
               )}
             </Button>
-            <Button onClick={this.playNext}>
-              <FastForwardOutlinedIcon />
+            <Button onClick={this.playNext} >
+              <FastForwardOutlinedIcon color="error"/>
             </Button>
 
            

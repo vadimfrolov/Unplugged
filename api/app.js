@@ -13,10 +13,10 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const testAPIRouter = require("./routes/testAPI");
 const instaRouter = require("./routes/insta");
+const useractivityRouter = require("./routes/userActivity")
+const initPassport = require('./passport/init');
 
 const app = express();
-
-
 
 app.use(
   session({
@@ -31,29 +31,14 @@ app.use(
   }),
 );
 
-app.use(passport.initialize());
-app.use(passport.session());
-
-
 
 // passport
 
-app.use(
-  session({
-    store: new FileStore({}),
-    key: 'user_sid',
-    secret: 'anything here',
-    resave: true,
-    saveUninitialized: true,
-    cookie: {
-      expires: 60000000,
-    },
-  }),
-);
+
 
 app.use(passport.initialize());
 app.use(passport.session());
-
+initPassport(passport)
 
 
 // view engine setup
@@ -72,13 +57,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 const mongoose = require("mongoose");
 mongoose.connect("mongodb://localhost:27017/final", {
   useNewUrlParser: true,
-  useUnifiedTopology: true 
+  useUnifiedTopology: true
 });
 
 app.use('/', indexRouter);
 app.use('/users/', usersRouter);
 app.use("/testAPI", testAPIRouter);
 app.use('/insta', instaRouter);
+app.use('/useractivity', useractivityRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
