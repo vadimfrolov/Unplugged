@@ -96,17 +96,15 @@ router.patch("/artist/favorite/add/:id", async (req, res) => {
 
 router.patch("/artist/favorite/remove/:id", async (req, res) => {
 
-  console.log(req.body);
 
   const user = await User.findById(req.body.user);
 
   const index = await user.favouriteGroups.findIndex((e) => {
+    // console.log('lkdsnlklngdsalknjlsdk',e.id,'asnd;flndslk;ajnas', req.params.id); 
     return e.id == req.params.id
   })
-  console.log(user);
   await user.favouriteGroups.splice(index, 1);
   await user.save();
-  console.log(user);
 
 
   req.session.user = user;
