@@ -40,7 +40,7 @@ class App extends React.Component {
               <Route exact path="/explore" component={ConcertExplore} />
               <Route path={`/explore/:id`} component={DateConcerts} />
               <Route path='/map/:id' component={MapContainer} />
-              <Route path='user/map/:id' component={UserMapContainer} />
+              {/* <Route path='user/map/' component={UserMapContainer} /> */}
             </Switch>
           </div>
         </Router>

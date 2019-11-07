@@ -21,8 +21,8 @@ let iconPin = {
 
 
 const mapStyles = {
-  width: '50%',
-  height: '50%',
+  width: '1700px',
+  height: '25vh',
 };
 
 class Map extends Component {
@@ -60,12 +60,12 @@ class Map extends Component {
   }
 
   displayMarkers = () => {
-    return this.state.stores.map((store, index) => {
+    return this.props.user.previousConcerts.map((store, index) => {
       return <Marker key={index} id={index} icon={iconPin} position={{
-        lat: store.lat,
-        lng: store.lng
+        lat: store.location.lat,
+        lng: store.location.lng
       }}
-        onClick={() => console.log("You clicked me!")} />
+        onClick={() => console.log(store.group)} />
     })
   }
 
@@ -76,27 +76,21 @@ class Map extends Component {
       <div>
         {!this.state.geoposition?
           <div>loading</div> :
+          <div>
           <GoogleMap
             google={this.props.google}
-            zoom={4}
+            zoom={3}
             style={mapStyles}
             initialCenter={this.state.geoposition} >
             {this.displayMarkers()}
           </GoogleMap>
+          </div>
         }
       </div>
     )
   }
 }
 
-
-function mapDispatchToProps(dispatch) {
-  return {
-    fetchPastDates: (id, page) => dispatch(fetchPastDates(id, page)),
-    fetchPastDatesAC: arr => dispatch(fetchPastDatesAC(arr)),
-    fetchDate: (id, year) => dispatch(fetchDate(id, year))
-  };
-}
 
 function mapStateToProps(store) {
   return {
@@ -110,6 +104,6 @@ const UserMapContainer = GoogleApiWrapper({ apiKey: mapKey })(Map)
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  null
 )(UserMapContainer);
 

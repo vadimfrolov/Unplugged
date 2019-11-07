@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import { parse, toDate } from "date-fns";
 import dataUser from "../../Data/dataUser";
-import { Icon, Button } from "react-materialize";
+import { Button,   Icon } from "react-materialize";
+import { Link } from "react-router-dom";
+import UserMapContainer from '../../Components/UserGeo/UserMap'
+// 
 
 
 import "./user.css";
@@ -12,7 +14,8 @@ class UserContent extends Component {
     this.state = {
       user: this.props.user,
       prevConcerts: null,
-      upcomingConcerts: null
+      upcomingConcerts: null,
+      mapFlag: null,
     };
   }
 
@@ -33,24 +36,13 @@ class UserContent extends Component {
     });
   };
 
-  // callAPI = async () => {
-  //   const user = await axios.get("http://localhost:9000/testAPI");
-  //   this.setState({
-  //     user: user.data,
-  //     // group: user.data.favouriteGroups,
-  //     // newConcerts: user.data.upcomingConcerts,
-  //     // lastConcerts: user.data.previousConcerts
-  //   });
-  //   // console.log(new Date(this.state.lastConcerts[0].date));
-  // };
 
   render() {
     const { username } = this.state.user;
 
     return (
+      <div>
       <div className="avatarWrapper">
-        {/* {JSON.stringify(this.props.user.user.username)} */}
-    
         <div className="avatar">
           <img
             src={dataUser.user.profilePic}
@@ -67,8 +59,10 @@ class UserContent extends Component {
             <ul>
               <h2 className="userHead red-text">I follow:</h2>
 
-              {this.props.user.user.favouriteGroups.map(group => (
-                <li>{group.artist}</li>
+              {this.props.user.user.favouriteGroups.slice(-7).map(group => (
+                <Link to={`/artist/${group.id}`}>
+                  <li>{group.artist}</li>
+                </Link>
               ))}
             </ul>
             <Button waves="light" className="bordRad deep-orange accent-4 ">
@@ -78,7 +72,7 @@ class UserContent extends Component {
           <div className="blockUser">
             <ul>
               <h2 className="userHead red-text">Upcoming concerts:</h2>
-              {this.state.user.user.upcomingConcerts.map(concert => (
+              {this.state.user.user.upcomingConcerts.slice(-3).map(concert => (
                 <li>
                   <li
                     style={{
@@ -103,7 +97,7 @@ class UserContent extends Component {
           <div className="blockUser">
             <ul>
               <h2 className="userHead red-text">I’ve visited this concerts recently:</h2>
-              {this.state.user.user.previousConcerts.map(concert => (
+              {this.state.user.user.previousConcerts.slice(-3).map(concert => (
                 <li>
                   <li
                     style={{
@@ -125,76 +119,14 @@ class UserContent extends Component {
               show all <Icon right>zoom_out_map</Icon>
             </Button>
           </div>
-          {/* <div className="blockUser">
-                <ul>
-                  <h2>Mostly visited:</h2>
-                  {dataUser.user.mostlyVisited.map(favgroup => (
-                    <li>
-                      <span>{favgroup.group}</span>
-                      <span style={{ color: "black" }}>{favgroup.times}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div> */}
         </div>
-
-        {/* <div>
-          <div className="Block">
-            <p className="selected">I follow:</p>
-            <span className="groupConcert">
-              {this.state.group.map(function(item, i) {
-                return <p key={i}>{item}</p>;
-              })}
-            </span>
-          </div>
-          <div className="Block">
-            <p className="selected">Upcoming concerts:</p>
-
-            <table className="table">
-              {this.state.newConcerts.map(function(item, i) {
-                return (
-                  <tr>
-                    <td>
-                      <span className="dateConcert">
-                        {new Date(item.date).toUTCString().slice(0, 16)}{" "}
-                      </span>
-                    </td>
-                    <td>
-                      <span className="groupConcert">{item.group}</span>
-                    </td>
-                    <td>{item.location}</td>
-                  </tr>
-                );
-              })}
-            </table>    
-          </div>
-          <div className="Block">
-            <p className="selected">I’ve visited this concerts recently</p>
-            <table className="table">
-              {this.state.lastConcerts.map(function(item, i) {
-                return (
-                  <tr>
-                    <td>
-                      <span className="dateConcert">
-                        {new Date(item.date).toUTCString().slice(0, 16)}{" "}
-                      </span>
-                    </td>
-                    <td>
-                      <span className="groupConcert">{item.group}</span>
-                    </td>
-                    <td>{item.location}</td>
-                  </tr>
-                );
-              })}
-            </table>
-
-          </div>
-          <div className="Block">
-            <p className="selected">Mostly visited: </p>
-            <p className="selected"> Recomendations:</p>
-          </div>
-        </div> */}
+    
       </div>
+      <div>
+        <h2 className="rec white-text">User Geo:</h2>
+        <UserMapContainer user={this.props.user} />
+        </div>
+        </div>
     );
   }
 }
