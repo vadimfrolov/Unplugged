@@ -70,7 +70,7 @@ class LikeButton extends Component {
                 <Button className="red darken-4" onClick={this.addToFavorite}>Add to favourites<Icon right>favorite_border</Icon></Button>
               ) : (
                   <Button className="red darken-4" onClick={this.removeFavorite}>
-                    Remove from favourites{" "}
+                    Remove from favourites{" "}<Icon right>delete</Icon>
                   </Button>
                 )}
             </>
