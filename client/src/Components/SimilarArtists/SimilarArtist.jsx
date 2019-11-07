@@ -5,7 +5,7 @@ import { Chip } from "react-materialize";
 const SimilarArtist = ({ title }) => {
   return (
     <span className="simAr">
-    <Chip style={{fontSize: "16px"}}>{title}</Chip>
+      <Chip style={{ fontSize: "16px" }}>{title}</Chip>
     </span>
   )
 }

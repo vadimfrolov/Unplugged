@@ -20,7 +20,8 @@ import {
 import {
   fetchArtistIdAC,
   fetchArtistInfoAC,
-  fetchArtistConcertAC
+  fetchArtistConcertAC,
+  getArtistNameAC
 } from "../../Redux/artistReducer/artistActions";
 
 import TourSnippetList from "../../Components/TourSnippet/TourSnippetList";
@@ -46,20 +47,26 @@ class ArtistInfo extends Component {
   }
   componentDidMount = async () => {
     if (this.props.isSearchBar) {
+      console.log('ok')
+    // } else if (!this.props.isSearchBar) {
+    //   const id = this.props.match.params.id;
+    //   if (this.props.concertPage.performance !== undefined) {
+    //     const artist = this.props.concertPage.performance.find(
+    //       item => item.id == id
+    //     );
+    //     if (artist !== undefined) {
+    //       await this.props.fetchArtistIdAC(artist.displayName);
+    //       await this.props.fetchArtistInfoAC(artist.displayName);
+    //     }
+    //   }
     } else {
-      const id = this.props.match.params.id;
-      if (this.props.concertPage.performance !== undefined) {
-        const artist = this.props.concertPage.performance.find(
-          item => item.id == id
-        );
-        if (artist !== undefined) {
-          await this.props.fetchArtistIdAC(artist.displayName);
-          await this.props.fetchArtistInfoAC(artist.displayName);
-        }
-      }
+      console.log('ololololo')
+      const id = this.props.match.params.id
+      await this.props.getArtistNameAC(id);
+      await this.props.fetchArtistIdAC(this.props.artist.fetchedName);
+      console.log(this.props.artist.fetchedName)
+      await this.props.fetchArtistInfoAC(this.props.artist.fetchedName);
     }
-
-    // this.checkFavorite()
   };
 
   addToFavorite = async () => {
@@ -79,7 +86,7 @@ class ArtistInfo extends Component {
   };
 
   checkFavorite = async () => {
-    const check = await this.props.user.favouriteGroups.findIndex(e => {
+    const check = await this.props.user.favoriteGroups.findIndex(e => {
       return e == this.props.match.params.id;
     });
     const state = check === -1;
@@ -122,7 +129,7 @@ class ArtistInfo extends Component {
           <Col s={6} className="black white-text">
             <p className="genresName">Genres</p>
             <TagsList />
-            <p style={{marginTop:"35px"}}  className="genresName">Similar artists</p>
+            <p style={{ marginTop: "35px" }} className="genresName">Similar artists</p>
             <SimilarArtistsList />
             <ArtistTopTracks />
             <p className="genresName">Comments</p>
@@ -133,22 +140,22 @@ class ArtistInfo extends Component {
           <Col s={6} className="black white-text">
             <p className="genresName">Upcoming concerts</p>
             <TourSnippetList />
-            <div style={{marginBottom: "100px", marginRight: "100px"}}>
-            {!this.props.user ? (
-              <></>
-            ) : (
-              <>
-                {!this.state.favorite ? (
-                  <Button className="red darken-4" onClick={this.addToFavorite}>Add to favourites</Button>
-                ) : (
-                  <Button className="red darken-4" onClick={this.removeFavorite}>
-                    Remove from favourites{" "}
-                  </Button>
+            <div style={{ marginBottom: "100px", marginRight: "100px" }}>
+              {!this.props.user ? (
+                <></>
+              ) : (
+                  <>
+                    {!this.state.favorite ? (
+                      <Button className="red darken-4" onClick={this.addToFavorite}>Add to favourites</Button>
+                    ) : (
+                        <Button className="red darken-4" onClick={this.removeFavorite}>
+                          Remove from favourites{" "}
+                        </Button>
+                      )}
+                  </>
                 )}
-              </>
-            )}
-            <ShowAll id={artist.id} />
-            <ShowMap id={artist.id}/>
+              <ShowAll id={artist.id} />
+              <ShowMap id={artist.id} />
             </div>
             <div style={{ width: "700px" }}>
               <FacebookPanel />
@@ -160,18 +167,22 @@ class ArtistInfo extends Component {
   }
 }
 
+
 const mapStateToProps = store => ({
   artist: store.artist,
   concertPage: store.concertPage,
-  user: store.user.user
+  user: store.user.user,
+  fetchedName: store.fetchedName
 });
 
 const mapDispatchToProps = {
   fetchArtistIdAC,
   fetchArtistInfoAC,
   addToFavoriteAC,
-  removeFavoriteAC
+  removeFavoriteAC,
+  getArtistNameAC
 };
+
 
 export default connect(
   mapStateToProps,

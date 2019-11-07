@@ -21,7 +21,7 @@ class CommentConcert extends Component {
     e.preventDefault();
     this.setState({
       text: e.target.value,
-      date: new Date()  
+      date: new Date()
     });
   };
   onClick = async () => {
@@ -46,17 +46,17 @@ class CommentConcert extends Component {
   render() {
     return (
       <>
-      <Row style={{marginTop:"40px"}}>
-        <Textarea xl={8}
-        style={{ color: "white" }}
-        type="text"
-        name="text"
-        placeholder="Add a comment"
-        value={this.state.text}
-        onChange={this.handleChange}
-        required />
-      </Row>
-      <Button style={{ marginTop:"-60px" }} className="red darken-4" onClick={this.onClick}>Add</Button>
+        <Row style={{ marginTop: "40px" }}>
+          <Textarea xl={8}
+            style={{ color: "white" }}
+            type="text"
+            name="text"
+            placeholder="Add a comment"
+            value={this.state.text}
+            onChange={this.handleChange}
+            required />
+        </Row>
+        <Button style={{ marginTop: "-60px" }} className="red darken-4" onClick={this.onClick}>Add</Button>
       </>
     );
   }

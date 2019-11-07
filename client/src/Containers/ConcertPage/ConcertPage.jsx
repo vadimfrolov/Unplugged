@@ -6,6 +6,7 @@ import moment from "moment";
 
 import "./concertPage.css";
 
+import { fetchArtistIdAC, fetchArtistInfoAC, keepArtistNameAC } from "../../Redux/artistReducer/artistActions";
 import { fetchConcertInfoAC } from "../../Redux/concertPageReducer/concertPageActions";
 import { previousConcertAC, upcomingConcertAC, upcomingConcertCancelAC } from '../../Redux/UserActivity/activityActions'
 
@@ -85,6 +86,14 @@ class ConcertPage extends Component {
     this.concertActivityCheck()
   }
 
+  onClick = async (e) => {
+    const name = e;
+    await this.props.fetchArtistIdAC(name);
+    await this.props.fetchArtistInfoAC(name);
+    await this.props.keepArtistNameAC(name, this.props.artist.id)
+    this.props.history.push(`/artists/${this.props.artist.id}`);
+  }
+
   render() {
     const { concertPage } = this.props;
     const concertFlag = this.state.concertGo
@@ -100,7 +109,7 @@ class ConcertPage extends Component {
 
 
     return (
-      <Container style={{ marginTop:"40px", padding: "0px 30px", borderRadius: "3%" }}>
+      <Container style={{ marginTop: "40px", padding: "0px 30px", borderRadius: "3%" }}>
         <Row>
           <Col m={12} s={12}>
             <Card
@@ -137,7 +146,7 @@ class ConcertPage extends Component {
                 <span style={{ fontWeight: "bold", fontSize: "35px", color: "#b71c1c", marginRight: "15px" }}>Performers:</span>
                 {performers && performers.map((el, i) => (
                   <Chip className="performersList" key={`${name}_${i}`}>
-                    <Link style={{ color: "black" }} to={`/artists/${performers[i].id}`}>
+                    <Link style={{ color: "black" }} to={`/artists/${performers[i].id}`} value={el.displayName} onClick={() => this.onClick(el.displayName)}>
                       {el.displayName}
                     </Link>
                   </Chip>
@@ -166,6 +175,9 @@ const mapDispatchToProps = {
   previousConcertAC,
   upcomingConcertAC,
   upcomingConcertCancelAC,
+  fetchArtistIdAC,
+  fetchArtistInfoAC,
+  keepArtistNameAC
 };
 
 export default connect(

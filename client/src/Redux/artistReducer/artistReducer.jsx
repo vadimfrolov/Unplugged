@@ -10,8 +10,9 @@ const initialState = {
   tags: [],
   similar: [],
   tourSnippet: [],
-  comments:[],
+  comments: [],
   isSearchBar: false,
+  fetchedName: ''
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -95,25 +96,27 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         isLoading: false,
         isSuccess: true,
-        comments:payload
+        comments: payload
       }
     }
 
     case TYPES.SWITCH_SEARCH_BAR: {
       return {
         ...state,
-        isLoading: false,
-        isSuccess: false,
         isSearchBar: payload
       }
     }
 
-    case TYPES.SWITCH_SEARCH_BAR: {
+    case TYPES.KEEP_ARTIST_NAME: {
+      return {
+        ...state
+      }
+    }
+
+    case TYPES.GET_ARTIST_NAME: {
       return {
         ...state,
-        isLoading: false,
-        isSuccess: false,
-        isSearchBar: payload
+        fetchedName: payload
       }
     }
 

@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-import {
-
-  Button
-} from "react-materialize";
+import { Button } from "react-materialize";
 
 
 export default class ShowAll extends Component {

@@ -1,7 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { fetchArtistIdAC, fetchArtistInfoAC } from '../../Redux/artistReducer/artistActions';
+import {
+  fetchArtistIdAC,
+  fetchArtistInfoAC,
+  keepArtistNameAC,
+} from '../../Redux/artistReducer/artistActions';
 import { Chip } from "react-materialize";
 
 import SimilarArtist from "./SimilarArtist";
@@ -10,6 +14,7 @@ class SimilarArtistsList extends React.Component {
   async onClick(name) {
     await this.props.fetchArtistIdAC(name);
     await this.props.fetchArtistInfoAC(name);
+    await this.props.keepArtistNameAC(name, this.props.artist.id)
     this.props.history.push(`/artists/${this.props.artist.id}`);
   }
 
@@ -29,7 +34,8 @@ const mapStateToProps = (store) => ({
 
 const mapDispatchToProps = {
   fetchArtistIdAC,
-  fetchArtistInfoAC
+  fetchArtistInfoAC,
+  keepArtistNameAC,
 };
 
 
