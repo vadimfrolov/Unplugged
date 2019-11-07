@@ -59,7 +59,10 @@ class ArtistInfo extends Component {
   }
 
   addToFavorite = async () => {
-    await this.props.addToFavoriteAC(this.props.user._id, this.props.match.params.id)
+    await this.props.addToFavoriteAC({
+      id: this.props.user._id,
+      artist: this.props.artist.name,
+    }, this.props.match.params.id)
     this.checkFavorite()
   }
 
@@ -70,7 +73,7 @@ class ArtistInfo extends Component {
 
   checkFavorite = async () => {
     const check = await this.props.user.favouriteGroups.findIndex((e) => {
-      return e == this.props.match.params.id
+      return e.id == this.props.match.params.id
     })
     const state = check === -1
     this.setState({ favorite: state })
@@ -154,7 +157,7 @@ class ArtistInfo extends Component {
             {!this.props.user ?
           <></> :
           <>
-          {this.state.favorite?
+          {this.state.favorite ?
             <button onClick={this.addToFavorite}>add to favorite </button>:
               <button onClick={this.removeFavorite}>remove from fav </button>
             }

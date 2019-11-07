@@ -7,10 +7,6 @@ import {
   switchSearchBarAC
 } from "../../Redux/artistReducer/artistActions";
 import { setUserAC, logoutAC } from "../../Redux/UserAuth/actions/userAuth";
-import {
-
-Button
-} from "react-materialize";
 
 import "./navbar.css";
 
@@ -85,7 +81,7 @@ class Navbar extends Component {
                 value={this.state.text}
                 onChange={this.handleInput}
               />
-              <Button className="red darken-4 white-text" onClick={this.onClick}> search band </Button>
+              <button onClick={this.onClick}> search band </button>
             </div>
             <NavLink activeClassName={"Active"} to={"/explore"}>Explore</NavLink>
             <Youtube />
