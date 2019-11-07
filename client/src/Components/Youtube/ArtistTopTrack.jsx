@@ -8,7 +8,7 @@ import get from "lodash.get";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import IconButton from "@material-ui/core/IconButton";
 
-const youTubeApikey = process.env.REACT_APP_YOUTUBE_API_KEY_SECOND;
+const youTubeApikey = process.env.REACT_APP_YOUTUBE_API_KEY;
 
 class ArtistTrack extends Component {
   playButtonClick = async () => {

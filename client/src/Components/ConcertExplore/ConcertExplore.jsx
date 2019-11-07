@@ -8,8 +8,8 @@ import {
   fetchConcertsByDateAC
 } from "../../Redux/ConcertExploreReducer/ConcertExploreActions";
 import { switchSearchBarAC } from "../../Redux/artistReducer/artistActions";
+import ArtistTopTracksPlay from "../Youtube/PlayArtistTopTracks";
 
-import { Table, thead, tbody } from "react-materialize";
 import "./ConcertExplore.css";
 
 class ConcertExplore extends Component {
@@ -20,9 +20,8 @@ class ConcertExplore extends Component {
     };
   }
 
-  async componentDidMount() {
-    await this.props.fetchUpcomingConcertsAC();
-    // this.props.switchSearchBarAC();
+  componentDidMount() {
+    this.props.fetchUpcomingConcertsAC();
   }
 
   handleInput = e => {
@@ -35,51 +34,39 @@ class ConcertExplore extends Component {
     this.props.history.push(`/explore/${date}`);
   };
 
+  onClickPagination = async e => {
+    await this.props.fetchUpcomingConcertsAC(e.target.innerText);
+  };
+
   render() {
     return (
       <div>
-        <div>
-          Choose a date:{" "}
-          <input
-            type="date"
-            value={this.state.date}
-            onChange={this.handleInput}
-          ></input>
-          <button onClick={this.onClick}>Submit</button>
-        </div>
-
-        <div className="concertList">
-          <Table className=" white-text highlight">
-            <thead>
-              <tr>
-                <th data-field="id">Group</th>
-                <th data-field="name"> Date </th>
-                <th data-field="price">Place</th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.props.events.allEvents &&
-                this.props.events.allEvents.map((el, i) => (
-                  <tr>
-                    <Link to={`/concert/${this.props.events.allEvents[i].id}`}>
-                      <td> {el.performance[0].displayName}</td>{" "}
-                    </Link>
-                    <td className="black-text">{el.start.date}</td>
-                    <td>{el.venue.displayName}</td>
-                  </tr>
-                ))}
-            </tbody>
-          </Table>
-        </div>
-        {/* {this.props.events.allEvents &&
+        Choose a date:{" "}
+        <input
+          type="date"
+          value={this.state.date}
+          onChange={this.handleInput}
+        ></input>
+        <button onClick={this.onClick}>Submit</button>
+        {this.props.events.allEvents &&
           this.props.events.allEvents.map((el, i) => (
             <p key={i}>
+              <ArtistTopTracksPlay artist={el.performance[0].displayName} concertPage={true}/>
               <Link to={`/concert/${this.props.events.allEvents[i].id}`}>
-                {el.performance[0].displayName}
+                {el.performance[0]
+                  ? el.performance[0].displayName
+                  : el.displayName}
               </Link>{" "}
-              ~~~~~ {el.start.date} ~~~~~ {el.venue.displayName}
+              ~~~~~ {el.start.date} ~~~~~ {el.venue && el.venue.displayName}
             </p>
-          ))} */}
+          ))}
+        <div>
+          <button onClick={this.onClickPagination}>1</button>
+          <button onClick={this.onClickPagination}>2</button>
+          <button onClick={this.onClickPagination}>3</button>
+          <button onClick={this.onClickPagination}>4</button>
+          <button onClick={this.onClickPagination}>5</button>
+        </div>
       </div>
     );
   }

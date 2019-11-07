@@ -14,7 +14,6 @@ import {
 } from "../../Redux/artistReducer/artistActions";
 import { setUserAC } from "../../Redux/UserAuth/actions/userAuth";
 
-
 const Pulse = styled.div`
   animation: 4s ${keyframes`${fadeIn}`};
 `;
@@ -27,12 +26,6 @@ class LandingPage extends Component {
     };
   }
 
-  // componentDidUpdate(prevProps) {
-  //   if (this.props.artist && prevProps.artist !== this.props.artist) {
-    
-  //   }
-  // }
-
   handleClick = async e => {
     await this.setState({ text: e.target.name });
     await this.props.fetchArtistIdAC(this.state.text);
@@ -41,20 +34,26 @@ class LandingPage extends Component {
     window.scrollTo(0, 0);
   };
 
-             
-           
-
   render() {
     return (
       <div className="landingPage">
         <div className="info">
           <p className="caption">Discover perfect concert in your city </p>
           <div className="bord">Participate in contests </div>
-          <p className="bordBot">Choose the best live music, tailored to your music taste.</p>
-          <Link to={"/explore"}>  <Button waves="light" style={{ marginLeft: "0px" }} className="bordRad deep-orange accent-4 ">
-            Find a concert
-            <Icon right>music_note</Icon>  
-          </Button>   </Link>
+          <p className="bordBot">
+            Choose the best live music, tailored to your music taste.
+          </p>
+          <Link to={"/explore"}>
+            {" "}
+            <Button
+              waves="light"
+              style={{ marginLeft: "0px" }}
+              className="bordRad deep-orange accent-4 "
+            >
+              Find a concert
+              <Icon right>music_note</Icon>
+            </Button>{" "}
+          </Link>
         </div>
 
         <Slider>
