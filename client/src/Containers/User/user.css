@@ -6,23 +6,32 @@
 }
 
 .userWrapper {
-  margin: 5%;
   display: flex;
   flex-wrap: nowrap;
-  font-size: 30px;
+  font-size: 25px;
   color: white;
 }
 
 .avatarWrapper {
+
+  display: flex;
   font-size: 30px;
   color: white;
-  margin: 5%;
+  margin-top: 5vh;
 }
 
 .bordRad {
-  margin: 10px;
-  font-size: 15px;
-  margin-left: 125px
+  margin-top: 3%;
+  font-size: 0.7em;
+  margin-left: 30%;
+}
+
+/* .avatar {
+  width: 10%;
+} */
+
+.userAvatar {
+  width: 8vw
 }
 
 .rec {
@@ -41,20 +50,24 @@
   font-weight: 200;
   margin-bottom: 20px;
 }
+.userHead {
+  font-size: 1.0em;
+}
+
 
 .blockUser {
   margin-right: 20px;
-
   background-color: black;
   border-radius: 15px;
   width: 30%;
   padding: 23px;
 }
 
+
 .User {
-  font-size: 40px;
+  font-size: 1.8em;
   font-weight: 600;
-  margin: 2%;
+
 }
 
 .selected {
@@ -63,9 +76,7 @@
   margin-bottom: 3%;
 }
 
-.avatar {
-  margin: 2%;
-}
+
 
 .dateConcert {
   color: #e6e6fa;

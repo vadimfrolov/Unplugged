@@ -21,8 +21,8 @@ let iconPin = {
 
 
 const mapStyles = {
-  width: '60%',
-  height: '25%',
+  width: '1700px',
+  height: '25vh',
 };
 
 class Map extends Component {

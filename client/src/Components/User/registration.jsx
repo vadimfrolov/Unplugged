@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { registrationAC } from '../../Redux/UserAuth/actions/userAuth';
-
+import { Link } from "react-router-dom";
 import M from "materialize-css";
 import {
   Container,
@@ -49,7 +49,7 @@ class Registration extends Component {
                 <input style={{ color: "white" }} type="text" placeholder="Username" name="username" onChange={this.onChangeUsername} />
                 <input style={{ color: "white" }} type="email" placeholder="E-mail" name="email" onChange={this.onChangeEmail} />
                 <input style={{ color: "white" }} type="password" placeholder="Password" bsSize="lg" name="password" onChange={this.onChangePassword} />
-                <Button style={{ backgroundColor: "#b71c1c" }} onClick={this.registration}>Register</Button>
+                <Link to={"/dashboard"}> <Button style={{ backgroundColor: "#b71c1c" }} onClick={this.registration}>Register</Button> </Link >
               </div>
             </Card>
           </Col>
