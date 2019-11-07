@@ -63,12 +63,12 @@ class ArtistInfo extends Component {
   };
 
   addToFavorite = async () => {
-    await this.props.addToFavoriteAC(
-      this.props.user._id,
-      this.props.match.params.id
-    );
-    this.checkFavorite();
-  };
+    await this.props.addToFavoriteAC({
+      id: this.props.user._id,
+      artist: this.props.artist.name,
+    }, this.props.match.params.id)
+    this.checkFavorite()
+  }
 
   removeFavorite = async () => {
     await this.props.removeFavoriteAC(
@@ -79,12 +79,12 @@ class ArtistInfo extends Component {
   };
 
   checkFavorite = async () => {
-    const check = await this.props.user.favouriteGroups.findIndex(e => {
-      return e == this.props.match.params.id;
-    });
-    const state = check === -1;
-    this.setState({ favorite: state });
-  };
+    const check = await this.props.user.favouriteGroups.findIndex((e) => {
+      return e.id == this.props.match.params.id
+    })
+    const state = check === -1
+    this.setState({ favorite: state })
+  }
 
   render() {
     const { artist } = this.props;
