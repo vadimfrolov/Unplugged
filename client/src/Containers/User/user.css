@@ -13,16 +13,24 @@
 }
 
 .avatarWrapper {
+  display: flex;
   font-size: 30px;
   color: white;
-  margin: 5%;
+  margin-top: 5vh;
 }
 
 .bordRad {
-  margin: 10px;
-  font-size: 15px;
-  margin-left: 125px;
-  align-self: flex-end;
+  margin-top: 3%;
+  font-size: 0.7em;
+  margin-left: 30%;
+}
+
+/* .avatar {
+  width: 10%;
+} */
+
+.userAvatar {
+  width: 8vw
 }
 
 .rec {
@@ -56,7 +64,7 @@
 
 
 .User {
-  font-size: 50px;
+  font-size: 1.8em;
   font-weight: 600;
 
 }
@@ -67,9 +75,7 @@
   margin-bottom: 3%;
 }
 
-.avatar {
-  margin: 2%;
-}
+
 
 .dateConcert {
   color: #e6e6fa;

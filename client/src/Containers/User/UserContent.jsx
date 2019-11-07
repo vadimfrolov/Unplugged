@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { parse, toDate } from "date-fns";
 import dataUser from "../../Data/dataUser";
 import { Icon, Button } from "react-materialize";
+import Avatar from 'react-avatar-edit'
 
 import "./user.css";
 
@@ -48,15 +49,16 @@ class UserContent extends Component {
 
     return (
       <div className="avatarWrapper">
-        {JSON.stringify(this.props.user.user.username)}
+        {/* {JSON.stringify(this.props.user.user.username)} */}
+    
         <div className="avatar">
           <img
             src={dataUser.user.profilePic}
-            style={{ width: "150px" }}
+            className="userAvatar"
             alt="profile picture"
           />
-          <p className="User" style={{ fontSize: "90px", fontWeight: "600" }}>
-            {username}
+          <p className="User" >
+            {this.props.user.user.username}
           </p>
           {/* <img src={userPic} alt="profile picture" /> */}
         </div>
