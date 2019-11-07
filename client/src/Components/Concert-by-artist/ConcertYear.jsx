@@ -9,6 +9,8 @@ import {
   fetchDate
 } from "../../Redux/concertsReducer/concertsActions";
 
+import { Button } from "react-materialize";
+
 import ConcertsByYear from "./ConcertsByYear";
 
 class ConcertYear extends Component {
@@ -41,9 +43,9 @@ class ConcertYear extends Component {
         {this.props.concerts.years &&
           this.props.concerts.years.map((el, i) => {
             return (
-              <button key={i} onClick={() => this.onClick(el)}>
+              <Button className="red darken-4 white-text" key={i} onClick={() => this.onClick(el)}>
                 {el}
-              </button>
+              </Button>
             );
           })}
         <ConcertsByYear nameArtist={this.props.artist.name} />
