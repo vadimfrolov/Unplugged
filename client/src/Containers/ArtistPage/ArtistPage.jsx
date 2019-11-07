@@ -3,7 +3,10 @@ import { connect } from "react-redux";
 import get from "lodash.get";
 import { withRouter } from "react-router-dom";
 
-import { addToFavoriteAC, removeFavoriteAC } from '../../Redux/UserActivity/activityActions';
+import {
+  addToFavoriteAC,
+  removeFavoriteAC
+} from "../../Redux/UserActivity/activityActions";
 import M from "materialize-css";
 import {
   CollapsibleItem,
@@ -26,10 +29,14 @@ import {
 import TourSnippetList from "../../Components/TourSnippet/TourSnippetList";
 import TagsList from "../../Components/TagsList";
 import SimilarArtistsList from "../../Components/SimilarArtists/SimilarArtistsList";
-import FacebookPanel from "../../Components/FacebookPanel";
+import CommentArtist from "../../Components/CommentsArtist/CommentArtist";
+import CommentListArtist from "../../Components/CommentsArtist/CommentListArtist";
+
 import ShowAll from "../../Components/TourSnippet/ShowAll";
 import ArtistTopTracks from "../../Components/Youtube/ArtistTopTracks";
 import ShowMap from "../../Components/Map/ShowMap";
+
+import FacebookPanel from "../../Components/FacebookPanel";
 
 import "./ArtistPage.css";
 
@@ -37,9 +44,9 @@ class ArtistInfo extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      favorite: false,
+      favorite: false
     };
-  };
+  }
   componentDidMount = async () => {
     if (this.props.isSearchBar) {
     } else {
@@ -55,30 +62,35 @@ class ArtistInfo extends Component {
       }
     }
 
-    this.checkFavorite()
-  }
+    // this.checkFavorite()
+  };
 
   addToFavorite = async () => {
-    await this.props.addToFavoriteAC(this.props.user._id, this.props.match.params.id)
-    this.checkFavorite()
-  }
+    await this.props.addToFavoriteAC(
+      this.props.user._id,
+      this.props.match.params.id
+    );
+    this.checkFavorite();
+  };
 
   removeFavorite = async () => {
-    await this.props.removeFavoriteAC(this.props.user._id, this.props.match.params.id)
-    this.checkFavorite()
-  }
+    await this.props.removeFavoriteAC(
+      this.props.user._id,
+      this.props.match.params.id
+    );
+    this.checkFavorite();
+  };
 
   checkFavorite = async () => {
-    const check = await this.props.user.favouriteGroups.findIndex((e) => {
-      return e == this.props.match.params.id
-    })
-    const state = check === -1
-    this.setState({ favorite: state })
-  }
+    const check = await this.props.user.favouriteGroups.findIndex(e => {
+      return e == this.props.match.params.id;
+    });
+    const state = check === -1;
+    this.setState({ favorite: state });
+  };
 
   render() {
     const { artist } = this.props;
-
     const name = get(artist, "name");
     const content = get(artist, "bio.content");
     const pic = get(artist, "pic");
@@ -104,7 +116,7 @@ class ArtistInfo extends Component {
           </Collapsible>
         </div> */}
 
-        <div>   </div>
+        <div> </div>
         <Row>
           <Col m={12} s={12}>
             <Card
@@ -113,8 +125,9 @@ class ArtistInfo extends Component {
               title="Biography"
               actions={[
                 <Modal
-
-                  trigger={<Button className="red darken-4"> Show full bio </Button>}
+                  trigger={
+                    <Button className="red darken-4"> Show full bio </Button>
+                  }
                 >
                   <p className="insideBio">{content}</p>
                 </Modal>
@@ -124,7 +137,6 @@ class ArtistInfo extends Component {
             </Card>
           </Col>
         </Row>
-
 
         {/* <div className="truncate bioPage black">{content}</div>
 
@@ -151,15 +163,19 @@ class ArtistInfo extends Component {
           <Col s={6} className="black white-text">
             <p className="genresName">Upcoming concerts:</p>
             <TourSnippetList />
-            {!this.props.user ?
-          <></> :
-          <>
-          {this.state.favorite?
-            <button onClick={this.addToFavorite}>add to favorite </button>:
-              <button onClick={this.removeFavorite}>remove from fav </button>
-            }
-          </>
-        }
+            {!this.props.user ? (
+              <></>
+            ) : (
+              <>
+                {this.state.favorite ? (
+                  <button onClick={this.addToFavorite}>add to favorite </button>
+                ) : (
+                  <button onClick={this.removeFavorite}>
+                    remove from fav{" "}
+                  </button>
+                )}
+              </>
+            )}
             <ShowAll id={artist.id} />
             <ShowMap id={artist.id} />
             <div style={{ width: "700px" }}>
@@ -167,16 +183,17 @@ class ArtistInfo extends Component {
             </div>
           </Col>
         </Row>
+        <CommentArtist nameArtist={artist.name} idArtist={artist.id} />
+        <CommentListArtist commentsArtists={artist.comments} />
       </div>
     );
   }
 }
 
-
 const mapStateToProps = store => ({
   artist: store.artist,
   concertPage: store.concertPage,
-  user: store.user.user,
+  user: store.user.user
 });
 
 const mapDispatchToProps = {
@@ -185,7 +202,6 @@ const mapDispatchToProps = {
   addToFavoriteAC,
   removeFavoriteAC
 };
-
 
 export default connect(
   mapStateToProps,

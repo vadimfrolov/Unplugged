@@ -6,8 +6,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
 import get from "lodash.get";
-// import { hot } from "react-hot-loader";
-// import { playTrackFromListAC } from "../../Redux/youtubeReducer/youtubeActions";
+
 import {
   youtubePlayerCloseAC,
   youtubePlayerPlayPauseAC,
@@ -24,7 +23,7 @@ import PlayCircleOutlineOutlinedIcon from "@material-ui/icons/PlayCircleOutlineO
 import PauseCircleOutlineOutlinedIcon from "@material-ui/icons/PauseCircleOutlineOutlined";
 import FastForwardOutlinedIcon from "@material-ui/icons/FastForwardOutlined";
 import FastRewindOutlinedIcon from "@material-ui/icons/FastRewindOutlined";
-// import LocationSearchingIcon from '@material-ui/icons/LocationSearching';
+
 import CloseIcon from "@material-ui/icons/Close";
 import IconButton from "@material-ui/core/IconButton";
 
@@ -127,20 +126,6 @@ class Youtube extends Component {
     this.player = player;
   };
 
-  // inputOnChange = e => {
-  //   this.setState({ findInput: e.target.value });
-  // };
-
-  // findSongAndPlay = async () => {
-  //   const query = this.state.findInput.replace(/\s+/g, "%20");
-  //   const httpQuery = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&order=relevance&q=${query}&key=${youTubeApikey}`;
-  //   const res = await axios.get(httpQuery);
-
-  //   const videoId = get(res, "data.items[0].id.videoId", "dQw4w9WgXcQ");
-  //   this.playTrack(`https://www.youtube.com/watch?v=${videoId}`);
-  //   console.log("res", `https://www.youtube.com/watch?v=${videoId}`)
-  //   this.setState({ playing: true });
-  // };
 
   playNext = async () => {
     const artist = this.props.topTracks[0].artist.name;
@@ -190,14 +175,12 @@ class Youtube extends Component {
                   controls={controls}
                   volume={volume}
                   muted={muted}
-                  // onReady={() => console.log("onReady")}
-                  // onStart={() => console.log("onStart")}
+                
                   onPlay={this.handlePlay}
                   onEnablePIP={this.handleEnablePIP}
                   onDisablePIP={this.handleDisablePIP}
                   onPause={this.handlePause}
-                  // onBuffer={() => console.log("onBuffer")}
-                  // onSeek={e => console.log("onSeek", e)}
+                  
                   onEnded={this.handleEnded}
                   onError={e => console.log("onError", e)}
                   onProgress={this.handleProgress}
@@ -233,17 +216,7 @@ class Youtube extends Component {
               <FastForwardOutlinedIcon color="error"/>
             </Button>
 
-            {/* <input
-                placeholder="choose your song"
-                onChange={this.inputOnChange}
-                value={this.state.findInput}
-              />
-              <Button onClick={this.findSongAndPlay}>
-                <LocationSearchingIcon />
-              </Button> */}
-            {/* <Button onClick={this.playFromTopTracks}>
-                <StopOutlinedIcon />
-              </Button> */}
+           
           </ButtonGroup>
           <input
             type="range"
@@ -282,4 +255,4 @@ export default connect(
   mapDispatchToProps
 )(withRouter(Youtube));
 
-// export default hot(module)(Youtube);
+

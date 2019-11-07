@@ -8,9 +8,14 @@ import "./concertPage.css";
 import { fetchConcertInfoAC } from "../../Redux/concertPageReducer/concertPageActions";
 import { previousConcertAC, upcomingConcertAC, upcomingConcertCancelAC } from '../../Redux/UserActivity/activityActions'
 
+import Flashmob from "../../Components/Flashmob";
+import CommentConcert from "../../Components/CommentsConcert";
+import CommentList from "../../Components/CommentsConcert/CommentList";
+
 // import Flashmob from "../../Components/Flashmob";
 // import CommentSection from "../../Components/CommentsConcert";
 // import CommentList from "../../Components/CommentsConcert/CommentList";
+
 
 import {
   Row,
@@ -151,9 +156,9 @@ class ConcertPage extends Component {
             ))}
         </p>
         <button>I'll be there!</button> */}
-        {/* <Flashmob />
-        <CommentSection nameArtist={performers} idConcert={id} />
-        <CommentList comments={comments} /> */}
+        <Flashmob />
+        <CommentConcert nameArtist={performers} idConcert={id} />
+        <CommentList comments={comments} />
       </div>
     );
   }
@@ -177,4 +182,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRouter(ConcertPage));
+)(withRouter(ConcertPage))

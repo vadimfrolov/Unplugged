@@ -13,17 +13,6 @@ class User extends Component {
     this.state = { user: this.props.user };
   }
 
-  // callAPI = async () => {
-  //   const user = await axios.get("http://localhost:9000/testAPI");
-  //   this.setState({
-  //     user: user.data,
-  //     // group: user.data.favouriteGroups,
-  //     // newConcerts: user.data.upcomingConcerts,
-  //     // lastConcerts: user.data.previousConcerts
-  //   });
-  //   // console.log(new Date(this.state.lastConcerts[0].date));
-  // };
-
   render() {
     const { username } = this.state.user;
 

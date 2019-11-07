@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 
+import UpcomingConcert from "./UpcomingConcert";
 import { connect } from "react-redux";
 
 import {
@@ -16,7 +17,7 @@ class ConcertYear extends Component {
   };
 
   componentDidMount = async () => {
-    const id  = this.props.match.params.id;
+    const id = this.props.match.params.id;
     let page = 1;
     let res = await this.props.fetchPastDates(id, page);
     while (res) {
@@ -28,13 +29,15 @@ class ConcertYear extends Component {
   };
 
   onClick = br => {
-    const id  = this.props.match.params.id;
+    const id = this.props.match.params.id;
     this.props.fetchDate(id, br);
   };
 
   render() {
+    const id = this.props.match.params.id;
     return (
       <div>
+        <UpcomingConcert artistId={id} />
         {this.props.concerts.years &&
           this.props.concerts.years.map((el, i) => {
             return (
@@ -43,7 +46,7 @@ class ConcertYear extends Component {
               </button>
             );
           })}
-        <ConcertsByYear nameArtist={this.props.artist.name}/>
+        <ConcertsByYear nameArtist={this.props.artist.name} />
       </div>
     );
   }
