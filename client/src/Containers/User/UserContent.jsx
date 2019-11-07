@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { parse, toDate } from "date-fns";
 import dataUser from "../../Data/dataUser";
 import { Icon, Button } from "react-materialize";
-import Avatar from 'react-avatar-edit'
+
 
 import "./user.css";
 
