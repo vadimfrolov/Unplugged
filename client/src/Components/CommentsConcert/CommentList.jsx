@@ -6,12 +6,9 @@ export default class CommentList extends Component {
     const { comments } = this.props;
     return (
       <div>
-        {comments &&
-          comments.map(el => {
-            return (
-              <Comment text={el.text} nameUser={el.nameUser} date={el.date} />
-            );
-          })}
+        {comments && comments.map(el => (
+          <Comment text={el.text} nameUser={el.nameUser} date={el.date} />
+        ))}
       </div>
     );
   }

@@ -7,6 +7,7 @@ import {
   addToFavoriteAC,
   removeFavoriteAC
 } from "../../Redux/UserActivity/activityActions";
+
 import M from "materialize-css";
 import {
   Card,
@@ -119,27 +120,30 @@ class ArtistInfo extends Component {
         </Row>
         <Row className="rowWrapper flex">
           <Col s={6} className="black white-text">
-            <p className="genresName">Genres:</p>
+            <p className="genresName">Genres</p>
             <TagsList />
-            <p style={{marginTop:"35px"}}  className="genresName">Similar artists:</p>
+            <p style={{marginTop:"35px"}}  className="genresName">Similar artists</p>
             <SimilarArtistsList />
             <ArtistTopTracks />
+            <p className="genresName">Comments</p>
+            <CommentArtist nameArtist={artist.name} idArtist={artist.id} />
+            <CommentListArtist commentsArtists={artist.comments} />
           </Col>
 
           <Col s={6} className="black white-text">
-            <p className="genresName">Upcoming concerts:</p>
+            <p className="genresName">Upcoming concerts</p>
             <TourSnippetList />
             <div style={{marginBottom: "100px", marginRight: "100px"}}>
             {!this.props.user ? (
               <></>
             ) : (
               <>
-                {this.state.favorite ? (
-                  <button onClick={this.addToFavorite}>add to favorite </button>
+                {!this.state.favorite ? (
+                  <Button className="red darken-4" onClick={this.addToFavorite}>Add to favourites</Button>
                 ) : (
-                  <button onClick={this.removeFavorite}>
-                    remove from fav{" "}
-                  </button>
+                  <Button className="red darken-4" onClick={this.removeFavorite}>
+                    Remove from favourites{" "}
+                  </Button>
                 )}
               </>
             )}
@@ -151,8 +155,6 @@ class ArtistInfo extends Component {
             </div>
           </Col>
         </Row>
-        <CommentArtist nameArtist={artist.name} idArtist={artist.id} />
-        <CommentListArtist commentsArtists={artist.comments} />
       </div>
     );
   }
