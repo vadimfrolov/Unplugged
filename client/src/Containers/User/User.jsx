@@ -16,7 +16,6 @@ class User extends Component {
     this.state = { user: this.props.user };
   }
 
-
   render() {
     const { username } = this.state.user;
 

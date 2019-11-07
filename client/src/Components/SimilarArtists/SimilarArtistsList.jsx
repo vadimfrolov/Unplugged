@@ -15,9 +15,9 @@ class SimilarArtistsList extends React.Component {
 
   render() {
     return this.props.artist.similar && this.props.artist.similar.map((el, i) => (
-      <Chip value={el.name} onClick={() => this.onClick(el.name)}>
+      <span value={el.name} onClick={() => this.onClick(el.name)}>
         <SimilarArtist title={el.name} key={`${el.name}_${i}`} />
-      </Chip>
+      </span>
     ));
   }
 }

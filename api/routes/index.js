@@ -8,7 +8,10 @@ let SongKickKey = process.env.SONGKICK_KEY;
 let LastFmKey = process.env.LASTFM_KEY;
 let YouTubeKey = process.env.YOUTUBE_API_KEY;
 
+const Artist = require("../models/artist");
 const Concert = require("../models/concert");
+
+
 
 router.post("/getId", async (req, res) => {
   let bandInput = encodeURIComponent(`${req.body.text}`);
@@ -16,14 +19,14 @@ router.post("/getId", async (req, res) => {
     `https://api.songkick.com/api/3.0/search/artists.json?apikey=${SongKickKey}&query=${bandInput}`
   );
   const dataID = await resID.json();
+ 
   const id = dataID.resultsPage.results.artist[0].id;
-  // const name = dataID.resultsPage.results.artist[0].displayName;
-  // console.log(dataID.resultsPage.results.artist[0].displayName)
 
   res.json({ id });
 });
 
 router.post("/search", async (req, res) => {
+  let artistinput = req.body.text.toLowerCase();
   let bandInput = encodeURIComponent(`${req.body.text}`);
   const resSearch = await fetch(`http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${bandInput}&api_key=${LastFmKey}&format=json`);
   const dataSearch = await resSearch.json();
@@ -32,7 +35,13 @@ router.post("/search", async (req, res) => {
   const topTracksApiCall = await axios.get(`http://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&artist=${bandInput}&api_key=${LastFmKey}&format=json`);
 
   dataSearch.topTracks = topTracksApiCall.data.toptracks.track.slice(0, 10);
-  res.json({ dataSearch, pic })
+  const artistComment = await Artist.findOne({ nameArtist: artistinput });
+  if (!artistComment) {
+    res.json({ dataSearch,pic, artistComment: [] });
+  } else {
+    res.json({ dataSearch,pic, artistComment: artistComment.comments });
+  }
+
 });
 
 router.get("/concert/:id", async (req, res) => {
@@ -49,6 +58,7 @@ router.get("/concert/:id", async (req, res) => {
   }
 });
 
+// коменты на странице концерта
 router.post("/comments", async (req, res) => {
   let { nameArtists, idConcert, comments } = req.body.comment;
 
@@ -68,8 +78,44 @@ router.post("/comments", async (req, res) => {
       { $push: { comments: [comments] } }
     );
   }
-  const concerts = await Concert.findOne({ idConcert })
+  const concerts = await Concert.findOne({ idConcert });
   res.json({ concerts });
+});
+
+
+
+//коменты на странице артиста
+router.post("/commentsar", async (req, res) => {
+  
+  let { nameArtist, idArtist, comments } = req.body.comment;
+ 
+  const artist = await Artist.findOne({ idArtist });
+  if (!artist) {
+    const newArttist = new Artist({
+      nameArtist: nameArtist.toLowerCase(),
+      idArtist: idArtist,
+      comments: [comments],
+      favourites: []
+    });
+    await newArttist.save();
+  } else {
+    await Artist.updateOne({ idArtist }, { $push: { comments: [comments] } });
+  }
+  const commentsArtist = await Artist.findOne({ idArtist });
+
+  res.json({ commentsArtist });
+});
+
+//на будующее концеты
+router.post("/upcoming", async (req, res) => {
+  const artistId = req.body.id;
+  const resCon = await fetch(
+    `https://api.songkick.com/api/3.0/artists/${artistId}/calendar.json?apikey=${SongKickKey}`
+  );
+
+  const dataConcert = await resCon.json();
+ 
+  res.json({ dataConcert });
 });
 
 router.get("/artists/:id", async (req, res) => {
