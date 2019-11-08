@@ -60,6 +60,7 @@ class Youtube extends Component {
   handleStop = () => {
     this.setState({ played: 0 });
     this.props.youtubePlayerClose();
+    this.setState({ playing: !this.state.playing });
   };
 
   handleVolumeChange = e => {
@@ -146,6 +147,7 @@ class Youtube extends Component {
       const url = `https://www.youtube.com/watch?v=${videoId}`;
 
       this.props.youtubePlayerChangeTrack(url, trackNum);
+      this.setState({ playing: true });
     }
   };
 
@@ -162,6 +164,7 @@ class Youtube extends Component {
       const url = `https://www.youtube.com/watch?v=${videoId}`;
 
       this.props.youtubePlayerChangeTrack(url, trackNum);
+      this.setState({ playing: true });
     }
   };
 
@@ -214,7 +217,7 @@ class Youtube extends Component {
               <FastRewindOutlinedIcon color="error" />
             </Button>
             <Button onClick={this.handlePlayPause}>
-              {this.props.playerWindow ? (
+              {this.props.playerWindow && this.props.playing ? (
                 <PauseCircleOutlineOutlinedIcon color="error" />
               ) : (
                 <PlayCircleOutlineOutlinedIcon color="error" />
