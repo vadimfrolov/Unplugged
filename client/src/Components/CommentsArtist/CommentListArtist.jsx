@@ -3,7 +3,11 @@ import React, { Component } from "react";
 import Comment from "./Comment";
 
 import { connect } from "react-redux";
+
+import { Button } from "react-materialize";
 import { fetchDeleteCommentArtistAC } from "../../Redux/artistReducer/artistActions";
+
+
 class CommentListArtist extends Component {
   onClick = async (id, idArtist) => {
     await this.props.fetchDeleteCommentArtistAC(id, idArtist);
@@ -13,7 +17,7 @@ class CommentListArtist extends Component {
     const sortCommentsArtist = commentsArtists.sort((a, b) => {
       return new Date(b.date) - new Date(a.date);
     });
-    
+
 
     return (
       <div>
@@ -27,9 +31,9 @@ class CommentListArtist extends Component {
                   date={el.date}
                 />
                 {idUser === el.idUser ? (
-                  <button onClick={() => this.onClick(el._id, idArtist)}>
+                  <Button className="red darken-4" style={{ marginBottom: "50px" }} onClick={() => this.onClick(el._id, idArtist)}>
                     delete
-                  </button>
+                  </Button>
                 ) : null}
               </div>
             );

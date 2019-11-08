@@ -48,8 +48,6 @@ class ConcertPage extends Component {
 
   render() {
     const { concertPage } = this.props;
-    const concertFlag = this.state.concertGo;
-    const prevFlag = this.state.concertBeen;
 
     const id = get(concertPage, "id");
     const name = get(concertPage, "displayName");
@@ -145,9 +143,9 @@ class ConcertPage extends Component {
                           <Chip className="performersList" key={`${name}_${i}`}>
                             <Link
                               style={{ color: "black" }}
-                              to={`/artists/${performers[i].id}`}
+                              to={`/artists/${el.id}`}
                               value={el.displayName}
-                              onClick={() => this.onClick(el.displayName)}
+                              onClick={() => this.onClick(el.displayName, el.id)}
                             >
                               {el.displayName}
                             </Link>
@@ -171,9 +169,6 @@ class ConcertPage extends Component {
                         </>
                       )}
                     </>
-
-                    {/* <CommentConcert nameArtist={performers} idConcert={id} />
-                <CommentList comments={comments} /> */}
                   </Card>
                 </Col>
               </Row>

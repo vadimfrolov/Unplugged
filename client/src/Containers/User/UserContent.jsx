@@ -10,13 +10,10 @@ import UserMapContainer from "../../Components/UserGeo/UserMap";
 
 import M from "materialize-css";
 import {
-  Container,
   Card,
   Row,
   Col,
-  Modal,
   Button,
-  Icon
 } from "react-materialize";
 
 import "./user.css";
@@ -140,7 +137,7 @@ class UserContent extends Component {
             </Col>
             <Row>
               <Col m={11}>
-                <div style={{ backgroundColor: "black" }}>
+                <div style={{ backgroundColor: "black", position: "relative" }}>
                   <p style={{ textAlign: "center", fontSize: "40px", fontWeight: "bold", margin: "40px", padding: "20px", color: "#b71c1c" }}>
                     My concert geography
                     </p>
@@ -154,8 +151,8 @@ class UserContent extends Component {
               <Card
                 className="black"
                 textClassName="white-text"
-                style={{ borderRadius: "10%", paddingRight:"10px" }}
-                >
+                style={{ borderRadius: "10%", paddingRight: "10px" }}
+              >
 
                 <p style={{ fontSize: "40px", fontWeight: "bold", marginBottom: "25px", color: "#b71c1c" }} className="pointConcert" >
                   I follow:

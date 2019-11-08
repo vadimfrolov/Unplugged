@@ -117,15 +117,17 @@ class Map extends Component {
     return (
       <div>
         {!this.state.geoposition ? (
-          <Spinner/>
+          <Spinner />
         ) : (
             <GoogleMap
+              streetViewControl={false}
+              zoomControl={false}
+              mapTypeControl={false}
               google={this.props.google}
-              zoom={4}
-              style={mapStyles}
+              zoom={3}
               styles={style}
-              initialCenter={this.state.geoposition}
-            >
+              style={mapStyles}
+              initialCenter={this.state.geoposition} >
               {this.displayMarkers()}
             </GoogleMap>
           )}
