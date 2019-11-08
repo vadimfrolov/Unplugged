@@ -57,10 +57,7 @@ class Navbar1 extends Component {
         <div className="Home-header">
           <div className="NavLinks">
             <NavLink className="NavLink" activeClassName={"Active"} exact={true} to={"/"}>
-              <img
-                src="img/image.png"
-                style={{ maxHeight: "110px"}}
-              />
+              <img src="img/image.png" style={{ maxHeight: "110px" }} />
             </NavLink>
             <NavLink
               className="NavLink"
@@ -93,14 +90,14 @@ class Navbar1 extends Component {
                 Log in
               </NavLink>
             ) : (
-              <NavLink
-                className="NavLink"
-                activeClassName={"Active"}
-                to={"/dashboard"}
-              >
-                {this.props.user.user.username}
-              </NavLink>
-            )}
+                <NavLink
+                  className="NavLink"
+                  activeClassName={"Active"}
+                  to={"/dashboard"}
+                >
+                  {this.props.user.user.username}
+                </NavLink>
+              )}
             {!this.props.user.user ? (
               <NavLink
                 className="NavLink"
@@ -110,15 +107,15 @@ class Navbar1 extends Component {
                 Registration
               </NavLink>
             ) : (
-              <Button
-                className="NavLink"
-                flat
-                style={{ color: "white", fontSize: "18px" }}
-                onClick={this.logout}
-              >
-                Log out
+                <Button
+                  className="NavLink"
+                  flat
+                  style={{ color: "white", fontSize: "18px" }}
+                  onClick={this.logout}
+                >
+                  Log out
               </Button>
-            )}
+              )}
             <Youtube />
           </div>
         </div>

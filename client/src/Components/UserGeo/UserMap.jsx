@@ -14,17 +14,16 @@ let iconPin = {
   fillColor: 'red',
   fillOpacity: 1,
   scale: 0.8, //to reduce the size of icons
- };
- const style = require('./style.json')
+};
+const style = require('./style.json')
 
- require("dotenv").config();
- const mapKey = process.env.REACT_APP_GOOGLE_MAPS_KEY;
+require("dotenv").config();
+const mapKey = process.env.REACT_APP_GOOGLE_MAPS_KEY;
 
 
 const mapStyles = {
-  width: '1120px',
   marginBottom: '40px',
-  // height: '22vh',
+  height: '52vh',
 };
 
 class Map extends Component {
@@ -44,7 +43,7 @@ class Map extends Component {
   }
 
   geoInfo = async () => {
-  
+
   }
 
   geoSuccess = (pos) => {
@@ -68,7 +67,7 @@ class Map extends Component {
         lng: store.location.lng
       }}
         onClick={() => this.props.history.push(`/concert/${store.concertId}`)}
-        />
+      />
     })
   }
 
@@ -77,17 +76,20 @@ class Map extends Component {
   render() {
     return (
       <div>
-        {!this.state.geoposition?
+        {!this.state.geoposition ?
           <div>loading</div> :
           <div>
-          <GoogleMap
-            google={this.props.google}
-            zoom={3}
-            style={mapStyles}
-            styles={style}
-            initialCenter={this.state.geoposition} >
-            {this.displayMarkers()}
-          </GoogleMap>
+            <GoogleMap
+              streetViewControl={false}
+              zoomControl={false}
+              mapTypeControl={false}
+              google={this.props.google}
+              zoom={3}
+              styles={style}
+              style={mapStyles}
+              initialCenter={this.state.geoposition} >
+              {this.displayMarkers()}
+            </GoogleMap>
           </div>
         }
       </div>
