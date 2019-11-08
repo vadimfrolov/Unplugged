@@ -66,7 +66,7 @@ class Map extends Component {
         lat: store.location.lat,
         lng: store.location.lng
       }}
-        onClick={() => this.props.history.push(`/concert/${store.id}`)} 
+        onClick={() => this.props.history.push(`/concert/${store.concertId}`)}
         />
     })
   }

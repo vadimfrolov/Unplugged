@@ -51,7 +51,6 @@ class UserContent extends Component {
   onClick = async (e, id) => {
     const name = e;
     const artistId = id
-    console.log("hhhhhhhhhuuuuuuuuuuuiiiiiiiii", artistId)
     await this.props.fetchArtistIdAC(name);
     await this.props.fetchArtistInfoAC(name);
     await this.props.keepArtistNameAC(name, artistId)
