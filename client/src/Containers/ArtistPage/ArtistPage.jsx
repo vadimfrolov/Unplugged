@@ -167,18 +167,21 @@ class ArtistInfo extends Component {
                 </div>
               </Col>
             </Row>
-            <CommentArtist nameArtist={artist.name} idArtist={artist.id} />
+         
             {!this.props.user ? (
               <CommentListArtist
                 commentsArtists={artist.comments}
                 idArtist={artist.id}
               />
             ) : (
+              <>
+              <CommentArtist nameArtist={artist.name} idArtist={artist.id} />
               <CommentListArtist
                 commentsArtists={artist.comments}
                 idArtist={artist.id}
                 idUser={this.props.user._id}
               />
+                  </>
             )}
           </>
         )}

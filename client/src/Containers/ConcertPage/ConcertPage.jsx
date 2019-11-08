@@ -162,7 +162,10 @@ class ConcertPage extends Component {
             </Row>
 
             <Flashmob />
-            <CommentConcert nameArtist={performers} idConcert={id} />
+            {this.props.user ? (
+              <CommentConcert nameArtist={performers} idConcert={id} />
+            ) : null}
+
             <CommentList
               comments={comments}
               idConcert={id}
