@@ -51,6 +51,7 @@ class UserContent extends Component {
   onClick = async (e, id) => {
     const name = e;
     const artistId = id
+    console.log(e, id)
     await this.props.fetchArtistIdAC(name);
     await this.props.fetchArtistInfoAC(name);
     await this.props.keepArtistNameAC(name, artistId)
@@ -152,9 +153,6 @@ class UserContent extends Component {
               <Card
                 className="black"
                 textClassName="white-text"
-                // actions={[
-                //   <Button className="red darken-4">Show All</Button>
-                // ]}
                 style={{ borderRadius: "10%", paddingRight:"10px" }}
                 >
 

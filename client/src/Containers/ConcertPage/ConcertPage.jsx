@@ -76,7 +76,6 @@ class ConcertPage extends Component {
             <Card
               className="black"
               textClassName="white-text"
-              title={name}
             >
               <Row>
                 <Col m={9}>
