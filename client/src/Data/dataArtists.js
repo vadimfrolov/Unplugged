@@ -71,6 +71,6 @@ export default {
       profilePic:
         "https://api.napster.com/imageserver/v2/artists/art.26871501/images/356x237.jpg",
       id: "art.26871501"
-    },
+    }
   ]
 };

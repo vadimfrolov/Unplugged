@@ -10,7 +10,7 @@ export const TYPES = {
 
 
 export const setUserAC = (user) => {
-  return{  
+  return {
     type: TYPES.SET_USER_SUCCESS,
     payload: user
   }
@@ -19,10 +19,10 @@ export const setUserAC = (user) => {
 export const logoutAC = () => async dispatch => {
 
   dispatch({ type: TYPES.FETCH_USER_REQUEST });
-  
+
   try {
     await axios.get('/users/logout/');
-    dispatch(setUserAC( null ));  
+    dispatch(setUserAC(null));
   } catch (err) {
     dispatch({ type: TYPES.FETCH_USER_FAILURE });
     console.log(err);
@@ -36,7 +36,7 @@ export const registrationAC = (data) => async dispatch => {
   try {
     const response = await axios.put('/users/registration/', { user: data });
     const user = await get(response, "data")
-    dispatch(setUserAC( user ));  
+    dispatch(setUserAC(user));
   } catch (err) {
     dispatch({ type: TYPES.FETCH_USER_FAILURE });
     console.log(err);
@@ -47,27 +47,15 @@ export const loginAC = (data) => async dispatch => {
 
   dispatch({ type: TYPES.FETCH_USER_REQUEST });
 
-  try{   
-  const response = await axios.post('/users/login/', { user: data });
-  const user = await get(response, "data")
-  dispatch(setUserAC( user ))
-  } catch(err) {
+  try {
+    const response = await axios.post('/users/login/', { user: data });
+    const user = await get(response, "data")
+
+    dispatch(setUserAC(user))
+  } catch (err) {
     dispatch({ type: TYPES.FETCH_USER_FAILURE });
     console.log(err);
   }
 }
 
-// export const FBloginAC = () => async dispatch => {
-
-//   dispatch({ type: TYPES.FETCH_USER_REQUEST });
-
-//   try{   
-//   const response = await axios.get('/users/login/facebook/');
-//   const user = await get(response, "data")
-//   dispatch(setUserAC( user ))
-//   } catch(err) {
-//     dispatch({ type: TYPES.FETCH_USER_FAILURE });
-//     console.log(err);
-//   }
-// }
 

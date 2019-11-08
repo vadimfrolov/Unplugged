@@ -1,16 +1,17 @@
 import React, { Component } from "react";
-import { NavLink, withRouter } from "react-router-dom";
+import { NavLink, withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import {
   fetchArtistIdAC,
   fetchArtistInfoAC,
-  switchSearchBarAC
+  switchSearchBarAC,
+  keepArtistNameAC
 } from "../../Redux/artistReducer/artistActions";
 import { setUserAC, logoutAC } from "../../Redux/UserAuth/actions/userAuth";
 import { Button } from "react-materialize";
 
 import "./navbar.css";
-// import {Navbar, NavItem } from "react-materialize";
+import { Icon } from "react-materialize";
 
 import Youtube from "../Youtube/Youtube";
 
@@ -45,6 +46,7 @@ class Navbar1 extends Component {
     await this.props.fetchArtistIdAC(this.state.text);
     await this.props.fetchArtistInfoAC(this.state.text);
     await this.props.switchSearchBarAC();
+    await this.props.keepArtistNameAC(this.state.text, this.props.artist.id);
     this.setState({ text: "" });
     this.props.history.push(`/artists/${this.props.artist.id}`);
   };
@@ -81,7 +83,7 @@ class Navbar1 extends Component {
                 className="red darken-4 white-text"
                 onClick={this.onClick}
               >
-                Search
+                Search<Icon right>search</Icon>
               </Button>
             </div>
             {!this.props.user.user ? (
@@ -111,8 +113,9 @@ class Navbar1 extends Component {
               </NavLink>
             ) : (
               <Button
+                className="NavLink"
                 flat
-                style={{ color: "white", fontSize: "28px" }}
+                style={{ color: "white", fontSize: "18px" }}
                 onClick={this.logout}
               >
                 Log out
@@ -135,6 +138,7 @@ const mapDispatchToProps = {
   fetchArtistIdAC,
   fetchArtistInfoAC,
   switchSearchBarAC,
+  keepArtistNameAC,
   setUserAC,
   logoutAC
 };

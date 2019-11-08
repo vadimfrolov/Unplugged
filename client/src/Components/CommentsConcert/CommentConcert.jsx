@@ -4,6 +4,13 @@ import { connect } from "react-redux";
 
 import { fetchAddCommentAC } from "../../Redux/concertPageReducer/concertPageActions";
 
+import M from "materialize-css";
+import {
+  Row,
+  Button,
+  Textarea
+} from "react-materialize";
+
 
 class CommentConcert extends Component {
   state = {
@@ -14,7 +21,7 @@ class CommentConcert extends Component {
     e.preventDefault();
     this.setState({
       text: e.target.value,
-      date: new Date()  
+      date: new Date()
     });
   };
   onClick = async () => {
@@ -38,17 +45,19 @@ class CommentConcert extends Component {
 
   render() {
     return (
-      <div>
-        <input
-          type="text"
-          name="text"
-          placeholder="comment here"
-          value={this.state.text}
-          onChange={this.handleChange}
-          required
-        ></input>
-        <button onClick={this.onClick}>Send</button>
-      </div>
+      <>
+        <Row style={{ marginTop: "40px" }}>
+          <Textarea xl={8}
+            style={{ color: "white" }}
+            type="text"
+            name="text"
+            placeholder="Add a comment"
+            value={this.state.text}
+            onChange={this.handleChange}
+            required />
+        </Row>
+        <Button style={{ marginTop: "-60px" }} className="red darken-4" onClick={this.onClick}>Add</Button>
+      </>
     );
   }
 }

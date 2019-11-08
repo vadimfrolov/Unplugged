@@ -11,13 +11,13 @@ const User = () => {
       <div className="userWrapper" style={{ marginTop: "5%" }}>
         <ul>
           <h2>I follow:</h2>
-          {dataUser.user.follow.map((group,i) => (
+          {dataUser.user.follow.map((group, i) => (
             <li key={i}>{group}</li>
           ))}
         </ul>
         <ul>
           <h2>Upcoming concerts:</h2>
-          {dataUser.user.upcomingConcerts.map((concert,i) => (
+          {this.props.user.upcomingConcerts.map((concert, i) => (
             <li key={i}>
               <span style={{ color: "blue" }}>{concert.date}</span>
               <span>{concert.group}</span>
@@ -59,4 +59,10 @@ const User = () => {
   );
 };
 
-export default User;
+function mapStateToProps(store) {
+  return {
+    user: store.user.user
+  }
+}
+
+export default connect(mapStateToProps, null)(User)

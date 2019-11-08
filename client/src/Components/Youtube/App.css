@@ -9,7 +9,7 @@ $gutter-width: 20px;
 }
 
 .section-player {
-  padding-top: 1.4rem;
+  padding-top: 1.8rem;
   max-width: 170px;
   display: inline-block;
   margin: $gutter-width;

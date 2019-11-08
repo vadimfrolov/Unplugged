@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 
-import UpcomingConcert from "./UpcomingConcert";
 import { connect } from "react-redux";
+import Spinner from "../Spinner/index";
 
 import {
   fetchPastDates,
   fetchPastDatesAC,
-  fetchDate
+  fetchDate,
+  fetchUpcomingAC
 } from "../../Redux/concertsReducer/concertsActions";
 
 import { Button } from "react-materialize";
@@ -15,9 +16,9 @@ import ConcertsByYear from "./ConcertsByYear";
 
 class ConcertYear extends Component {
   state = {
-    year: []
+    year: [],
+    isLoading: true
   };
-
   componentDidMount = async () => {
     const id = this.props.match.params.id;
     let page = 1;
@@ -28,6 +29,7 @@ class ConcertYear extends Component {
       page++;
       res = await this.props.fetchPastDates(id, page);
     }
+    this.setState({ isLoading: false });
   };
 
   onClick = br => {
@@ -35,21 +37,38 @@ class ConcertYear extends Component {
     this.props.fetchDate(id, br);
   };
 
-  render() {
+  onClickUpcoming = () => {
     const id = this.props.match.params.id;
+    this.props.fetchUpcomingAC(id);
+  };
+
+  render() {
     return (
-      <div>
-        <UpcomingConcert artistId={id} />
-        {this.props.concerts.years &&
-          this.props.concerts.years.map((el, i) => {
-            return (
-              <Button className="red darken-4 white-text" key={i} onClick={() => this.onClick(el)}>
-                {el}
-              </Button>
-            );
-          })}
-        <ConcertsByYear nameArtist={this.props.artist.name} />
-      </div>
+      <>
+        {this.state.isLoading ? (
+          <Spinner />
+        ) : (
+          <div style={{ marginTop: "30px" }}>
+            <Button
+              style={{ backgroundColor: "black" }}
+              onClick={this.onClickUpcoming}
+            >
+              Upcoming
+            </Button>
+            {this.props.concerts.years &&
+              this.props.concerts.years.map((el, i) => (
+                <Button
+                  className="red darken-4 white-text"
+                  key={i}
+                  onClick={() => this.onClick(el)}
+                >
+                  {el}
+                </Button>
+              ))}
+            <ConcertsByYear nameArtist={this.props.artist.name} />
+          </div>
+        )}
+      </>
     );
   }
 }
@@ -58,7 +77,8 @@ function mapDispatchToProps(dispatch) {
   return {
     fetchPastDates: (id, page) => dispatch(fetchPastDates(id, page)),
     fetchPastDatesAC: arr => dispatch(fetchPastDatesAC(arr)),
-    fetchDate: (id, year) => dispatch(fetchDate(id, year))
+    fetchDate: (id, year) => dispatch(fetchDate(id, year)),
+    fetchUpcomingAC: id => dispatch(fetchUpcomingAC(id))
   };
 }
 

@@ -60,7 +60,7 @@ class Youtube extends Component {
   handleStop = () => {
     this.setState({ played: 0 });
     this.props.youtubePlayerClose();
-    this.setState({ playing: !this.state.playing });
+    // this.setState({ playing: !this.state.playing });
   };
 
   handleVolumeChange = e => {
@@ -184,7 +184,7 @@ class Youtube extends Component {
                   height="100%"
                   url={this.props.url}
                   pip={pip}
-                  playing={playing}
+                  playing={this.props.playing}
                   controls={controls}
                   volume={volume}
                   muted={muted}

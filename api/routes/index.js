@@ -1,7 +1,7 @@
 var express = require("express");
 const fetch = require("node-fetch");
 const axios = require("axios");
-require('dotenv').config();
+require("dotenv").config();
 var router = express.Router();
 
 let SongKickKey = process.env.SONGKICK_KEY;
@@ -10,8 +10,7 @@ let YouTubeKey = process.env.YOUTUBE_API_KEY;
 
 const Artist = require("../models/artist");
 const Concert = require("../models/concert");
-
-
+const Keep = require("../models/keep");
 
 router.post("/getId", async (req, res) => {
   let bandInput = encodeURIComponent(`${req.body.text}`);
@@ -19,7 +18,7 @@ router.post("/getId", async (req, res) => {
     `https://api.songkick.com/api/3.0/search/artists.json?apikey=${SongKickKey}&query=${bandInput}`
   );
   const dataID = await resID.json();
- 
+
   const id = dataID.resultsPage.results.artist[0].id;
 
   res.json({ id });
@@ -28,25 +27,32 @@ router.post("/getId", async (req, res) => {
 router.post("/search", async (req, res) => {
   let artistinput = req.body.text.toLowerCase();
   let bandInput = encodeURIComponent(`${req.body.text}`);
-  const resSearch = await fetch(`http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${bandInput}&api_key=${LastFmKey}&format=json`);
+  const resSearch = await fetch(
+    `http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${bandInput}&api_key=${LastFmKey}&format=json`
+  );
   const dataSearch = await resSearch.json();
-  const resPic = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=${bandInput}&key=${YouTubeKey}`);
+  const resPic = await fetch(
+    `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=${bandInput}&key=${YouTubeKey}`
+  );
   const pic = await resPic.json();
-  const topTracksApiCall = await axios.get(`http://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&artist=${bandInput}&api_key=${LastFmKey}&format=json`);
+  const topTracksApiCall = await axios.get(
+    `http://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&artist=${bandInput}&api_key=${LastFmKey}&format=json`
+  );
 
   dataSearch.topTracks = topTracksApiCall.data.toptracks.track.slice(0, 10);
   const artistComment = await Artist.findOne({ nameArtist: artistinput });
   if (!artistComment) {
-    res.json({ dataSearch,pic, artistComment: [] });
+    res.json({ dataSearch, pic, artistComment: [] });
   } else {
-    res.json({ dataSearch,pic, artistComment: artistComment.comments });
+    res.json({ dataSearch, pic, artistComment: artistComment.comments });
   }
-
 });
 
 router.get("/concert/:id", async (req, res) => {
   let concertId = req.params.id;
-  const resConcertInfo = await fetch(`https://api.songkick.com/api/3.0/events/${concertId}.json?apikey=${SongKickKey}`);
+  const resConcertInfo = await fetch(
+    `https://api.songkick.com/api/3.0/events/${concertId}.json?apikey=${SongKickKey}`
+  );
   const ConcertInfo = await resConcertInfo.json();
   const info = ConcertInfo.resultsPage.results.event;
 
@@ -82,13 +88,10 @@ router.post("/comments", async (req, res) => {
   res.json({ concerts });
 });
 
-
-
 //коменты на странице артиста
 router.post("/commentsar", async (req, res) => {
-  
   let { nameArtist, idArtist, comments } = req.body.comment;
- 
+
   const artist = await Artist.findOne({ idArtist });
   if (!artist) {
     const newArttist = new Artist({
@@ -114,7 +117,7 @@ router.post("/upcoming", async (req, res) => {
   );
 
   const dataConcert = await resCon.json();
- 
+
   res.json({ dataConcert });
 });
 
@@ -127,20 +130,67 @@ router.get("/artists/:id", async (req, res) => {
   res.json({ dataConcerts });
 });
 
-router.get('/explore/:page', async (req, res) => {
+router.get("/explore/:page", async (req, res) => {
   const page = req.params.page;
-  console.log(page)
-  const resExplore = await fetch(`https://api.songkick.com/api/3.0/metro_areas/32051/calendar.json?apikey=${SongKickKey}&page=${page}`);
+  const resExplore = await fetch(
+    `https://api.songkick.com/api/3.0/metro_areas/32051/calendar.json?apikey=${SongKickKey}&page=${page}`
+  );
   const dataExplore = await resExplore.json();
-  console.log(dataExplore)
-  res.json({ dataExplore })
+  res.json({ dataExplore });
 });
 
-router.post('/explore/:date', async (req, res) => {
+router.post("/explore/:date", async (req, res) => {
   let date = req.body.formattedDate;
-  const resDate = await fetch(`https://api.songkick.com/api/3.0/metro_areas/32051/calendar.json?apikey=${SongKickKey}&min_date=${date}&max_date=${date}`);
+  const resDate = await fetch(
+    `https://api.songkick.com/api/3.0/metro_areas/32051/calendar.json?apikey=${SongKickKey}&min_date=${date}&max_date=${date}`
+  );
   const dataDate = await resDate.json();
-  res.json({ dataDate })
+  res.json({ dataDate });
+});
+
+router.post("/delete/:comment/:idArtist", async (req, res) => {
+  const { comment, idArtist } = req.params;
+  const artist = await Artist.findOne({ idArtist });
+  const indexComment = await artist.comments.findIndex(e => {
+    return e._id == comment;
+  });
+  await artist.comments.splice(indexComment, 1);
+  await artist.save();
+  const commentsArtist = await Artist.findOne({ idArtist });
+  res.json({ commentsArtist });
+});
+
+router.post("/remove/:comment/:idConcert", async (req, res) => {
+  const { comment, idConcert } = req.params;
+  const concert = await Concert.findOne({ idConcert });
+
+  const indexComment = await concert.comments.findIndex(e => {
+    return e._id == comment;
+  });
+
+  await concert.comments.splice(indexComment, 1);
+  await concert.save();
+  const commentsConcert = await Concert.findOne({ idConcert });
+  res.json({ commentsConcert });
+})
+
+router.post("/keepName", async (req, res) => {
+  const { name, id } = req.body;
+  const newKeep = new Keep({
+    name: name,
+    id: id
+  });
+
+  await newKeep.save();
+  res.end();
+});
+
+router.post("/getName", async (req, res) => {
+  const { id } = req.body;
+  const fetchedKeep = await Keep.findOne({ id });
+  const fetchedName = fetchedKeep.name;
+  console.log(12345, fetchedName);
+  res.json({fetchedName});
 });
 
 module.exports = router;

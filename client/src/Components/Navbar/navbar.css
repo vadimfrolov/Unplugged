@@ -3,7 +3,8 @@
   flex-direction: row;
   justify-content: space-evenly;
   font-size: calc(10px + 2vmin);
-  color: whitesmoke
+  color: whitesmoke;
+  height: 110px;
 }
 
 .NavLink {
@@ -37,7 +38,7 @@
 }
 
 .Home-header {
-  height: 100px;
+  height: 110px;
 }
 
 .Home-body {

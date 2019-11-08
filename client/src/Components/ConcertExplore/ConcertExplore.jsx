@@ -18,7 +18,6 @@ import {
   Button,
 } from "react-materialize";
 
-import "./ConcertExplore.css";
 
 class ConcertExplore extends Component {
   constructor(props) {
@@ -47,11 +46,13 @@ class ConcertExplore extends Component {
     window.scrollTo(0, 0)
   };
 
+
   render() {
     return (
-      <Container style={{ backgroundColor: "black", padding: "0px 30px", borderRadius: "3%", fontSize: "25px" }}>
-        <Row style={{ marginTop: "40px" }}>
-          <Col m={4}></Col><Col m={4} style={{ color: "white", marginTop: "40px" }}>
+      <Container style={{ backgroundColor: "black", padding: "0px 30px", fontSize: "25px" }}>
+        <Row style={{ marginTop: "30px" }}>
+          <Col m={4}></Col>
+          <Col m={4} style={{ color: "white", marginTop: "30px" }}>
             Choose a date: <input style={{ color: "white" }} type="date" value={this.state.date} onChange={this.handleInput}></input>
             <Button style={{ backgroundColor: "#b71c1c" }} onClick={this.onClick}>Submit</Button>
           </Col>
@@ -65,7 +66,7 @@ class ConcertExplore extends Component {
                   <Col m={3} style={{ textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap", color: "white" }}><i style={{ marginRight: "20px" }} class="small material-icons">face</i>{el.performance[0] ? el.performance[0].displayName : el.displayName}</Col>
                   <Col m={4} style={{ textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap", color: "white" }}><i style={{ marginRight: "20px" }} class="small material-icons">location_city</i>{el.venue && el.venue.displayName}</Col>
                 </Link>
-                <Col style={{textAlign: "right"}} m={2}><PlayArtistTopTracks artist={el.performance[0].displayName} concertPage={true} /></Col>
+                <Col style={{ textAlign: "right" }} m={2}><PlayArtistTopTracks artist={el.performance[0] ? el.performance[0].displayName : el.displayName} concertPage={true} /></Col>
               </li>
             )}
           </ul>
@@ -76,12 +77,12 @@ class ConcertExplore extends Component {
             <Button style={{ backgroundColor: "#b71c1c" }} onClick={this.onClickPagination}>4</Button>
             <Button style={{ backgroundColor: "#b71c1c" }} onClick={this.onClickPagination}>5</Button>
           </Col>
-
         </Row>
       </Container>
     );
   }
 }
+
 
 const mapStateToProps = store => ({
   events: store.events

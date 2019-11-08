@@ -2,94 +2,59 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import get from "lodash.get";
 import { withRouter, Link } from "react-router-dom";
+import { parse, format } from 'date-fns'
+import moment from "moment";
+
 
 import "./concertPage.css";
 
+import { fetchArtistIdAC, fetchArtistInfoAC, keepArtistNameAC } from "../../Redux/artistReducer/artistActions";
 import { fetchConcertInfoAC } from "../../Redux/concertPageReducer/concertPageActions";
-import { previousConcertAC, upcomingConcertAC, upcomingConcertCancelAC } from '../../Redux/UserActivity/activityActions'
 
-import Flashmob from "../../Components/Flashmob";
+ 
+
 import CommentConcert from "../../Components/CommentsConcert";
 import CommentList from "../../Components/CommentsConcert/CommentList";
-
-// import Flashmob from "../../Components/Flashmob";
-// import CommentSection from "../../Components/CommentsConcert";
-// import CommentList from "../../Components/CommentsConcert/CommentList";
-
+import Spinner from "../../Components/Spinner/index";
 
 import {
+  Container,
   Row,
   Col,
   Card,
-  Button
+  Button,
+  Chip
 } from "react-materialize";
+import GoButton from "../../Components/GoButton/GoButton";
 
 class ConcertPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
       concertGo: false,
+      isLoading: true,
+      concertBeen: false,
     };
-  };
+  }
 
   componentDidMount = async () => {
-    const id = this.props.match.params.id
+    const id = this.props.match.params.id;
     await this.props.fetchConcertInfoAC(id);
-    await this.concertActivityCheck()
   }
 
-
-  convertDate = () => {
-    const date = get(this.props.concertPage, "start.date")
-    return new Date(date)
+  onClick = async (e) => {
+    const name = e;
+    await this.props.fetchArtistIdAC(name);
+    await this.props.fetchArtistInfoAC(name);
+    await this.props.keepArtistNameAC(name, this.props.artist.id)
+    this.props.history.push(`/artists/${this.props.artist.id}`);
   }
 
-  previousConcert = async () => {
-    await this.props.previousConcertAC(
-      {
-        userId: this.props.user._id,
-        eventName: this.props.concertPage.displayName,
-        eventDate: this.props.concertPage.start.date,
-        eventLocation: this.props.concertPage.location,
-      },
-      this.props.concertPage.id)
-    this.concertActivityCheck()
-  }
-
-  concertActivityCheck = () => {
-
-    const check = this.props.user.upcomingConcerts.find((e) => {
-      return e.concertId == this.props.concertPage.id
-    })
-
-    !check ?
-      this.setState({ concertGo: false }) :
-      this.setState({ concertGo: true });
-
-  }
-
-  upcomingConcert = async () => {
-    await this.props.upcomingConcertAC(
-      {
-        userId: this.props.user._id,
-        eventName: this.props.concertPage.displayName,
-        eventDate: this.props.concertPage.start.date,
-        eventLocation: this.props.concertPage.location,
-      },
-      this.props.concertPage.id)
-
-    this.concertActivityCheck()
-
-  }
-
-  upcomingConcertCancel = async () => {
-    await this.props.upcomingConcertCancelAC(this.props.user._id, this.props.concertPage.id)
-    this.concertActivityCheck()
-  }
 
   render() {
     const { concertPage } = this.props;
     const concertFlag = this.state.concertGo
+    const prevFlag = this.state.concertBeen
 
     const id = get(concertPage, "id");
     const name = get(concertPage, "displayName");
@@ -100,66 +65,74 @@ class ConcertPage extends Component {
     const location = get(concertPage, "location.city");
     const comments = get(concertPage, "comments");
 
-
     return (
-      <div className="cardPage">
+      <Container style={{ marginTop: "40px", padding: "0px 30px", borderRadius: "3%" }}>
         <Row>
-          <Col m={8} s={12}>
+          <Col m={12} s={12}>
             <Card
               className="black"
               textClassName="white-text"
               title={name}
-              actions={[
-                this.convertDate() > Date.now() ?
-                  <>
-                    {!concertFlag ?
-                      <Button className="red darken-4" onClick={this.upcomingConcert}>I'll be there!</Button> :
-                      <Button className="red darken-4" onClick={this.upcomingConcertCancel}>Cancel</Button>
-                    }
-                  </> :
-                  <>
-                    <Button className="red darken-4" onClick={this.previousConcert}>I've been there!</Button>
-                  </>
-              ]}
             >
-              <p className="pointConcert" >
-                <span className="red-text ">When:</span> {date} {time}
+              <Row>
+                <Col m={9}>
+                  <p style={{ fontSize: "35px", marginBottom: "25px" }} className="pointConcert" >
+                    {name}
+                  </p>
+                </Col>
+                <Col style={{ textAlign: "right" }} m={3}>
+                  {!this.props.user ?
+                    <></> :
+                    <GoButton concertPage={this.props.concertPage} user={this.props.user} />
+                  }
+                </Col>
+              </Row>
+              <p style={{ fontSize: "25px", marginBottom: "25px" }} className="pointConcert" >
+                <span style={{ fontWeight: "bold", fontSize: "35px", color: "#b71c1c", marginRight: "15px" }}>When:</span> {moment(new Date(date)).format("LL")}, {time}
               </p>
-              <p>
-                <span className="red-text ">Where: </span>
-                {venue}, {location},
+              <p style={{ fontSize: "25px", marginBottom: "25px" }}>
+                <span style={{ fontWeight: "bold", fontSize: "35px", color: "#b71c1c", marginRight: "15px" }}>Where:</span>
+                {venue}, {location}
               </p>
-              <span className="red-text t">Perfomers:</span>
-
-              {performers &&
-                performers.map((el, i) => (
-                  <li className="perfomersList" key={`${name}_${i}`}>
-                    <Link to={`/artists/${performers[i].id}`}>
+              <p style={{ fontSize: "25px", marginBottom: "25px" }}>
+                <span style={{ fontWeight: "bold", fontSize: "35px", color: "#b71c1c", marginRight: "15px" }}>Performers:</span>
+                {performers && performers.map((el, i) => (
+                  <Chip className="performersList" key={`${name}_${i}`}>
+                    <Link style={{ color: "black" }} to={`/artists/${performers[i].id}`} value={el.displayName} onClick={() => this.onClick(el.displayName)}>
                       {el.displayName}
                     </Link>
-                  </li>
+                  </Chip>
                 ))}
+              </p>
+              <>
+              {!this.props.user ? (
+                <CommentList
+                comments={comments}
+                idConcert={id}
+               
+              />
+              
+            ) : 
+            <>
+            <CommentList
+            comments={comments}
+            idConcert={id}
+            idUser={this.props.user._id}
+          />
+          <CommentConcert nameArtist={performers} idConcert={id} />
+          </>
+          }
 
+    
+        </>
+
+
+              {/* <CommentConcert nameArtist={performers} idConcert={id} />
+              <CommentList comments={comments} /> */}
             </Card>
           </Col>
         </Row>
-
-        {/* <p>
-          {name},{date},{time},{venue},{location},
-          {performers &&
-            performers.map((el, i) => (
-              <p key={`${name}_${i}`}>
-                <Link to={`/artists/${performers[i].id}`}>
-                  {el.displayName}
-                </Link>
-              </p>
-            ))}
-        </p>
-        <button>I'll be there!</button> */}
-        <Flashmob />
-        <CommentConcert nameArtist={performers} idConcert={id} />
-        <CommentList comments={comments} />
-      </div>
+      </Container>
     );
   }
 }
@@ -168,18 +141,18 @@ const mapStateToProps = store => ({
   artist: store.artist,
   concerts: store.concerts,
   concertPage: store.concertPage,
-  user: store.user.user,
-  // concerts: store.concertPage
+  user: store.user.user
 });
 
 const mapDispatchToProps = {
   fetchConcertInfoAC,
-  previousConcertAC,
-  upcomingConcertAC,
-  upcomingConcertCancelAC,
+  fetchArtistIdAC,
+  fetchArtistInfoAC,
+  keepArtistNameAC,
+
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRouter(ConcertPage))
+)(withRouter(ConcertPage));

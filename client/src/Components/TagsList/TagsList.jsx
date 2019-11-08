@@ -1,12 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux';
 
-
 import TagsItem from './TagsItem';
 
 const TagsList = ({ tags }) => {
   return tags.map(({ name }, i) => (
-  <TagsItem title={name} key={`${name}_${i}`} />
+    <TagsItem title={name} key={`${name}_${i}`} />
   ));
 }
 
