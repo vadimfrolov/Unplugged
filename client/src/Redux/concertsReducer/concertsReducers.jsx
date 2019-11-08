@@ -19,6 +19,12 @@ export default function(state = initialState, { type, payload }) {
         events: payload.sort((a, b) => new Date(b.date) - new Date(a.date))
       };
     }
+    case TYPES.FETCH_UPCOMING: {
+      return {
+        ...state,
+        events: payload  //payload.sort((a, b) => new Date(b.date) - new Date(a.date))
+      };
+    }
     default:
       return state;
   }

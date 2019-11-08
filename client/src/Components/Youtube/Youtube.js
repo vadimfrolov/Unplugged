@@ -6,8 +6,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
 import get from "lodash.get";
-// import { hot } from "react-hot-loader";
-// import { playTrackFromListAC } from "../../Redux/youtubeReducer/youtubeActions";
+
 import {
   youtubePlayerCloseAC,
   youtubePlayerPlayPauseAC,
@@ -29,8 +28,8 @@ const youTubeApikey = process.env.REACT_APP_YOUTUBE_API_KEY;
 
 class Youtube extends Component {
   state = {
-    pip: false,
     playing: true,
+    pip: false,
     controls: true,
     volume: 1,
     muted: false,
@@ -42,20 +41,24 @@ class Youtube extends Component {
 
   playTrack = url => {
     this.setState({
+      playing: true,
       url,
       played: 0,
       loaded: 0,
-      pip: false
+      pip: false,
+      playing: true
     });
   };
 
   handlePlayPause = () => {
-    this.props.youtubePlayerPlayPause(!this.state.playing);
-    this.setState({ playing: !this.state.playing });
+    if (this.props.url) {
+      this.props.youtubePlayerPlayPause(!this.state.playing);
+      this.setState({ playing: !this.state.playing });
+    }
   };
 
   handleStop = () => {
-    this.setState({ url: null, playing: true, played: 0 });
+    this.setState({ played: 0 });
     this.props.youtubePlayerClose();
   };
 
@@ -72,6 +75,7 @@ class Youtube extends Component {
   };
 
   handlePlay = () => {
+    this.props.youtubePlayerPlayPause(true);
     this.setState({ playing: true });
   };
 
@@ -85,6 +89,7 @@ class Youtube extends Component {
 
   handlePause = () => {
     this.setState({ playing: false });
+    this.props.youtubePlayerPlayPause(false);
   };
 
   handleSeekMouseDown = e => {
@@ -92,12 +97,16 @@ class Youtube extends Component {
   };
 
   handleSeekChange = e => {
-    this.setState({ played: parseFloat(e.target.value) });
+    if (this.props.playerWindow) {
+      this.setState({ played: parseFloat(e.target.value) });
+    }
   };
 
   handleSeekMouseUp = e => {
     this.setState({ seeking: false });
-    this.player.seekTo(parseFloat(e.target.value));
+    if (this.props.playerWindow) {
+      this.player.seekTo(parseFloat(e.target.value));
+    }
   };
 
   handleProgress = state => {
@@ -124,47 +133,36 @@ class Youtube extends Component {
     this.player = player;
   };
 
-  // inputOnChange = e => {
-  //   this.setState({ findInput: e.target.value });
-  // };
-
-  // findSongAndPlay = async () => {
-  //   const query = this.state.findInput.replace(/\s+/g, "%20");
-  //   const httpQuery = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&order=relevance&q=${query}&key=${youTubeApikey}`;
-  //   const res = await axios.get(httpQuery);
-
-  //   const videoId = get(res, "data.items[0].id.videoId", "dQw4w9WgXcQ");
-  //   this.playTrack(`https://www.youtube.com/watch?v=${videoId}`);
-  //   console.log("res", `https://www.youtube.com/watch?v=${videoId}`)
-  //   this.setState({ playing: true });
-  // };
-
   playNext = async () => {
-    const artist = this.props.topTracks[0].artist.name;
-    const trackNum = this.props.trackNum < 9 ? this.props.trackNum + 1 : 0;
-    const trackName = this.props.topTracks[trackNum].name;
-    const query = encodeURIComponent(`${artist} ${trackName}`);
-    const httpQuery = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&order=relevance&q=${query}&key=${youTubeApikey}`;
-    const res = await axios.get(httpQuery);
+    if (this.props.topTracks) {
+      const artist = this.props.topTracks[0].artist.name;
+      const trackNum = this.props.trackNum < 9 ? this.props.trackNum + 1 : 0;
+      const trackName = this.props.topTracks[trackNum].name;
+      const query = encodeURIComponent(`${artist} ${trackName}`);
+      const httpQuery = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&order=relevance&q=${query}&key=${youTubeApikey}`;
+      const res = await axios.get(httpQuery);
 
-    const videoId = get(res, `data.items[0].id.videoId`, "dQw4w9WgXcQ");
-    const url = `https://www.youtube.com/watch?v=${videoId}`;
+      const videoId = get(res, `data.items[0].id.videoId`, "dQw4w9WgXcQ");
+      const url = `https://www.youtube.com/watch?v=${videoId}`;
 
-    this.props.youtubePlayerChangeTrack(url, trackNum);
+      this.props.youtubePlayerChangeTrack(url, trackNum);
+    }
   };
 
   playPrevious = async () => {
-    const artist = this.props.topTracks[0].artist.name;
-    const trackNum = this.props.trackNum > 0 ? this.props.trackNum - 1 : 9;
-    const trackName = this.props.topTracks[trackNum].name;
-    const query = encodeURIComponent(`${artist} ${trackName}`);
-    const httpQuery = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&order=relevance&q=${query}&key=${youTubeApikey}`;
-    const res = await axios.get(httpQuery);
+    if (this.props.topTracks) {
+      const artist = this.props.topTracks[0].artist.name;
+      const trackNum = this.props.trackNum > 0 ? this.props.trackNum - 1 : 9;
+      const trackName = this.props.topTracks[trackNum].name;
+      const query = encodeURIComponent(`${artist} ${trackName}`);
+      const httpQuery = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&order=relevance&q=${query}&key=${youTubeApikey}`;
+      const res = await axios.get(httpQuery);
 
-    const videoId = get(res, `data.items[0].id.videoId`, "dQw4w9WgXcQ");
-    const url = `https://www.youtube.com/watch?v=${videoId}`;
+      const videoId = get(res, `data.items[0].id.videoId`, "dQw4w9WgXcQ");
+      const url = `https://www.youtube.com/watch?v=${videoId}`;
 
-    this.props.youtubePlayerChangeTrack(url, trackNum);
+      this.props.youtubePlayerChangeTrack(url, trackNum);
+    }
   };
 
   render() {
@@ -172,8 +170,8 @@ class Youtube extends Component {
 
     return (
       <div className="app">
-        <section className="section">
-          {this.props.url && (
+        <section className="section-player">
+          {this.props.playerWindow && (
             <div>
               <div className="player-wrapper">
                 <ReactPlayer
@@ -187,14 +185,10 @@ class Youtube extends Component {
                   controls={controls}
                   volume={volume}
                   muted={muted}
-                  // onReady={() => console.log("onReady")}
-                  // onStart={() => console.log("onStart")}
                   onPlay={this.handlePlay}
                   onEnablePIP={this.handleEnablePIP}
                   onDisablePIP={this.handleDisablePIP}
                   onPause={this.handlePause}
-                  // onBuffer={() => console.log("onBuffer")}
-                  // onSeek={e => console.log("onSeek", e)}
                   onEnded={this.handleEnded}
                   onError={e => console.log("onError", e)}
                   onProgress={this.handleProgress}
@@ -220,7 +214,7 @@ class Youtube extends Component {
               <FastRewindOutlinedIcon color="error" />
             </Button>
             <Button onClick={this.handlePlayPause}>
-              {playing ? (
+              {this.props.playerWindow ? (
                 <PauseCircleOutlineOutlinedIcon color="error" />
               ) : (
                 <PlayCircleOutlineOutlinedIcon color="error" />
@@ -229,18 +223,6 @@ class Youtube extends Component {
             <Button onClick={this.playNext}>
               <FastForwardOutlinedIcon color="error" />
             </Button>
-
-            {/* <input
-                placeholder="choose your song"
-                onChange={this.inputOnChange}
-                value={this.state.findInput}
-              />
-              <Button onClick={this.findSongAndPlay}>
-                <LocationSearchingIcon />
-              </Button> */}
-            {/* <Button onClick={this.playFromTopTracks}>
-                <StopOutlinedIcon />
-              </Button> */}
           </ButtonGroup>
           <input
             type="range"
@@ -263,7 +245,8 @@ const mapStateToProps = store => ({
   url: store.youtube.url,
   playing: store.youtube.playing,
   trackNum: store.youtube.trackNum,
-  topTracks: store.youtube.topTracks
+  topTracks: store.youtube.topTracks,
+  playerWindow: store.youtube.playerWindow
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -278,5 +261,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(withRouter(Youtube));
-
-// export default hot(module)(Youtube);

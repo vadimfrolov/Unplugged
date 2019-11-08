@@ -16,17 +16,18 @@ import ConcertYear from "../../Components/Concert-by-artist/ConcertYear";
 import ConcertExplore from "../../Components/ConcertExplore";
 import DateConcerts from "../../Components/DateConcerts";
 import MapContainer from "../../Components/Map/Map";
+// import NavbarAdaptive from "../../Components/NavbarAdaptive";
 
 import "./styles.css";
 
 class App extends React.Component {
   render() {
-    const id = get(this.props, "artist.id");
-
+  
     return (
       <div >
         <Router>
           <Navbar />
+          {/* <NavbarAdaptive /> */}
           <div className="AppBody">
           <Switch >
             <Route exact path="/" component={LandingPage} />

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { playTrackFromListAC } from "../../Redux/youtubeReducer/youtubeActions";
+import { playTrackFromListAC, youtubePlayerPlayPauseAC } from "../../Redux/youtubeReducer/youtubeActions";
 import axios from "axios";
 import get from "lodash.get";
 
@@ -26,15 +26,16 @@ class ArtistTrack extends Component {
 
     const trackNum = 0;
 
-    this.props.playTrackFromList(url, trackNum, topTracks);
+    await this.props.playTrackFromList(url, trackNum, topTracks);
+    this.props.youtubePlayerPlayPause(true);
   };
 
   render() {
     return (
       <div style={{display: 'inline'}}>
         {this.props.concertPage && (
-          <IconButton onClick={this.playButtonClick}>
-            <PlayArrowIcon />
+          <IconButton onClick={this.playButtonClick} fontSize="large" color="secondary">
+            <PlayArrowIcon color="secondary" fontSize="large" />
           </IconButton>
         )}
 
@@ -59,6 +60,8 @@ const mapStateToProps = store => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  youtubePlayerPlayPause: playingToggle =>
+    dispatch(youtubePlayerPlayPauseAC(playingToggle)),
   playTrackFromList: (url, trackNum, topTracks) =>
     dispatch(playTrackFromListAC(url, trackNum, topTracks))
 });

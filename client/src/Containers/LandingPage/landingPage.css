@@ -8,7 +8,15 @@
 
 .bigLetters {
   font-size: 35px;
-  margin-right: -16vw;
+  margin-right: -14vw;
+  margin-left: -9.3vw;
+  margin-bottom: 1.3vh;
+  font-weight: 600;
+}
+
+.bigLetters-right {
+  font-size: 35px;
+  margin-right: -8vw;
   margin-left: -9.3vw;
   margin-bottom: 1.3vh;
   font-weight: 600;
@@ -16,6 +24,7 @@
 
 .capt {
   color: #8b0000;
+  margin-left: -6.2vw;
   font-size: 25px;
   font-weight: 500;
 }

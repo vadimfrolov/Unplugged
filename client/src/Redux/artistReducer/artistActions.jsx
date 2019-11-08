@@ -12,7 +12,7 @@ export const TYPES = {
   FETCH_TOUR_SNIPPET_SUCCESS: 'FETCH_TOUR_SNIPPET_SUCCESS',
   FETCH_TOUR_SNIPPET_FAILURE: 'FETCH_TOUR_SNIPPET_FAILURE',
   SWITCH_SEARCH_BAR: 'SWITCH_SEARCH_BAR',
-  SET_LAST_SEARCH: 'SET_LAST_SEARCH',
+  FETCH_ADD_COMMENT_ARTIST: "FETCH_ADD_COMMENT_ARTIS"
 }
 
 
@@ -40,10 +40,12 @@ export const fetchArtistIdAC = (text) => async dispatch => {
   }
 };
 
+
 export const fetchArtistInfoAC = text => async dispatch => {
   dispatch({ type: TYPES.FETCH_ARTIST_INFO_REQUEST });
 
   try {
+   
     const res = await axios.post("/search", { text });
     const artist = get(res, "data.dataSearch.artist", {});
     const pic = get(res, "data.pic.items[0].snippet.thumbnails.high.url", {});
@@ -56,28 +58,55 @@ export const fetchArtistInfoAC = text => async dispatch => {
         pic: pic,
         tags: artist.tags.tag,
         similar: artist.similar.artist,
-        topTracks: topTracks
-      },
+        topTracks: topTracks,
+        comments: res.data.artistComment
+      }
     });
   } catch (err) {
     dispatch({ type: TYPES.FETCH_ARTIST_INFO_FAILURE });
     console.log(err);
   }
-}
+};
 
-export const fetchArtistConcertAC = (id) => async dispatch => {
+
+export const fetchArtistConcertAC = id => async dispatch => {
   dispatch({ type: TYPES.FETCH_TOUR_SNIPPET_REQUEST });
 
   try {
     const res = await axios.get(`/artists/${id}`, { id });
-    const tourSnippet = get(res, 'data.dataConcerts.resultsPage.results.event', []);
+    const tourSnippet = get(
+      res,
+      "data.dataConcerts.resultsPage.results.event",
+      []
+    );
 
     dispatch({
       type: TYPES.FETCH_TOUR_SNIPPET_SUCCESS,
-      payload: tourSnippet,
-    })
+      payload: tourSnippet
+    });
   } catch (err) {
-    dispatch({ type: TYPES.FETCH_TOUR_SNIPPET_FAILURE })
+    dispatch({ type: TYPES.FETCH_TOUR_SNIPPET_FAILURE });
     console.log(err);
   }
-}
+};
+
+
+///коментарии
+export const fetchAddCommentArtistAC = comment => async dispatch => {
+  try {
+    const res = await axios.post(`/commentsar`, { comment });
+    const data = get(res, "data", {});
+    const sortComments=data.commentsArtist.comments.sort((a,b)=>{
+      return new Date(b.date)-new Date(a.date)
+    })
+   
+    dispatch({
+      type: TYPES.FETCH_ADD_COMMENT_ARTIST,
+      payload: sortComments
+    });
+  } catch (err) {
+    console.log(err);
+  }
+
+};
+
