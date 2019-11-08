@@ -26,6 +26,7 @@ class App extends React.Component {
       <div >
         <Router>
           <Navbar />
+          {/* <NavbarAdaptive /> */}
           <div className="AppBody">
             <Switch >
               <Route exact path="/" component={LandingPage} />

@@ -6,7 +6,7 @@ var router = express.Router();
 
 let SongKickKey = process.env.SONGKICK_KEY;
 let LastFmKey = process.env.LASTFM_KEY;
-let YouTubeKey = process.env.YOUTUBE_API_KEY;
+let YouTubeKey = process.env.YOUTUBE_API_KEY_THIRD;
 
 const Artist = require("../models/artist");
 const Concert = require("../models/concert");
