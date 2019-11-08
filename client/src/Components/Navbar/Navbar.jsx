@@ -56,13 +56,11 @@ class Navbar1 extends Component {
       <div className="Home">
         <div className="Home-header">
           <div className="NavLinks">
-            <NavLink
-              className="NavLink"
-              activeClassName={"Active"}
-              exact={true}
-              to={"/"}
-            >
-              Home
+            <NavLink className="NavLink" activeClassName={"Active"} exact={true} to={"/"}>
+              <img
+                src="img/image.png"
+                style={{ maxHeight: "110px"}}
+              />
             </NavLink>
             <NavLink
               className="NavLink"

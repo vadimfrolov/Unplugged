@@ -42,11 +42,11 @@ class ArtistInfo extends Component {
       isLoading: true
     };
   }
+
   componentDidMount = async () => {
     if (this.props.isSearchBar) {
       console.log("ok");
     } else {
-      console.log("ololololo");
       const id = this.props.match.params.id;
       await this.props.getArtistNameAC(id);
       await this.props.fetchArtistIdAC(this.props.artist.fetchedName);

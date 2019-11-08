@@ -64,7 +64,7 @@ class ConcertExplore extends Component {
                 <Link to={`/concert/${this.props.events.allEvents[i].id}`}>
                   <Col m={3} style={{ fontWeight: "bold", textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap", color: "white" }}><i style={{ marginRight: "20px" }} class="small material-icons">date_range</i>{moment(new Date(el.start.date)).format("ll")}</Col>
                   <Col m={3} style={{ textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap", color: "white" }}><i style={{ marginRight: "20px" }} class="small material-icons">face</i>{el.performance[0] ? el.performance[0].displayName : el.displayName}</Col>
-                  <Col m={4} style={{ textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap", color: "white" }}><i style={{ marginRight: "20px" }} class="small material-icons">location_city</i>{el.venue && el.venue.displayName}</Col>
+                  <Col m={4} style={{ textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap", color: "white" }}><i style={{ marginRight: "20px" }} class="small material-icons">location_city</i>{el.venue && el.venue.displayName}, Moscow</Col>
                 </Link>
                 <Col style={{ textAlign: "right" }} m={2}><PlayArtistTopTracks artist={el.performance[0] ? el.performance[0].displayName : el.displayName} concertPage={true} /></Col>
               </li>
