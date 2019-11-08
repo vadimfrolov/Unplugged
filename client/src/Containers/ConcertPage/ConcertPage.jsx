@@ -42,12 +42,13 @@ class ConcertPage extends Component {
     await this.props.fetchConcertInfoAC(id);
   }
 
-  onClick = async (e) => {
+  onClick = async (e, id) => {
     const name = e;
+    const artistId = id;
     await this.props.fetchArtistIdAC(name);
     await this.props.fetchArtistInfoAC(name);
-    await this.props.keepArtistNameAC(name, this.props.artist.id)
-    this.props.history.push(`/artists/${this.props.artist.id}`);
+    await this.props.keepArtistNameAC(name, artistId)
+    this.props.history.push(`/artists/${artistId}`);
   }
 
 
@@ -97,7 +98,7 @@ class ConcertPage extends Component {
                 <span style={{ fontWeight: "bold", fontSize: "35px", color: "#b71c1c", marginRight: "15px" }}>Performers:</span>
                 {performers && performers.map((el, i) => (
                   <Chip className="performersList" key={`${name}_${i}`}>
-                    <Link style={{ color: "black" }} to={`/artists/${performers[i].id}`} value={el.displayName} onClick={() => this.onClick(el.displayName)}>
+                    <Link style={{ color: "black" }} to={`/artists/${el.id}`} value={el.displayName} onClick={() => this.onClick(el.displayName, el.id)}>
                       {el.displayName}
                     </Link>
                   </Chip>

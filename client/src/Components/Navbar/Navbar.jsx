@@ -13,7 +13,7 @@ import {
 } from "react-materialize";
 
 import "./navbar.css";
-import {Icon } from "react-materialize";
+import { Icon } from "react-materialize";
 
 import Youtube from "../Youtube/Youtube";
 
@@ -59,7 +59,7 @@ class Navbar1 extends Component {
         <div className="Home-header">
           <div className="NavLinks">
             <NavLink activeClassName={"Active"} exact={true} to={"/"}>
-              Index
+              <img src="img/image.png" style={{ maxHeight: "100px", marginLeft: "-50px" }} />
             </NavLink>
             {!this.props.user.user
               ? <NavLink activeClassName={"Active"} to={"/login"}>

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import dataUser from "../../Data/dataUser";
 import { withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
+import moment from "moment";
 
 import { fetchArtistIdAC, fetchArtistInfoAC, keepArtistNameAC } from "../../Redux/artistReducer/artistActions";
 
@@ -39,7 +40,7 @@ class UserContent extends Component {
     const sortUpcomingConc = this.props.user.user.upcomingConcerts.sort(
       (a, b) => (a.date > b.date ? 1 : -1)
     );
-    const sortPrevConc = this.props.user.user.upcomingConcerts.sort((a, b) =>
+    const sortPrevConc = this.props.user.user.previousConcerts.sort((a, b) =>
       a.date > b.date ? 1 : -1
     );
     this.setState({
@@ -99,7 +100,7 @@ class UserContent extends Component {
                         <li style={{ marginBottom: "25px", fontSize: "25px", textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap" }}>
                           {" "}
                           <span style={{ color: "red", marginRight: "5%" }}>
-                            {concert.formatDate}
+                            {moment(concert.formatDate).format("DD.MM.YY")}
                           </span>
                           {concert.group}
                         </li>
