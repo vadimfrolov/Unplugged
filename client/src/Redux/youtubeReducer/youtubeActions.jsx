@@ -10,7 +10,8 @@ const playTrackFromListAC = (url, trackNum, topTracks) => {
       loaded: 0,
       pip: false,
       trackNum: trackNum,
-      topTracks: topTracks
+      topTracks: topTracks,
+      playerWindow: true,
     }
   };
 };
@@ -19,11 +20,11 @@ const youtubePlayerCloseAC = () => {
   return {
     type: TYPES.PLAYER_CLOSE,
     payload: {
-      url: null,
       playing: false,
       played: 0,
       loaded: 0,
       pip: false,
+      playerWindow: false,
     }
   };
 };
@@ -32,7 +33,8 @@ const youtubePlayerPlayPauseAC = playingToggle => {
   return {
     type: TYPES.PLAYER_PLAY_PAUSE,
     payload: {
-      playing: playingToggle
+      playing: playingToggle,
+      playerWindow: true,
     }
   };
 };
@@ -46,7 +48,8 @@ const youtubePlayerChangeTrackAC = (url, trackNum) => {
       played: 0,
       loaded: 0,
       pip: false,
-      trackNum: trackNum
+      trackNum: trackNum,
+      playerWindow: true,
     }
   };
 };

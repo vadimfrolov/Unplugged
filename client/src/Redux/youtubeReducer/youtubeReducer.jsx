@@ -3,14 +3,15 @@ import { TYPES } from "./youtubeTypes";
 const initialState = {
   url: null,
   pip: false,
-  playing: true,
+  playing: false,
   controls: true,
   volume: 1,
   muted: false,
   played: 0,
   loaded: 0,
   duration: 0,
-  findInput: ""
+  findInput: "",
+  playerWindow: false,
 };
 
 export default (state = initialState, { type, payload }) => {

@@ -50,9 +50,9 @@ class ConcertExplore extends Component {
   render() {
     return (
       <Container style={{ backgroundColor: "black", padding: "0px 30px", fontSize: "25px" }}>
-        <Row style={{ marginTop: "40px" }}>
+        <Row style={{ marginTop: "30px" }}>
           <Col m={4}></Col>
-          <Col m={4} style={{ color: "white", marginTop: "40px" }}>
+          <Col m={4} style={{ color: "white", marginTop: "30px" }}>
             Choose a date: <input style={{ color: "white" }} type="date" value={this.state.date} onChange={this.handleInput}></input>
             <Button style={{ backgroundColor: "#b71c1c" }} onClick={this.onClick}>Submit</Button>
           </Col>

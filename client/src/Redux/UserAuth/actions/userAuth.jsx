@@ -34,7 +34,6 @@ export const registrationAC = (data) => async dispatch => {
   dispatch({ type: TYPES.FETCH_USER_REQUEST });
 
   try {
-
     const response = await axios.put('/users/registration/', { user: data });
     const user = await get(response, "data")
     dispatch(setUserAC(user));

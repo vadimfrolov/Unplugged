@@ -1,10 +1,18 @@
 .NavLinks {
-  
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   font-size: calc(10px + 2vmin);
-  color: whitesmoke
+  color: whitesmoke;
+  height: 110px;
+}
+
+.NavLink {
+  margin: auto 0 auto 0;
+}
+
+.push {
+  margin-left: auto;
 }
 
 .Active {
@@ -30,7 +38,7 @@
 }
 
 .Home-header {
-  height: 140px;
+  height: 110px;
 }
 
 .Home-body {

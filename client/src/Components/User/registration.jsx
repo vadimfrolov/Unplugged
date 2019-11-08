@@ -39,7 +39,7 @@ class Registration extends Component {
   render() {
     return (
       <Container>
-        <Row style={{ marginTop: "40px" }}>
+        <Row style={{ marginTop: "22px" }}>
           <Col m={3} s={12}></Col>
           <Col m={6} s={12}>
             <Card className="black"

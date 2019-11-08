@@ -164,7 +164,7 @@ class ArtistInfo extends Component {
                 <></>
               ) : (
                 <>
-                  <LikeButton user={this.props.user} />
+                  <LikeButton user={this.props.user} artistFromParent={this.props.artist}/>
                 </>
               )}
               <ShowAll id={artist.id} />
