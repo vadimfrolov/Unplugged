@@ -10,7 +10,7 @@ import {
 
 let moment = require("moment");
 
-export default class Comment extends Component {
+ export default class Comment extends Component {
   render() {
     const { text, nameUser, date } = this.props;
     return (
@@ -32,3 +32,4 @@ export default class Comment extends Component {
     );
   }
 }
+

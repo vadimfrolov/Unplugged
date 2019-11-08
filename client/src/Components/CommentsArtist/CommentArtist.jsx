@@ -20,7 +20,7 @@ class CommentArtist extends Component {
     e.preventDefault();
     this.setState({
       text: e.target.value,
-      date: new Date() //moment(new Date()).format("LLL")
+      date: new Date()  
     });
   };
 

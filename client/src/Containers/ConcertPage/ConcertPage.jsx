@@ -10,16 +10,12 @@ import "./concertPage.css";
 
 import { fetchArtistIdAC, fetchArtistInfoAC, keepArtistNameAC } from "../../Redux/artistReducer/artistActions";
 import { fetchConcertInfoAC } from "../../Redux/concertPageReducer/concertPageActions";
-import {
-  previousConcertAC,
-  upcomingConcertAC,
-  upcomingConcertCancelAC,
-  previousConcertRemoveAC
-} from '../../Redux/UserActivity/activityActions'
+
+ 
 
 import CommentConcert from "../../Components/CommentsConcert";
 import CommentList from "../../Components/CommentsConcert/CommentList";
-
+import Spinner from "../../Components/Spinner/index";
 
 import {
   Container,
@@ -36,12 +32,13 @@ class ConcertPage extends Component {
     super(props);
     this.state = {
       concertGo: false,
+      isLoading: true,
       concertBeen: false,
     };
-  };
+  }
 
   componentDidMount = async () => {
-    const id = this.props.match.params.id
+    const id = this.props.match.params.id;
     await this.props.fetchConcertInfoAC(id);
   }
 
@@ -67,7 +64,6 @@ class ConcertPage extends Component {
     const performers = get(concertPage, "performance");
     const location = get(concertPage, "location.city");
     const comments = get(concertPage, "comments");
-
 
     return (
       <Container style={{ marginTop: "40px", padding: "0px 30px", borderRadius: "3%" }}>
@@ -108,8 +104,31 @@ class ConcertPage extends Component {
                   </Chip>
                 ))}
               </p>
-              <CommentConcert nameArtist={performers} idConcert={id} />
-              <CommentList comments={comments} />
+              <>
+              {!this.props.user ? (
+                <CommentList
+                comments={comments}
+                idConcert={id}
+               
+              />
+              
+            ) : 
+            <>
+            <CommentList
+            comments={comments}
+            idConcert={id}
+            idUser={this.props.user._id}
+          />
+          <CommentConcert nameArtist={performers} idConcert={id} />
+          </>
+          }
+
+    
+        </>
+
+
+              {/* <CommentConcert nameArtist={performers} idConcert={id} />
+              <CommentList comments={comments} /> */}
             </Card>
           </Col>
         </Row>
@@ -122,22 +141,18 @@ const mapStateToProps = store => ({
   artist: store.artist,
   concerts: store.concerts,
   concertPage: store.concertPage,
-  user: store.user.user,
-  // concerts: store.concertPage
+  user: store.user.user
 });
 
 const mapDispatchToProps = {
   fetchConcertInfoAC,
-  previousConcertAC,
-  upcomingConcertAC,
-  upcomingConcertCancelAC,
   fetchArtistIdAC,
   fetchArtistInfoAC,
   keepArtistNameAC,
-  previousConcertRemoveAC
+
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRouter(ConcertPage))
+)(withRouter(ConcertPage));

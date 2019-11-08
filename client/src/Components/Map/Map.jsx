@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Map as GoogleMap, GoogleApiWrapper, Marker } from "google-maps-react";
 import { connect } from "react-redux";
 
+import Spinner from '../Spinner/index'
 import Loader from 'react-loader-spinner'
 
 import {
@@ -115,16 +116,7 @@ class Map extends Component {
     return (
       <div>
         {!this.state.geoposition ? (
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
-            {" "}
-            <Loader
-              type="Ball-Triangle"
-              color="#8b0000"
-              height={100}
-              width={100}
-              timeout={29000} //3 secs
-            />
-          </div>
+          <Spinner/>
         ) : (
             <GoogleMap
               google={this.props.google}

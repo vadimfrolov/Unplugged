@@ -59,18 +59,4 @@ export const loginAC = (data) => async dispatch => {
   }
 }
 
-// export const FBloginAC = () => async dispatch => {
-
-//   dispatch({ type: TYPES.FETCH_USER_REQUEST });
-
-//   try{   
-//   const response = await axios.get('/users/login/facebook/');
-//   const user = await get(response, "data")
-//   console.log('sadzzzzzzzzzzzzzzzzasda',user); 
-//   dispatch(setUserAC( user ))
-//   } catch(err) {
-//     dispatch({ type: TYPES.FETCH_USER_FAILURE });
-//     console.log(err);
-//   }
-// }
 
