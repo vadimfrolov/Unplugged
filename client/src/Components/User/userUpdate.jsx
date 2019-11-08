@@ -23,7 +23,7 @@ class UserUpdate extends Component {
 
   update = async () => {
     const data = this.state
-    
+
     const response = await fetch('/api/users/update/', {
       method: 'PATCH',
       headers: {
@@ -36,20 +36,19 @@ class UserUpdate extends Component {
     this.props.setUser(user);
   }
 
-  
 
   render() {
     return (
       <div>
         {!this.props.user ?
-        <></>:
-        <div>
-          {JSON.stringify(this.state)}
-        <input type="text" value={this.props.user.Username} onChange={this.onChangeUsername}/>
-        <input type="text" value={this.props.user.City} onChange={this.onChangeCity}/>
-        <input type="text" value={this.props.user.Userpic} onChange={this.onChangeUserpik}/>
-        <button onClick={this.update}>update</button>
-        </div>
+          <></> :
+          <div>
+            {JSON.stringify(this.state)}
+            <input type="text" value={this.props.user.Username} onChange={this.onChangeUsername} />
+            <input type="text" value={this.props.user.City} onChange={this.onChangeCity} />
+            <input type="text" value={this.props.user.Userpic} onChange={this.onChangeUserpik} />
+            <button onClick={this.update}>update</button>
+          </div>
         }
       </div>
     )
@@ -68,5 +67,6 @@ function mapDispatchToProps(dispatch) {
     setUser: (user) => dispatch(setUserAC(user)),
   }
 }
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserUpdate)

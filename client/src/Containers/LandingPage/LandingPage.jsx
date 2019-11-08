@@ -10,7 +10,8 @@ import { connect } from "react-redux";
 
 import {
   fetchArtistIdAC,
-  fetchArtistInfoAC
+  fetchArtistInfoAC,
+  keepArtistNameAC
 } from "../../Redux/artistReducer/artistActions";
 import { setUserAC } from "../../Redux/UserAuth/actions/userAuth";
 
@@ -30,7 +31,8 @@ class LandingPage extends Component {
     await this.setState({ text: e.target.name });
     await this.props.fetchArtistIdAC(this.state.text);
     await this.props.fetchArtistInfoAC(this.state.text);
-    this.props.history.push(`/artists/${this.props.artist.id}`)
+    await this.props.keepArtistNameAC(this.state.text, this.props.artist.id)
+    this.props.history.push(`/artists/${this.props.artist.id}`);
     window.scrollTo(0, 0);
   };
 
@@ -65,17 +67,13 @@ class LandingPage extends Component {
             <Caption placement="left">
               <p className="bigLetters">For everyone </p>
               <h4 className="capt light #b71c1c-text text-lighten-3" style={{ fontSize: "30px", marginLeft: '-80px' }}>
-              who loves the music
+                who loves music
               </h4>
             </Caption>
           </Slide>
-          <Slide
-            image={
-              <img src="http://pavbca.com/walldb/original/6/9/b/705333.jpg" />
-            }
-          >
+          <Slide image={<img src="http://pavbca.com/walldb/original/6/9/b/705333.jpg" />}>
             <Caption placement="right">
-              <p className="bigLetters">Find your favourite artist</p>
+              <p className="bigLetters">Find your favorite artist</p>
               <h5 className="capt light #d50000-text text-lighten-3">
                 Find Concerts
               </h5>
@@ -124,6 +122,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   fetchArtistIdAC,
   fetchArtistInfoAC,
+  keepArtistNameAC,
   setUserAC
 };
 

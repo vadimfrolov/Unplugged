@@ -12,7 +12,9 @@ export const TYPES = {
   FETCH_TOUR_SNIPPET_SUCCESS: 'FETCH_TOUR_SNIPPET_SUCCESS',
   FETCH_TOUR_SNIPPET_FAILURE: 'FETCH_TOUR_SNIPPET_FAILURE',
   SWITCH_SEARCH_BAR: 'SWITCH_SEARCH_BAR',
-  FETCH_ADD_COMMENT_ARTIST: "FETCH_ADD_COMMENT_ARTIS"
+  FETCH_ADD_COMMENT_ARTIST: "FETCH_ADD_COMMENT_ARTIST",
+  KEEP_ARTIST_NAME: "KEEP_ARTIST_NAME",
+  GET_ARTIST_NAME: "GET_ARTIST_NAME",
 }
 
 
@@ -23,6 +25,21 @@ export const switchSearchBarAC = () => async dispatch => {
   });
 };
 
+export const keepArtistNameAC = (name, id) => async dispatch => {
+  await axios.post("/keepName", { name, id });
+
+  dispatch({ type: TYPES.KEEP_ARTIST_NAME });
+};
+
+export const getArtistNameAC = (id) => async dispatch => {
+  const res = await axios.post("/getName", { id });
+  const name = get(res, "data.fetchedName", '');
+
+  dispatch({
+    type: TYPES.GET_ARTIST_NAME,
+    payload: name,
+  });
+};
 
 export const fetchArtistIdAC = (text) => async dispatch => {
   dispatch({ type: TYPES.FETCH_ARTIST_ID_REQUEST });
@@ -45,7 +62,7 @@ export const fetchArtistInfoAC = text => async dispatch => {
   dispatch({ type: TYPES.FETCH_ARTIST_INFO_REQUEST });
 
   try {
-   
+
     const res = await axios.post("/search", { text });
     const artist = get(res, "data.dataSearch.artist", {});
     const pic = get(res, "data.pic.items[0].snippet.thumbnails.high.url", {});
@@ -96,10 +113,10 @@ export const fetchAddCommentArtistAC = comment => async dispatch => {
   try {
     const res = await axios.post(`/commentsar`, { comment });
     const data = get(res, "data", {});
-    const sortComments=data.commentsArtist.comments.sort((a,b)=>{
-      return new Date(b.date)-new Date(a.date)
+    const sortComments = data.commentsArtist.comments.sort((a, b) => {
+      return new Date(b.date) - new Date(a.date)
     })
-   
+
     dispatch({
       type: TYPES.FETCH_ADD_COMMENT_ARTIST,
       payload: sortComments

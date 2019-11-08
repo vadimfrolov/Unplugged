@@ -4,7 +4,8 @@ import { connect } from "react-redux";
 import {
   fetchArtistIdAC,
   fetchArtistInfoAC,
-  switchSearchBarAC
+  switchSearchBarAC,
+  keepArtistNameAC
 } from "../../Redux/artistReducer/artistActions";
 import { setUserAC, logoutAC } from "../../Redux/UserAuth/actions/userAuth";
 import {
@@ -47,6 +48,7 @@ class Navbar1 extends Component {
     await this.props.fetchArtistIdAC(this.state.text);
     await this.props.fetchArtistInfoAC(this.state.text);
     await this.props.switchSearchBarAC();
+    await this.props.keepArtistNameAC(this.state.text, this.props.artist.id)
     this.setState({ text: '' })
     this.props.history.push(`/artists/${this.props.artist.id}`);
   }
@@ -56,7 +58,7 @@ class Navbar1 extends Component {
       <div className="Home">
         <div className="Home-header">
           <div className="NavLinks">
-            <NavLink  activeClassName={"Active"} exact={true} to={"/"}>
+            <NavLink activeClassName={"Active"} exact={true} to={"/"}>
               Index
             </NavLink>
             {!this.props.user.user
@@ -99,6 +101,7 @@ const mapDispatchToProps = {
   fetchArtistIdAC,
   fetchArtistInfoAC,
   switchSearchBarAC,
+  keepArtistNameAC,
   setUserAC,
   logoutAC
 };

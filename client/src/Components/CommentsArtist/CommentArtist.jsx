@@ -46,17 +46,17 @@ class CommentArtist extends Component {
   render() {
     return (
       <>
-      <Row>
-        <Textarea xl={8}
-        style={{ color: "white" }}
-        type="text"
-        name="text"
-        placeholder="Add a comment"
-        value={this.state.text}
-        onChange={this.handleChange}
-        required />
-      </Row>
-      <Button style={{ marginTop:"-60px" }} className="red darken-4" onClick={this.onClick}>Add <Icon right>textsms</Icon></Button>
+        <Row>
+          <Textarea xl={8}
+            style={{ color: "white" }}
+            type="text"
+            name="text"
+            placeholder="Add a comment"
+            value={this.state.text}
+            onChange={this.handleChange}
+            required />
+        </Row>
+        <Button style={{ marginTop: "-60px" }} className="red darken-4" onClick={this.onClick}>Add</Button>
       </>
     );
   }

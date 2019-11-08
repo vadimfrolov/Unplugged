@@ -18,7 +18,6 @@ import {
   Button,
 } from "react-materialize";
 
-import "./ConcertExplore.css";
 
 class ConcertExplore extends Component {
   constructor(props) {

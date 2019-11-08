@@ -2,11 +2,13 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import get from "lodash.get";
 import { withRouter, Link } from "react-router-dom";
+import { parse, format } from 'date-fns'
 import moment from "moment";
 
 
 import "./concertPage.css";
 
+import { fetchArtistIdAC, fetchArtistInfoAC, keepArtistNameAC } from "../../Redux/artistReducer/artistActions";
 import { fetchConcertInfoAC } from "../../Redux/concertPageReducer/concertPageActions";
 import {
   previousConcertAC,
@@ -43,6 +45,14 @@ class ConcertPage extends Component {
     await this.props.fetchConcertInfoAC(id);
   }
 
+  onClick = async (e) => {
+    const name = e;
+    await this.props.fetchArtistIdAC(name);
+    await this.props.fetchArtistInfoAC(name);
+    await this.props.keepArtistNameAC(name, this.props.artist.id)
+    this.props.history.push(`/artists/${this.props.artist.id}`);
+  }
+
 
   render() {
     const { concertPage } = this.props;
@@ -75,9 +85,9 @@ class ConcertPage extends Component {
                   </p>
                 </Col>
                 <Col style={{ textAlign: "right" }} m={3}>
-                  { !this.props.user ?
-                  <></>:
-                  <GoButton concertPage={this.props.concertPage} user={this.props.user} />
+                  {!this.props.user ?
+                    <></> :
+                    <GoButton concertPage={this.props.concertPage} user={this.props.user} />
                   }
                 </Col>
               </Row>
@@ -92,7 +102,7 @@ class ConcertPage extends Component {
                 <span style={{ fontWeight: "bold", fontSize: "35px", color: "#b71c1c", marginRight: "15px" }}>Performers:</span>
                 {performers && performers.map((el, i) => (
                   <Chip className="performersList" key={`${name}_${i}`}>
-                    <Link style={{ color: "black" }} to={`/artists/${performers[i].id}`}>
+                    <Link style={{ color: "black" }} to={`/artists/${performers[i].id}`} value={el.displayName} onClick={() => this.onClick(el.displayName)}>
                       {el.displayName}
                     </Link>
                   </Chip>
@@ -121,6 +131,9 @@ const mapDispatchToProps = {
   previousConcertAC,
   upcomingConcertAC,
   upcomingConcertCancelAC,
+  fetchArtistIdAC,
+  fetchArtistInfoAC,
+  keepArtistNameAC,
   previousConcertRemoveAC
 };
 

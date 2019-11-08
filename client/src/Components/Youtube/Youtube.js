@@ -10,7 +10,7 @@ import get from "lodash.get";
 import {
   youtubePlayerCloseAC,
   youtubePlayerPlayPauseAC,
-  youtubePlayerChangeTrackAC,
+  youtubePlayerChangeTrackAC
 } from "../../Redux/youtubeReducer/youtubeActions";
 
 import "./reset.css";
@@ -126,7 +126,6 @@ class Youtube extends Component {
     this.player = player;
   };
 
-
   playNext = async () => {
     const artist = this.props.topTracks[0].artist.name;
     const trackNum = this.props.trackNum < 9 ? this.props.trackNum + 1 : 0;
@@ -175,12 +174,10 @@ class Youtube extends Component {
                   controls={controls}
                   volume={volume}
                   muted={muted}
-                
                   onPlay={this.handlePlay}
                   onEnablePIP={this.handleEnablePIP}
                   onDisablePIP={this.handleDisablePIP}
                   onPause={this.handlePause}
-                  
                   onEnded={this.handleEnded}
                   onError={e => console.log("onError", e)}
                   onProgress={this.handleProgress}
@@ -190,7 +187,7 @@ class Youtube extends Component {
               <div className="player-close-icon" color="error">
                 {this.props.url && (
                   <IconButton onClick={this.handleStop} color="error">
-                    <CloseIcon color="error"/>
+                    <CloseIcon color="error" />
                   </IconButton>
                 )}
               </div>
@@ -202,21 +199,19 @@ class Youtube extends Component {
             aria-label="outlined primary button group"
             color="secondary"
           >
-            <Button onClick={this.playPrevious} >
-              <FastRewindOutlinedIcon color="error"/>
+            <Button onClick={this.playPrevious}>
+              <FastRewindOutlinedIcon color="error" />
             </Button>
-            <Button onClick={this.handlePlayPause} >
+            <Button onClick={this.handlePlayPause}>
               {playing ? (
-                <PauseCircleOutlineOutlinedIcon color="error"/>
+                <PauseCircleOutlineOutlinedIcon color="error" />
               ) : (
-                <PlayCircleOutlineOutlinedIcon color="error"/>
+                <PlayCircleOutlineOutlinedIcon color="error" />
               )}
             </Button>
-            <Button onClick={this.playNext} >
-              <FastForwardOutlinedIcon color="error"/>
+            <Button onClick={this.playNext}>
+              <FastForwardOutlinedIcon color="error" />
             </Button>
-
-           
           </ButtonGroup>
           <input
             type="range"
@@ -247,12 +242,10 @@ const mapDispatchToProps = dispatch => ({
   youtubePlayerPlayPause: playingToggle =>
     dispatch(youtubePlayerPlayPauseAC(playingToggle)),
   youtubePlayerChangeTrack: (url, trackNum) =>
-    dispatch(youtubePlayerChangeTrackAC(url, trackNum)),
+    dispatch(youtubePlayerChangeTrackAC(url, trackNum))
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(withRouter(Youtube));
-
-

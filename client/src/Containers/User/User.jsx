@@ -1,15 +1,11 @@
 import React, { Component } from "react";
-import axios from "axios";
 import Sky from "react-sky";
 import { connect } from "react-redux";
-import dataUser from "../../Data/dataUser";
-import { Icon, Button } from "react-materialize";
-import UserContent, {userContent} from './UserContent'
+import UserContent from './UserContent';
+
 
 import "./user.css";
 
-// !!!!! Подключение юзера !!!
-// import UserComponent from "../../Components/UserComponent/UserComponent";
 
 class User extends Component {
   constructor(props) {
@@ -43,7 +39,7 @@ const mapStateToProps = state => ({
   user: state.user
 });
 
-//
+
 export default connect(
   mapStateToProps,
   null

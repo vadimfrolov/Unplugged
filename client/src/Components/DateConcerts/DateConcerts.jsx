@@ -50,7 +50,7 @@ class DateConcerts extends Component {
             <Button style={{ backgroundColor: "#b71c1c" }} onClick={this.onClick}>Submit</Button>
           </Col>
         </Row>
-        <Row style={{ marginTop: "80px", paddingBottom: "80px"}}>
+        <Row style={{ marginTop: "80px", paddingBottom: "80px" }}>
           <ul>
             {this.props.events.dateEvents && this.props.events.dateEvents.map((el, i) =>
               <li style={{ padding: "22px", border: "1px solid #424242", marginTop: "10px", textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap", color: "white" }} key={i}>
@@ -59,7 +59,7 @@ class DateConcerts extends Component {
                   <Col m={3} style={{ textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap", color: "white" }}><i style={{ marginRight: "20px" }} class="small material-icons">face</i>{el.performance[0] ? el.performance[0].displayName : el.displayName}</Col>
                   <Col m={4} style={{ textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap", color: "white" }}><i style={{ marginRight: "20px" }} class="small material-icons">location_city</i>{el.venue && el.venue.displayName}</Col>
                 </Link>
-                <Col style={{textAlign: "right"}} m={2}><PlayArtistTopTracks artist={el.performance[0].displayName} concertPage={true} /></Col>
+                <Col style={{ textAlign: "right" }} m={2}><PlayArtistTopTracks artist={el.performance[0].displayName} concertPage={true} /></Col>
               </li>
             )}
           </ul>

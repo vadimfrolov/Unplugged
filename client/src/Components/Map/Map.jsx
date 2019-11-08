@@ -58,7 +58,7 @@ class Map extends Component {
       res.forEach(e => dates.push(e));
       res = await this.props.fetchPastDates(id, page);
     }
-    const eventDates = dates.filter(function(item, pos) {
+    const eventDates = dates.filter(function (item, pos) {
       return dates.indexOf(item) == pos;
     });
 
@@ -115,7 +115,7 @@ class Map extends Component {
     return (
       <div>
         {!this.state.geoposition ? (
-          <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '80vh'}}>
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
             {" "}
             <Loader
               type="Ball-Triangle"
@@ -126,15 +126,15 @@ class Map extends Component {
             />
           </div>
         ) : (
-          <GoogleMap
-            google={this.props.google}
-            zoom={4}
-            style={mapStyles}
-            initialCenter={this.state.geoposition}
-          >
-            {this.displayMarkers()}
-          </GoogleMap>
-        )}
+            <GoogleMap
+              google={this.props.google}
+              zoom={4}
+              style={mapStyles}
+              initialCenter={this.state.geoposition}
+            >
+              {this.displayMarkers()}
+            </GoogleMap>
+          )}
       </div>
     );
   }
