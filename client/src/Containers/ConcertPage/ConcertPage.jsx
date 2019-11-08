@@ -151,22 +151,6 @@ class ConcertPage extends Component {
               className="black"
               textClassName="white-text"
               title={name}
-              actions={[
-                this.convertDate() > Date.now() ?
-                  <>
-                    {!concertFlag ?
-
-                      <Button className="red darken-4" onClick={this.upcomingConcert}>I'll be there!</Button> :
-                      <Button className="red darken-4" onClick={this.upcomingConcertCancel}>Cancel</Button>
-                    }
-                  </> :
-                  <>
-                    {!prevFlag ?
-                      <Button className="red darken-4" onClick={this.previousConcert}>I've been there!</Button> :
-                      <Button className="red darken-4" onClick={this.previousConcertRemove}>Remove!</Button>
-                    }
-                  </>
-              ]}
             >
               <Row>
                 <Col m={9}>
@@ -178,12 +162,16 @@ class ConcertPage extends Component {
                   {this.convertDate() > Date.now() ?
                     <>
                       {!concertFlag ?
-                        <Button large className="red darken-4" onClick={this.upcomingConcert}>I'll be there!</Button> :
-                        <Button large className="red darken-4" onClick={this.upcomingConcertCancel}>I won't go</Button>
+
+                        <Button className="red darken-4" onClick={this.upcomingConcert}>I'll be there!</Button> :
+                        <Button className="red darken-4" onClick={this.upcomingConcertCancel}>Cancel</Button>
                       }
                     </> :
                     <>
-                      <Button large className="red darken-4" onClick={this.previousConcert}>I've been there!</Button>
+                      {!prevFlag ?
+                        <Button className="red darken-4" onClick={this.previousConcert}>I've been there!</Button> :
+                        <Button className="red darken-4" onClick={this.previousConcertRemove}>Remove!</Button>
+                      }
                     </>}
                 </Col>
               </Row>

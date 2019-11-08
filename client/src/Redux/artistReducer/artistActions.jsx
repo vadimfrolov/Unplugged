@@ -33,9 +33,7 @@ export const keepArtistNameAC = (name, id) => async dispatch => {
 
 export const getArtistNameAC = (id) => async dispatch => {
   const res = await axios.post("/getName", { id });
-  console.log(res)
   const name = get(res, "data.fetchedName", '');
-  console.log(11111111111111111111, name)
 
   dispatch({
     type: TYPES.GET_ARTIST_NAME,
