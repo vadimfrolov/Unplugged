@@ -132,12 +132,10 @@ router.get("/artists/:id", async (req, res) => {
 
 router.get("/explore/:page", async (req, res) => {
   const page = req.params.page;
-  console.log(page);
   const resExplore = await fetch(
     `https://api.songkick.com/api/3.0/metro_areas/32051/calendar.json?apikey=${SongKickKey}&page=${page}`
   );
   const dataExplore = await resExplore.json();
-  console.log(dataExplore);
   res.json({ dataExplore });
 });
 
@@ -149,6 +147,32 @@ router.post("/explore/:date", async (req, res) => {
   const dataDate = await resDate.json();
   res.json({ dataDate });
 });
+
+router.post("/delete/:comment/:idArtist", async (req, res) => {
+  const { comment, idArtist } = req.params;
+  const artist = await Artist.findOne({ idArtist });
+  const indexComment = await artist.comments.findIndex(e => {
+    return e._id == comment;
+  });
+  await artist.comments.splice(indexComment, 1);
+  await artist.save();
+  const commentsArtist = await Artist.findOne({ idArtist });
+  res.json({ commentsArtist });
+});
+
+router.post("/remove/:comment/:idConcert", async (req, res) => {
+  const { comment, idConcert } = req.params;
+  const concert = await Concert.findOne({ idConcert });
+
+  const indexComment = await concert.comments.findIndex(e => {
+    return e._id == comment;
+  });
+
+  await concert.comments.splice(indexComment, 1);
+  await concert.save();
+  const commentsConcert = await Concert.findOne({ idConcert });
+  res.json({ commentsConcert });
+})
 
 router.post("/keepName", async (req, res) => {
   const { name, id } = req.body;
