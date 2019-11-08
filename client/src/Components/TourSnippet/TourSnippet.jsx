@@ -4,8 +4,7 @@ import { Chip } from "react-materialize";
 const TourSnippet = ({ title, city }) => {
   return (
     <div >
-    <Chip>{title}, {city}</Chip>
-    {/* <Chip classname="truncate">{title}</Chip> */}
+      <Chip style={{ fontSize: "16px" }}>{title}, {city}</Chip>
     </div>
   )
 }

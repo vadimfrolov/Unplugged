@@ -23,7 +23,11 @@
 }
 
 .insideBio {
-  font-size: 25px;
+  font-size: 30px;
+  font-weight: 400;
+  /* background-color: black;
+  color: white */
+  letter-spacing: 5px
 }
 
 .rowWrapper {

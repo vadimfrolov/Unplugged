@@ -5,10 +5,10 @@ const initialState = {
   events: []
 };
 
-export default function(state = initialState, { type, payload }) {
+export default function (state = initialState, { type, payload }) {
   switch (type) {
     case TYPES.FETCH_PAST_DATES: {
-    
+
       return {
         ...state,
         years: [...new Set([...state.years, ...payload])].sort((a, b) => b - a)

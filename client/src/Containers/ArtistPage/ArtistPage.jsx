@@ -7,23 +7,15 @@ import {
   addToFavoriteAC,
   removeFavoriteAC
 } from "../../Redux/UserActivity/activityActions";
+
 import M from "materialize-css";
-import {
-  CollapsibleItem,
-  Collapsible,
-  Icon,
-  Chip,
-  Card,
-  Row,
-  Col,
-  Modal,
-  Button
-} from "react-materialize";
+import { Card, Row, Col, Modal, Button, Icon } from "react-materialize";
 
 import {
   fetchArtistIdAC,
   fetchArtistInfoAC,
-  fetchArtistConcertAC
+  fetchArtistConcertAC,
+  getArtistNameAC
 } from "../../Redux/artistReducer/artistActions";
 
 import TourSnippetList from "../../Components/TourSnippet/TourSnippetList";
@@ -36,6 +28,7 @@ import Spinner from "../../Components/Spinner";
 import ShowAll from "../../Components/TourSnippet/ShowAll";
 import ArtistTopTracks from "../../Components/Youtube/ArtistTopTracks";
 import ShowMap from "../../Components/Map/ShowMap";
+import LikeButton from "./LikeButton";
 
 import FacebookPanel from "../../Components/FacebookPanel";
 
@@ -51,17 +44,14 @@ class ArtistInfo extends Component {
   }
   componentDidMount = async () => {
     if (this.props.isSearchBar) {
+      console.log("ok");
     } else {
+      console.log("ololololo");
       const id = this.props.match.params.id;
-      if (this.props.concertPage.performance !== undefined) {
-        const artist = this.props.concertPage.performance.find(
-          item => item.id == id
-        );
-        if (artist !== undefined) {
-          await this.props.fetchArtistIdAC(artist.displayName);
-          await this.props.fetchArtistInfoAC(artist.displayName);
-        }
-      }
+      await this.props.getArtistNameAC(id);
+      await this.props.fetchArtistIdAC(this.props.artist.fetchedName);
+      console.log(this.props.artist.fetchedName);
+      await this.props.fetchArtistInfoAC(this.props.artist.fetchedName);
     }
     this.setState({ isLoading: false });
   };
@@ -83,7 +73,7 @@ class ArtistInfo extends Component {
   };
 
   checkFavorite = async () => {
-    const check = await this.props.user.favouriteGroups.findIndex(e => {
+    const check = await this.props.user.favoriteGroups.findIndex(e => {
       return e == this.props.match.params.id;
     });
     const state = check === -1;
@@ -97,77 +87,58 @@ class ArtistInfo extends Component {
     const pic = get(artist, "pic");
 
     return (
+<>
+      {this.state.isLoading?<Spinner/>:
+      
+    
       <div>
-        {this.state.isLoading ? (
-          <Spinner />
-        ) : (
-          <>
-            <div className="artistWrapper">
-              <div className="artistNameArt flow-text">{name}</div>
-              <div className="imageWrapper">
-                <img src={pic} style={{ maxHeight: "300px" }} />
-              </div>
-            </div>
-            <div> </div>
-            <Row>
-              <Col m={12} s={12}>
-                <Card
-                  className="black truncate  darken-1"
-                  textClassName="white-text"
-                  title="Biography"
-                  actions={[
-                    <Modal
-                      trigger={
-                        <Button className="red darken-4">
-                          {" "}
-                          Show full bio{" "}
-                        </Button>
-                      }
-                    >
-                      <p className="insideBio">{content}</p>
-                    </Modal>
-                  ]}
+        <div className="artistWrapper">
+          <div className="artistNameArt flow-text">{name}</div>
+          <div className="imageWrapper">
+            <img src={pic} style={{ maxHeight: "300px" }} />
+          </div>
+        </div>
+        <Row className="flex">
+          <Col m={12} s={12}>
+            <Card
+              className="black darken-1"
+              textClassName="white-text"
+              title="Biography"
+              actions={[
+                <Modal
+                  trigger={
+                    <Button className="red darken-4">
+                      Show full bio<Icon right>zoom_out_map</Icon>
+                    </Button>
+                  }
                 >
-                  <div>{content}</div>
-                </Card>
-              </Col>
-            </Row>
+                  <p className="insideBio">{content}</p>
+                </Modal>
+              ]}
+            >
+              <div
+                style={{
+                  textOverflow: "ellipsis",
+                  overflow: "hidden",
+                  whiteSpace: "nowrap"
+                }}
+              >
+                {content}
+              </div>
+            </Card>
+          </Col>
+        </Row>
+        <Row className="rowWrapper flex">
+          <Col s={6} className="black white-text">
+            <p className="genresName">Genres</p>
+            <TagsList />
+            <p style={{ marginTop: "35px" }} className="genresName">
+              Similar artists
+            </p>
+            <SimilarArtistsList />
+            <ArtistTopTracks />
+            <p className="genresName">Comments</p>
 
-            <Row className="rowWrapper flex">
-              <Col s={6} className="black white-text">
-                <p className="genresName">Genres:</p>
-                <TagsList />
-                <p className="genresName">Similar artists:</p>
-                <SimilarArtistsList />
-                <ArtistTopTracks />
-              </Col>
-
-              <Col s={6} className="black white-text">
-                <p className="genresName">Upcoming concerts:</p>
-                <TourSnippetList />
-                {!this.props.user ? (
-                  <></>
-                ) : (
-                  <>
-                    {this.state.favorite ? (
-                      <button onClick={this.addToFavorite}>
-                        add to favorite{" "}
-                      </button>
-                    ) : (
-                      <button onClick={this.removeFavorite}>
-                        remove from fav{" "}
-                      </button>
-                    )}
-                  </>
-                )}
-                <ShowAll id={artist.id} />
-                <ShowMap id={artist.id} />
-                <div style={{ width: "700px" }}>
-                  <FacebookPanel />
-                </div>
-              </Col>
-            </Row>
-         
             {!this.props.user ? (
               <CommentListArtist
                 commentsArtists={artist.comments}
@@ -175,17 +146,38 @@ class ArtistInfo extends Component {
               />
             ) : (
               <>
-              <CommentArtist nameArtist={artist.name} idArtist={artist.id} />
-              <CommentListArtist
-                commentsArtists={artist.comments}
-                idArtist={artist.id}
-                idUser={this.props.user._id}
-              />
-                  </>
+                <CommentArtist nameArtist={artist.name} idArtist={artist.id} />
+                <CommentListArtist
+                  commentsArtists={artist.comments}
+                  idArtist={artist.id}
+                  idUser={this.props.user._id}
+                />
+              </>
             )}
-          </>
-        )}
+          </Col>
+
+          <Col s={6} className="black white-text">
+            <p className="genresName">Upcoming concerts</p>
+            <TourSnippetList />
+            <div style={{ marginBottom: "100px", marginRight: "100px" }}>
+              {!this.props.user ? (
+                <></>
+              ) : (
+                <>
+                  <LikeButton user={this.props.user} />
+                </>
+              )}
+              <ShowAll id={artist.id} />
+              <ShowMap id={artist.id} />
+            </div>
+            <div style={{ width: "700px" }}>
+              <FacebookPanel />
+            </div>
+          </Col>
+        </Row>
       </div>
+      }
+      </>
     );
   }
 }
@@ -193,14 +185,16 @@ class ArtistInfo extends Component {
 const mapStateToProps = store => ({
   artist: store.artist,
   concertPage: store.concertPage,
-  user: store.user.user
+  user: store.user.user,
+  fetchedName: store.fetchedName
 });
 
 const mapDispatchToProps = {
   fetchArtistIdAC,
   fetchArtistInfoAC,
   addToFavoriteAC,
-  removeFavoriteAC
+  removeFavoriteAC,
+  getArtistNameAC
 };
 
 export default connect(

@@ -4,6 +4,12 @@ import { connect } from "react-redux";
 
 import { fetchAddCommentArtistAC } from "../../Redux/artistReducer/artistActions";
 
+import M from "materialize-css";
+import {
+  Row,
+  Button,
+  Textarea, Icon
+} from "react-materialize";
 
 class CommentArtist extends Component {
   state = {
@@ -39,24 +45,27 @@ class CommentArtist extends Component {
 
   render() {
     return (
-      <div>
-        <input
-          type="text"
-          name="text"
-          placeholder="comment here"
-          value={this.state.text}
-          onChange={this.handleChange}
-          required
-        ></input>
-        <button onClick={this.onClick}>Send</button>
-      </div>
+      <>
+        <Row>
+          <Textarea xl={8}
+            style={{ color: "white" }}
+            type="text"
+            name="text"
+            placeholder="Add a comment"
+            value={this.state.text}
+            onChange={this.handleChange}
+            required />
+        </Row>
+        <Button style={{ marginTop: "-60px" }} className="red darken-4" onClick={this.onClick}>Add</Button>
+      </>
     );
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchAddCommentArtistAC: comment => dispatch(fetchAddCommentArtistAC(comment))
+    fetchAddCommentArtistAC: comment =>
+      dispatch(fetchAddCommentArtistAC(comment))
   };
 }
 

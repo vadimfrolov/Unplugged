@@ -4,7 +4,7 @@ import { Chip } from "react-materialize";
 const TagsItem = ({ title }) => {
   return (
     <span className="simAr">
-    <Chip>{title}</Chip>
+      <Chip style={{ fontSize: "16px" }}>{title}</Chip>
     </span>
   )
 }

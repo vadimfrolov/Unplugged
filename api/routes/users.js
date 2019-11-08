@@ -33,12 +33,17 @@ router.post('/login/', async (req, res) => {
   const user = await User.findOne({
     username: req.body.user.username
   });
-  if (user.password === req.body.user.password) {
+  !user ?
+    res.json({ error: 'wrong user' }) :
+    console.log('slka');  
+  if (user && user.password === req.body.user.password) {
     req.session.user = user;
     res.json(req.session.user);
 
   } else {
-    res.json({ eror: "wrong password" });
+    user ?
+      res.json({ error: 'wrong user' }) :
+      console.log('slka');      
   }
 });
 
@@ -64,7 +69,7 @@ router.post('/login/', async (req, res) => {
 // router.get('/auth/google/callback',
 //   passport.authenticate('google'), (req, res) => {
 //     console.log(req.user);
-    
+
 //     req.session.user = req.user
 //     // Successful authentication, redirect home.
 //     res.json(req.user);

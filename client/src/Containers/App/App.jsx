@@ -1,7 +1,6 @@
 import React from "react";
 import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 import { connect } from "react-redux";
-import get from "lodash.get";
 
 import Home from "../Home";
 import FaceBookPanel from "../../Components/FacebookPanel";
@@ -16,31 +15,33 @@ import ConcertYear from "../../Components/Concert-by-artist/ConcertYear";
 import ConcertExplore from "../../Components/ConcertExplore";
 import DateConcerts from "../../Components/DateConcerts";
 import MapContainer from "../../Components/Map/Map";
+import UserMapContainer from '../../Components/UserGeo/UserMap'
 
 import "./styles.css";
 
 class App extends React.Component {
   render() {
-  
+
     return (
       <div >
         <Router>
           <Navbar />
           <div className="AppBody">
-          <Switch >
-            <Route exact path="/" component={LandingPage} />
-            <Route path="/login" component={Login} />
-            <Route path="/registration" component={Registration}/>
-            <Route path={`/dashboard`} component={User} />
-            <Route path="/fbpanel" component={FaceBookPanel} />
-            <Route path="/landing" component={LandingPage} />
-            <Route path={`/artists/:id`} component={ArtistPage} />
-            <Route path={`/concerts/:id`} component={ConcertYear} />
-            <Route path={`/concert/:id`} component={ConcertPage} />
-            <Route exact path="/explore" component={ConcertExplore} />
-            <Route path={`/explore/:id`} component={DateConcerts} />
-            <Route path='/map/:id' component={MapContainer}/>
-          </Switch>
+            <Switch >
+              <Route exact path="/" component={LandingPage} />
+              <Route path="/login" component={Login} />
+              <Route path="/registration" component={Registration} />
+              <Route path={`/dashboard`} component={User} />
+              <Route path="/fbpanel" component={FaceBookPanel} />
+              <Route path="/landing" component={LandingPage} />
+              <Route path={`/artists/:id`} component={ArtistPage} />
+              <Route path={`/concerts/:id`} component={ConcertYear} />
+              <Route path={`/concert/:id`} component={ConcertPage} />
+              <Route exact path="/explore" component={ConcertExplore} />
+              <Route path={`/explore/:id`} component={DateConcerts} />
+              <Route path='/map/:id' component={MapContainer} />
+              {/* <Route path='user/map/' component={UserMapContainer} /> */}
+            </Switch>
           </div>
         </Router>
       </div>

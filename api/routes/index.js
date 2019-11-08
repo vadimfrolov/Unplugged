@@ -6,10 +6,11 @@ var router = express.Router();
 
 let SongKickKey = process.env.SONGKICK_KEY;
 let LastFmKey = process.env.LASTFM_KEY;
-let YouTubeKey = process.env.SECOND_YOUTUBE_API_KEY;
+let YouTubeKey = process.env.YOUTUBE_API_KEY;
 
 const Artist = require("../models/artist");
 const Concert = require("../models/concert");
+const Keep = require("../models/keep");
 
 router.post("/getId", async (req, res) => {
   let bandInput = encodeURIComponent(`${req.body.text}`);
@@ -171,6 +172,25 @@ router.post("/remove/:comment/:idConcert", async (req, res) => {
   await concert.save();
   const commentsConcert = await Concert.findOne({ idConcert });
   res.json({ commentsConcert });
+})
+
+router.post("/keepName", async (req, res) => {
+  const { name, id } = req.body;
+  const newKeep = new Keep({
+    name: name,
+    id: id
+  });
+
+  await newKeep.save();
+  res.end();
+});
+
+router.post("/getName", async (req, res) => {
+  const { id } = req.body;
+  const fetchedKeep = await Keep.findOne({ id });
+  const fetchedName = fetchedKeep.name;
+  console.log(12345, fetchedName);
+  res.json({fetchedName});
 });
 
 module.exports = router;

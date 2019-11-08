@@ -11,7 +11,8 @@ const initialState = {
   similar: [],
   tourSnippet: [],
   comments: [],
-  isSearchBar: false
+  isSearchBar: false,
+  fetchedName: ''
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -96,24 +97,26 @@ export default (state = initialState, { type, payload }) => {
         isLoading: false,
         isSuccess: true,
         comments: payload
-      };
+      }
     }
 
     case TYPES.SWITCH_SEARCH_BAR: {
       return {
         ...state,
-        isLoading: false,
-        isSuccess: false,
         isSearchBar: payload
       };
     }
 
-    case TYPES.SWITCH_SEARCH_BAR: {
+    case TYPES.KEEP_ARTIST_NAME: {
+      return {
+        ...state
+      }
+    }
+
+    case TYPES.GET_ARTIST_NAME: {
       return {
         ...state,
-        isLoading: false,
-        isSuccess: false,
-        isSearchBar: payload
+        fetchedName: payload
       };
     }
 
@@ -124,8 +127,7 @@ export default (state = initialState, { type, payload }) => {
         isSuccess: false,
         comments: payload
       };
-    }
-
+      }
     default:
       return state;
   }
