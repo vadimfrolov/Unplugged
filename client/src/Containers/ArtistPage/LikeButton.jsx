@@ -48,25 +48,25 @@ class LikeButton extends Component {
     this.checkFavorite();
   };
 
-  checkFavorite = async () => {
-    const check = await this.props.user.favouriteGroups.findIndex((e) => {
+  checkFavorite = () => {
+    const check = this.props.user.favouriteGroups.findIndex((e) => {
       return e.id == this.props.match.params.id
     })
     console.log('AND;LS;OKSH;lkLK;KSlkASLKJADslkADJS',check);
     
     const state = check === -1
-    this.setState({ favorite: state })
+    return state
   }
 
   render() {
-
+    const isFav = this.checkFavorite()
     return (
       <>
         {!this.props.user ? (
           <></>
         ) : (
             <>
-              {this.state.favorite ? (
+              {isFav ? (
                 <Button className="red darken-4" onClick={this.addToFavorite}>Add to favourites<Icon right>favorite_border</Icon></Button>
               ) : (
                   <Button className="red darken-4" onClick={this.removeFavorite}>
