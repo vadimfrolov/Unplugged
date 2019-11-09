@@ -3,6 +3,9 @@ const express = require('express');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 const passport = require('passport');
+require("dotenv").config();
+
+let MongoKey = process.env.MONGO_ONLINE;
 
 const path = require('path');
 const morgan = require('morgan');
@@ -55,7 +58,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Подключаем mongoose.
 const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost:27017/final", {
+mongoose.connect(`${MongoKey}`, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
