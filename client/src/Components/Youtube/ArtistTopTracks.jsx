@@ -4,11 +4,11 @@ import { withRouter } from "react-router-dom";
 
 import ArtistTopTrack from "./ArtistTopTrack";
 
+
 class ArtistTopTracks extends Component {
   render() {
     const { artist } = this.props;
     const { topTracks } = artist;
-
     return (
       <div style={{ marginTop: "35px" }} >
         {topTracks && <div className="genresName">Top Tracks:</div>}
@@ -19,7 +19,6 @@ class ArtistTopTracks extends Component {
             trackName={name}
             key={i}
             trackNum={i}
-
           />
         ))}
       </div>
@@ -27,8 +26,10 @@ class ArtistTopTracks extends Component {
   }
 }
 
+
 const mapStateToProps = store => ({
   artist: store.artist
 });
+
 
 export default connect(mapStateToProps)(withRouter(ArtistTopTracks));

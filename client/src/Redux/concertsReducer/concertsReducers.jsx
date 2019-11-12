@@ -5,6 +5,7 @@ const initialState = {
   events: []
 };
 
+
 export default function (state = initialState, { type, payload }) {
   switch (type) {
     case TYPES.FETCH_PAST_DATES: {
@@ -22,7 +23,7 @@ export default function (state = initialState, { type, payload }) {
     case TYPES.FETCH_UPCOMING: {
       return {
         ...state,
-        events: payload  //payload.sort((a, b) => new Date(b.date) - new Date(a.date))
+        events: payload
       };
     }
     default:

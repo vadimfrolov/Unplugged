@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import moment from "moment";
 
 import M from "materialize-css";
 import {
@@ -8,11 +9,10 @@ import {
   CollectionItem,
 } from "react-materialize";
 
-let moment = require("moment");
 
- export default class Comment extends Component {
+export default class Comment extends Component {
   render() {
-    const { text, nameUser, date } = this.props;
+    const { text, date } = this.props;
     return (
       <Row>
         <Col m={8} s={12}>
@@ -32,4 +32,3 @@ let moment = require("moment");
     );
   }
 }
-

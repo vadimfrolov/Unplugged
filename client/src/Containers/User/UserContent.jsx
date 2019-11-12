@@ -1,12 +1,13 @@
 import React, { Component } from "react";
-import dataUser from "../../Data/dataUser";
-import { withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { withRouter, Link } from "react-router-dom";
 import moment from "moment";
 
-import { fetchArtistIdAC, fetchArtistInfoAC, keepArtistNameAC } from "../../Redux/artistReducer/artistActions";
-
-import UserMapContainer from "../../Components/UserGeo/UserMap";
+import {
+  fetchArtistIdAC,
+  fetchArtistInfoAC,
+  keepArtistNameAC
+} from "../../Redux/artistReducer/artistActions";
 
 import M from "materialize-css";
 import {
@@ -16,7 +17,11 @@ import {
   Button,
 } from "react-materialize";
 
+import UserMapContainer from "../../Components/UserGeo/UserMap";
+import dataUser from "../../Data/dataUser";
+
 import "./user.css";
+
 
 class UserContent extends Component {
   constructor(props) {
@@ -49,16 +54,14 @@ class UserContent extends Component {
   onClick = async (e, id) => {
     const name = e;
     const artistId = id
-    console.log(e, id)
     await this.props.fetchArtistIdAC(name);
     await this.props.fetchArtistInfoAC(name);
     await this.props.keepArtistNameAC(name, artistId)
     this.props.history.push(`/artists/${artistId}`);
   }
 
-  render() {
-    const { username } = this.state.user;
 
+  render() {
     return (
       <div>
         <Row>
@@ -72,7 +75,9 @@ class UserContent extends Component {
                       className="userAvatar"
                       alt="profile picture"
                     />
-                    <p style={{ textAlign: "center" }} className="User">{this.props.user.user.username}</p>
+                    <p style={{ textAlign: "center" }} className="User">
+                      {this.props.user.user.username}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -82,11 +87,20 @@ class UserContent extends Component {
                 className="black"
                 textClassName="white-text"
                 actions={[
-                  <Button className="red darken-4">Show All</Button>
+                  <Button className="red darken-4">
+                    Show All
+                  </Button>
                 ]}
                 style={{ borderRadius: "10%" }}>
 
-                <p style={{ fontSize: "40px", fontWeight: "bold", marginBottom: "25px", color: "#b71c1c" }} className="pointConcert" >
+                <p
+                  style={{
+                    fontSize: "40px",
+                    fontWeight: "bold",
+                    marginBottom: "25px",
+                    color: "#b71c1c"
+                  }}
+                  className="pointConcert" >
                   Future concerts:
               </p>
                 <ul>
@@ -94,7 +108,15 @@ class UserContent extends Component {
                     .slice(-3)
                     .map(concert => (
                       <Link to={`/concert/${concert.concertId}`}>
-                        <li style={{ marginBottom: "25px", fontSize: "25px", textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap" }}>
+                        <li
+                          style={{
+                            marginBottom: "25px",
+                            fontSize: "25px",
+                            textOverflow: "ellipsis",
+                            overflow: "hidden",
+                            whiteSpace: "nowrap"
+                          }}
+                        >
                           {" "}
                           <span style={{ color: "red", marginRight: "5%" }}>
                             {moment(concert.formatDate).format("DD.MM.YY")}
@@ -115,7 +137,15 @@ class UserContent extends Component {
                 ]}
                 style={{ borderRadius: "10%" }}>
 
-                <p style={{ fontSize: "40px", fontWeight: "bold", marginBottom: "25px", color: "#b71c1c" }} className="pointConcert" >
+                <p
+                  style={{
+                    fontSize: "40px",
+                    fontWeight: "bold",
+                    marginBottom: "25px",
+                    color: "#b71c1c"
+                  }}
+                  className="pointConcert"
+                >
                   Recent concerts:
               </p>
                 <ul>
@@ -123,7 +153,14 @@ class UserContent extends Component {
                     .slice(-3)
                     .map(concert => (
                       <Link to={`/concert/${concert.concertId}`}>
-                        <li style={{ marginBottom: "25px", fontSize: "25px", textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap" }}>
+                        <li
+                          style={{
+                            marginBottom: "25px",
+                            fontSize: "25px",
+                            textOverflow: "ellipsis",
+                            overflow: "hidden",
+                            whiteSpace: "nowrap"
+                          }}>
                           {" "}
                           <span style={{ color: "red", marginRight: "5%" }}>
                             {concert.formatDate}
@@ -138,9 +175,18 @@ class UserContent extends Component {
             <Row>
               <Col m={11}>
                 <div style={{ backgroundColor: "black", position: "relative" }}>
-                  <p style={{ textAlign: "center", fontSize: "40px", fontWeight: "bold", margin: "40px", padding: "20px", color: "#b71c1c" }}>
+                  <p
+                    style={{
+                      textAlign: "center",
+                      fontSize: "40px",
+                      fontWeight: "bold",
+                      margin: "40px",
+                      padding: "20px",
+                      color: "#b71c1c"
+                    }}
+                  >
                     My concert geography
-                    </p>
+                  </p>
                   <UserMapContainer user={this.props.user} />
                 </div>
               </Col>
@@ -153,14 +199,27 @@ class UserContent extends Component {
                 textClassName="white-text"
                 style={{ borderRadius: "10%", paddingRight: "10px" }}
               >
-
-                <p style={{ fontSize: "40px", fontWeight: "bold", marginBottom: "25px", color: "#b71c1c" }} className="pointConcert" >
+                <p
+                  style={{
+                    fontSize: "40px",
+                    fontWeight: "bold",
+                    marginBottom: "25px",
+                    color: "#b71c1c"
+                  }}
+                  className="pointConcert"
+                >
                   I follow:
               </p>
                 <ul>
                   {this.props.user.user.favouriteGroups.map(group => (
-                    <Link to={`/artists/${group.id}`} value={group.artist} onClick={() => this.onClick(group.artist, group.id)}>
-                      <li style={{ fontSize: "25px", marginBottom: "25px" }}>{group.artist}</li>
+                    <Link
+                      to={`/artists/${group.id}`}
+                      value={group.artist}
+                      onClick={() => this.onClick(group.artist, group.id)}
+                    >
+                      <li style={{ fontSize: "25px", marginBottom: "25px" }}>
+                        {group.artist}
+                      </li>
                     </Link>
                   ))}
                 </ul>
@@ -168,11 +227,11 @@ class UserContent extends Component {
             </Col>
           </Col>
         </Row>
-
       </div >
     );
   }
 }
+
 
 const mapStateToProps = store => ({
   artist: store.artist,
@@ -183,6 +242,7 @@ const mapDispatchToProps = {
   fetchArtistInfoAC,
   keepArtistNameAC,
 };
+
 
 export default connect(
   mapStateToProps,

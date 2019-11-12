@@ -17,7 +17,6 @@ export const setUserAC = (user) => {
 };
 
 export const logoutAC = () => async dispatch => {
-
   dispatch({ type: TYPES.FETCH_USER_REQUEST });
 
   try {
@@ -30,7 +29,6 @@ export const logoutAC = () => async dispatch => {
 };
 
 export const registrationAC = (data) => async dispatch => {
-
   dispatch({ type: TYPES.FETCH_USER_REQUEST });
 
   try {
@@ -44,7 +42,6 @@ export const registrationAC = (data) => async dispatch => {
 }
 
 export const loginAC = (data) => async dispatch => {
-
   dispatch({ type: TYPES.FETCH_USER_REQUEST });
 
   try {
@@ -57,5 +54,3 @@ export const loginAC = (data) => async dispatch => {
     console.log(err);
   }
 }
-
-

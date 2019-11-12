@@ -7,6 +7,7 @@ const initialState = {
   dateEvents: null,
 };
 
+
 export default (state = initialState, { type, payload }) => {
   switch (type) {
     case TYPES.FETCH_UPCOMING_CONCERTS_REQUEST: {

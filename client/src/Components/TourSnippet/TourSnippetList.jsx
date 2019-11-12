@@ -23,7 +23,11 @@ class TourSnippetList extends Component {
     return (
       this.props.artist && this.props.artist.tourSnippet.map(({ displayName, location }, i) => (
         <Link to={`/concert/${this.props.artist.tourSnippet[i].id}`}>
-          <TourSnippet title={displayName} city={location.city} key={`${displayName}_${i}`} />
+          <TourSnippet
+            title={displayName}
+            city={location.city}
+            key={`${displayName}_${i}`}
+          />
         </Link>
       )))
   }

@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-import { findDOMNode } from "react-dom";
-import screenfull from "screenfull";
-import ReactPlayer from "react-player";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import { findDOMNode } from "react-dom";
 import axios from "axios";
 import get from "lodash.get";
+
+import ReactPlayer from "react-player";
+import screenfull from "screenfull";
 
 import {
   youtubePlayerCloseAC,
@@ -17,7 +18,11 @@ import "./reset.css";
 import "./defaults.css";
 import "./App.css";
 
-import { Button, ButtonGroup, IconButton } from "@material-ui/core";
+import {
+  Button,
+  ButtonGroup,
+  IconButton
+} from "@material-ui/core";
 import PlayCircleOutlineOutlinedIcon from "@material-ui/icons/PlayCircleOutlineOutlined";
 import PauseCircleOutlineOutlinedIcon from "@material-ui/icons/PauseCircleOutlineOutlined";
 import FastForwardOutlinedIcon from "@material-ui/icons/FastForwardOutlined";
@@ -25,6 +30,7 @@ import FastRewindOutlinedIcon from "@material-ui/icons/FastRewindOutlined";
 import CloseIcon from "@material-ui/icons/Close";
 
 const youTubeApikey = process.env.REACT_APP_YOUTUBE_API_KEY;
+
 
 class Youtube extends Component {
   state = {
@@ -60,7 +66,6 @@ class Youtube extends Component {
   handleStop = () => {
     this.setState({ played: 0 });
     this.props.youtubePlayerClose();
-    // this.setState({ playing: !this.state.playing });
   };
 
   handleVolumeChange = e => {
@@ -169,7 +174,7 @@ class Youtube extends Component {
   };
 
   render() {
-    const { url, playing, controls, volume, muted, played, pip } = this.state;
+    const { controls, volume, muted, played, pip } = this.state;
 
     return (
       <div className="app">
@@ -259,6 +264,7 @@ const mapDispatchToProps = dispatch => ({
   youtubePlayerChangeTrack: (url, trackNum) =>
     dispatch(youtubePlayerChangeTrackAC(url, trackNum))
 });
+
 
 export default connect(
   mapStateToProps,

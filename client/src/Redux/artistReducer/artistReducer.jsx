@@ -127,7 +127,7 @@ export default (state = initialState, { type, payload }) => {
         isSuccess: false,
         comments: payload
       };
-      }
+    }
     default:
       return state;
   }

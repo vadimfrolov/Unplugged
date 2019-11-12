@@ -1,6 +1,10 @@
 import React from "react";
-import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 import { connect } from "react-redux";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch
+} from "react-router-dom";
 
 import Home from "../Home";
 import FaceBookPanel from "../../Components/FacebookPanel";
@@ -15,18 +19,15 @@ import ConcertYear from "../../Components/Concert-by-artist/ConcertYear";
 import ConcertExplore from "../../Components/ConcertExplore";
 import DateConcerts from "../../Components/DateConcerts";
 import MapContainer from "../../Components/Map/Map";
-import UserMapContainer from '../../Components/UserGeo/UserMap'
 
 import "./styles.css";
 
 class App extends React.Component {
   render() {
-
     return (
       <div >
         <Router>
           <Navbar />
-          {/* <NavbarAdaptive /> */}
           <div className="AppBody">
             <Switch >
               <Route exact path="/" component={LandingPage} />
@@ -41,7 +42,6 @@ class App extends React.Component {
               <Route exact path="/explore" component={ConcertExplore} />
               <Route path={`/explore/:id`} component={DateConcerts} />
               <Route path='/map/:id' component={MapContainer} />
-              {/* <Route path='user/map/' component={UserMapContainer} /> */}
             </Switch>
           </div>
         </Router>
@@ -50,8 +50,10 @@ class App extends React.Component {
   }
 }
 
+
 const mapStateToProps = store => ({
   artist: store.artist
 });
+
 
 export default connect(mapStateToProps)(App);

@@ -1,11 +1,11 @@
 import { TYPES } from "./activityActions";
 
-
 const initialState = {
   isSuccess: false,
   isLoading: false,
   user: null
 }
+
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {

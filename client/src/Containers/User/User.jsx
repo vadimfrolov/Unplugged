@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import Sky from "react-sky";
 import { connect } from "react-redux";
-import UserContent from './UserContent';
 
+import UserContent from './UserContent';
 
 import "./user.css";
 
@@ -23,6 +22,7 @@ class User extends Component {
     this.setState({prevConcerts: sortPrevConc, sortPrevConc: sortUpcomingConc})
   }
 
+
   render() {
     return (
       <div>
@@ -34,6 +34,7 @@ class User extends Component {
     );
   }
 }
+
 
 const mapStateToProps = state => ({
   user: state.user

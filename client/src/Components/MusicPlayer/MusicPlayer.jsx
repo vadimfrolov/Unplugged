@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 
+
 export default class MusicPlayer extends Component {
   render() {
     return (
@@ -15,6 +16,7 @@ export default class MusicPlayer extends Component {
             type="audio/mpeg"
           />
         </video>
+        
       </div>
     );
   }

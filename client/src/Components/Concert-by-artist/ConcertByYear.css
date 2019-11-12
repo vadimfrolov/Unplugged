@@ -13,6 +13,4 @@
 .concertWrapper {
   display: flex;
   flex-wrap: wrap;
-  /* flex-flow:  wrap;
-  flex-direction: column  */
 }

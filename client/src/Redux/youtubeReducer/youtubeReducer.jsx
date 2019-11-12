@@ -14,6 +14,7 @@ const initialState = {
   playerWindow: false,
 };
 
+
 export default (state = initialState, { type, payload }) => {
   switch (type) {
     case TYPES.PLAY_TRACK_FROM_LIST: {

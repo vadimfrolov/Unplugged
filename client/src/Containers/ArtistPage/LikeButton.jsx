@@ -3,22 +3,21 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
 import {
-  addToFavoriteAC,
-  removeFavoriteAC
-} from "../../Redux/UserActivity/activityActions";
-
-
-import {
   Button,
   Icon
 } from "react-materialize";
 
+import {
+  addToFavoriteAC,
+  removeFavoriteAC
+} from "../../Redux/UserActivity/activityActions";
 import {
   fetchArtistIdAC,
   fetchArtistInfoAC,
 } from "../../Redux/artistReducer/artistActions";
 
 import "./ArtistPage.css";
+
 
 class LikeButton extends Component {
   constructor(props) {
@@ -27,6 +26,7 @@ class LikeButton extends Component {
       favorite: false
     };
   }
+
   componentDidMount = async () => {
     this.checkFavorite()
   };
@@ -48,29 +48,39 @@ class LikeButton extends Component {
     this.checkFavorite();
   };
 
-  checkFavorite = async () => {
-    const check = await this.props.user.favouriteGroups.findIndex((e) => {
+  checkFavorite = () => {
+    const check = this.props.user.favouriteGroups.findIndex((e) => {
       return e.id == this.props.match.params.id
     })
-    console.log('AND;LS;OKSH;lkLK;KSlkASLKJADslkADJS',check);
-    
+
     const state = check === -1
-    this.setState({ favorite: state })
+    return state
   }
 
-  render() {
 
+  render() {
+    const isFav = this.checkFavorite()
     return (
       <>
         {!this.props.user ? (
           <></>
         ) : (
             <>
-              {this.state.favorite ? (
-                <Button className="red darken-4" onClick={this.addToFavorite}>Add to favourites<Icon right>favorite_border</Icon></Button>
+              {isFav ? (
+                <Button
+                  className="red darken-4"
+                  onClick={this.addToFavorite}
+                >
+                  Add to favourites
+                  <Icon right>favorite_border</Icon>
+                </Button>
               ) : (
-                  <Button className="red darken-4" onClick={this.removeFavorite}>
-                    Remove from favourites{" "}<Icon right>delete</Icon>
+                  <Button
+                    className="red darken-4"
+                    onClick={this.removeFavorite}
+                  >
+                    Remove from favourites{" "}
+                    <Icon right>delete</Icon>
                   </Button>
                 )}
             </>
@@ -80,6 +90,7 @@ class LikeButton extends Component {
     );
   }
 }
+
 
 const mapStateToProps = store => ({
   artist: store.artist,
@@ -93,6 +104,7 @@ const mapDispatchToProps = {
   addToFavoriteAC,
   removeFavoriteAC
 };
+
 
 export default connect(
   mapStateToProps,

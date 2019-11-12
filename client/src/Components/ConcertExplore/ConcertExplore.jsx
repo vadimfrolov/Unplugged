@@ -1,14 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import moment from "moment";
 import { withRouter, Link } from "react-router-dom";
-
-import {
-  fetchUpcomingConcertsAC,
-  fetchConcertsByDateAC
-} from "../../Redux/ConcertExploreReducer/ConcertExploreActions";
-import { switchSearchBarAC } from "../../Redux/artistReducer/artistActions";
-import PlayArtistTopTracks from "../Youtube/PlayArtistTopTracks";
+import moment from "moment";
 
 import M from "materialize-css";
 import {
@@ -17,6 +10,14 @@ import {
   Col,
   Button,
 } from "react-materialize";
+
+import {
+  fetchUpcomingConcertsAC,
+  fetchConcertsByDateAC
+} from "../../Redux/ConcertExploreReducer/ConcertExploreActions";
+import { switchSearchBarAC } from "../../Redux/artistReducer/artistActions";
+
+import PlayArtistTopTracks from "../Youtube/PlayArtistTopTracks";
 
 
 class ConcertExplore extends Component {
@@ -70,12 +71,38 @@ class ConcertExplore extends Component {
               </li>
             )}
           </ul>
-          <Col m={4}></Col><Col style={{ margin: "40px 0px" }}>
-            <Button style={{ backgroundColor: "#b71c1c" }} onClick={this.onClickPagination}>1</Button>
-            <Button style={{ backgroundColor: "#b71c1c" }} onClick={this.onClickPagination}>2</Button>
-            <Button style={{ backgroundColor: "#b71c1c" }} onClick={this.onClickPagination}>3</Button>
-            <Button style={{ backgroundColor: "#b71c1c" }} onClick={this.onClickPagination}>4</Button>
-            <Button style={{ backgroundColor: "#b71c1c" }} onClick={this.onClickPagination}>5</Button>
+          <Col m={4}></Col>
+          <Col style={{ margin: "40px 0px" }}>
+            <Button
+              style={{ backgroundColor: "#b71c1c" }}
+              onClick={this.onClickPagination}
+            >
+              1
+            </Button>
+            <Button
+              style={{ backgroundColor: "#b71c1c" }}
+              onClick={this.onClickPagination}
+            >
+              2
+            </Button>
+            <Button
+              style={{ backgroundColor: "#b71c1c" }}
+              onClick={this.onClickPagination}
+            >
+              3
+            </Button>
+            <Button
+              style={{ backgroundColor: "#b71c1c" }}
+              onClick={this.onClickPagination}
+            >
+              4
+            </Button>
+            <Button
+              style={{ backgroundColor: "#b71c1c" }}
+              onClick={this.onClickPagination}
+            >
+              5
+            </Button>
           </Col>
         </Row>
       </Container>
@@ -93,6 +120,7 @@ const mapDispatchToProps = {
   fetchConcertsByDateAC,
   switchSearchBarAC
 };
+
 
 export default connect(
   mapStateToProps,

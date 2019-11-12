@@ -64,7 +64,6 @@ router.get("/concert/:id", async (req, res) => {
   }
 });
 
-// коменты на странице концерта
 router.post("/comments", async (req, res) => {
   let { nameArtists, idConcert, comments } = req.body.comment;
 
@@ -88,7 +87,6 @@ router.post("/comments", async (req, res) => {
   res.json({ concerts });
 });
 
-//коменты на странице артиста
 router.post("/commentsar", async (req, res) => {
   let { nameArtist, idArtist, comments } = req.body.comment;
 
@@ -109,7 +107,6 @@ router.post("/commentsar", async (req, res) => {
   res.json({ commentsArtist });
 });
 
-//на будующее концеты
 router.post("/upcoming", async (req, res) => {
   const artistId = req.body.id;
   const resCon = await fetch(
@@ -172,7 +169,7 @@ router.post("/remove/:comment/:idConcert", async (req, res) => {
   await concert.save();
   const commentsConcert = await Concert.findOne({ idConcert });
   res.json({ commentsConcert });
-})
+});
 
 router.post("/keepName", async (req, res) => {
   const { name, id } = req.body;
@@ -189,8 +186,7 @@ router.post("/getName", async (req, res) => {
   const { id } = req.body;
   const fetchedKeep = await Keep.findOne({ id });
   const fetchedName = fetchedKeep.name;
-  console.log(12345, fetchedName);
-  res.json({fetchedName});
+  res.json({ fetchedName });
 });
 
 module.exports = router;
