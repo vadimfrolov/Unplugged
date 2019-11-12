@@ -9,7 +9,7 @@ https://unpluggedelbrus.herokuapp.com/
 
 ### Main page ###
 
-![logo png](https://im2.ezgif.com/tmp/ezgif-2-b6eb961b5981.gif)
+![logo png](https://i.pinimg.com/originals/17/89/c1/1789c1f4b9338b55877e662309d810d0.gif)
 
 
 
