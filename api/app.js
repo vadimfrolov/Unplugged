@@ -2,7 +2,10 @@ const createError = require('http-errors');
 const express = require('express');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
-const passport = require('passport');
+
+require("dotenv").config();
+
+let MongoKey = process.env.MONGO_ONLINE;
 
 const path = require('path');
 const morgan = require('morgan');
@@ -13,7 +16,6 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const testAPIRouter = require("./routes/testAPI");
 const useractivityRouter = require("./routes/userActivity")
-const initPassport = require('./passport/init');
 
 const app = express();
 
@@ -44,7 +46,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Mongoose
 const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost:27017/final", {
+mongoose.connect(`${MongoKey}`, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
