@@ -1,0 +1,103 @@
+.Block {
+  margin: 2%;
+  color: white;
+  font-size: 30px;
+  width: 100%;
+}
+
+.userWrapper {
+  display: flex;
+  flex-wrap: nowrap;
+  font-size: 25px;
+  color: white;
+}
+
+.geoBlock {
+  background-color: black;
+  text-align: center;
+  width: 12vw;
+  height: 4vw;
+  padding-top: 10%;
+  font-size: 40px;
+  border-radius: 15px;
+  font-weight: 500;
+  margin-bottom: 3%
+}
+
+.avatarWrapper {
+  font-size: 30px;
+  color: white;
+  margin-top: 5vh;
+}
+
+.geo {
+  margin-left: 5%;
+  margin-top: -2%;
+}
+
+.bordRad {
+  margin-top: 3%;
+  font-size: 0.7em;
+  margin-left: 30%;
+}
+
+.avatarMap {
+  display: flex;
+  margin-bottom: 5%;
+}
+
+.userAvatar {
+  width: 8vw
+}
+
+.rec {
+  font-size: 30px;
+  font-weight: 600;
+  border-radius: 15px;
+  text-align: center;
+  width: 300px;
+  height: 35px;
+  background-color: black;
+}
+
+.captionUser {
+  color: darkgrey;
+  font-size: 30px;
+  font-weight: 200;
+  margin-bottom: 20px;
+}
+
+.userHead {
+  font-size: 1.0em;
+}
+
+.blockUser {
+  margin-right: 20px;
+  background-color: black;
+  border-radius: 15px;
+  width: 30%;
+  padding: 23px;
+}
+
+.User {
+  font-size: 1.8em;
+  font-weight: 600;
+}
+
+.selected {
+  font-size: 35px;
+  font-weight: 600;
+  margin-bottom: 3%;
+}
+
+.dateConcert {
+  color: #e6e6fa;
+}
+
+.groupConcert {
+  font-weight: 600;
+}
+
+.table {
+  width: 100%;
+}

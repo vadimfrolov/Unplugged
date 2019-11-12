@@ -1,8 +1,13 @@
 var express = require("express");
 var router = express.Router();
 
-router.get("/", function(req, res, next) {
-    res.send("API is working properly");
+const User = require("../models/users");
+
+
+router.get("/", async (req, res) => {
+  const currentUser = await User.find({ username: req.session.user.username });
+  res.json(currentUser[0]);
 });
+
 
 module.exports = router;

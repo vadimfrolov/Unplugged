@@ -1,7 +1,7 @@
 export default {
   user: {
     name:"Jonh Doe",
-    profilePic: "https://pngimage.net/wp-content/uploads/2018/06/john-doe-png.png",
+    profilePic: "https://carlisletheacarlisletheatre.org/images/profile-icon-red-1.png",
     follow: ['Metallica', 'M.I.A.', 'Britney Spears'],
     upcomingConcerts:  [{group:'Chrysta Bell', date:'07.11'}, {group:'Дельфин', date:'07.12'}, {group:'Нейромонах Феофан', date:'15.12'}],
     visitedConcerts:   [{group:'AC/DC', date:'05.11.15'}, {group:'Radiohead', date:'02.10.14'}, {group:'Madonna', date:'21.09.17'}],
@@ -10,5 +10,4 @@ export default {
   }
 }
 
-// [ '05.11.15 AC/DC', '02.10.14 Radiohead', '21.09.17 Madonna'],
-// [ '07.11 Chrysta Bell', '07.12 Дельфин', '15.12 Нейромонах Феофан'], [{group:'Chrysta Bell', date:'07.11'},
+

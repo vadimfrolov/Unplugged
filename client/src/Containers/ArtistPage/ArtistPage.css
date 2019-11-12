@@ -1,0 +1,71 @@
+.groupName {
+  font-size: 30px;
+  font-weight: 600;
+  margin: 10px
+}
+
+.simAr {
+  margin: 0 10px;
+}
+
+.genresName {
+  font-size: 30px;
+  font-weight: 600;
+  margin: 20px;
+  color: white
+}
+
+.bioPage {
+  font-size: 35px;
+  margin: 3%; 
+  border-radius: 15px;
+  color: white;
+  width: 100%
+}
+
+.insideBio {
+  font-size: 30px;
+  font-weight: 400;
+  letter-spacing: 5px
+}
+
+.rowWrapper {
+  height: 100%;
+}
+
+.flex {
+  display: flex;
+}
+
+.artistInsideWrapper {
+  display: flex;
+}
+
+.groupDescription {
+  font-size: 20px;
+  font-weight: 300;
+  margin: 10px
+}
+
+.collapsItem {
+  background-color: white;
+  font-size: 20px;
+  border-radius: 50px;
+}
+
+.artistWrapper {
+  display: flex;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  flex-wrap: nowrap;
+  background-color: black;
+  width: 100%;
+  align-items: center;
+  justify-content:  space-around;
+  border-radius: 25px;
+}
+
+.artistNameArt {
+  font-size: 8rem;
+  color: white;
+}

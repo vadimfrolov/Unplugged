@@ -1,11 +1,16 @@
-import React from 'react'
+import React from 'react';
+
+import { Chip } from "react-materialize";
+
 
 const TagsItem = ({ title }) => {
   return (
-    <div>
-      <h2>{title}</h2>
-    </div>
+    <span className="simAr">
+      <Chip style={{ fontSize: "16px" }}>
+        {title}
+      </Chip>
+    </span>
   )
 }
 
-export default TagsItem
+export default TagsItem;

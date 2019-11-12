@@ -1,47 +1,71 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import { findDOMNode } from "react-dom";
-import { hot } from "react-hot-loader";
-import screenfull from "screenfull";
+import axios from "axios";
+import get from "lodash.get";
+
 import ReactPlayer from "react-player";
+import screenfull from "screenfull";
+
+import {
+  youtubePlayerCloseAC,
+  youtubePlayerPlayPauseAC,
+  youtubePlayerChangeTrackAC
+} from "../../Redux/youtubeReducer/youtubeActions";
 
 import "./reset.css";
 import "./defaults.css";
 import "./App.css";
 
-import Button from "@material-ui/core/Button";
-import ButtonGroup from "@material-ui/core/ButtonGroup";
-import PlayArrowOutlinedIcon from "@material-ui/icons/PlayArrowOutlined";
-import PauseOutlinedIcon from "@material-ui/icons/PauseOutlined";
-import StopOutlinedIcon from "@material-ui/icons/StopOutlined";
+import {
+  Button,
+  ButtonGroup,
+  IconButton
+} from "@material-ui/core";
+import PlayCircleOutlineOutlinedIcon from "@material-ui/icons/PlayCircleOutlineOutlined";
+import PauseCircleOutlineOutlinedIcon from "@material-ui/icons/PauseCircleOutlineOutlined";
+import FastForwardOutlinedIcon from "@material-ui/icons/FastForwardOutlined";
+import FastRewindOutlinedIcon from "@material-ui/icons/FastRewindOutlined";
+import CloseIcon from "@material-ui/icons/Close";
+
+const youTubeApikey = process.env.REACT_APP_YOUTUBE_API_KEY;
+
 
 class Youtube extends Component {
   state = {
-    url: null,
-    pip: false,
     playing: true,
+    pip: false,
     controls: true,
     volume: 1,
     muted: false,
     played: 0,
     loaded: 0,
-    duration: 0
+    duration: 0,
+    findInput: ""
   };
 
-  load = url => {
+  playTrack = url => {
     this.setState({
+      playing: true,
       url,
       played: 0,
       loaded: 0,
-      pip: false
+      pip: false,
+      playing: true
     });
   };
 
   handlePlayPause = () => {
-    this.setState({ playing: !this.state.playing });
+    if (this.props.url) {
+      this.props.youtubePlayerPlayPause(!this.state.playing);
+      this.setState({ playing: !this.state.playing });
+    }
   };
 
   handleStop = () => {
-    this.setState({ url: null, playing: true, played: 0 });
+    this.setState({ played: 0 });
+    this.props.youtubePlayerClose();
   };
 
   handleVolumeChange = e => {
@@ -57,23 +81,21 @@ class Youtube extends Component {
   };
 
   handlePlay = () => {
-    console.log("onPlay");
+    this.props.youtubePlayerPlayPause(true);
     this.setState({ playing: true });
   };
 
   handleEnablePIP = () => {
-    console.log("onEnablePIP");
     this.setState({ pip: true });
   };
 
   handleDisablePIP = () => {
-    console.log("onDisablePIP");
     this.setState({ pip: false });
   };
 
   handlePause = () => {
-    console.log("onPause");
     this.setState({ playing: false });
+    this.props.youtubePlayerPlayPause(false);
   };
 
   handleSeekMouseDown = e => {
@@ -81,27 +103,27 @@ class Youtube extends Component {
   };
 
   handleSeekChange = e => {
-    this.setState({ played: parseFloat(e.target.value) });
+    if (this.props.playerWindow) {
+      this.setState({ played: parseFloat(e.target.value) });
+    }
   };
 
   handleSeekMouseUp = e => {
     this.setState({ seeking: false });
-    this.player.seekTo(parseFloat(e.target.value));
+    if (this.props.playerWindow) {
+      this.player.seekTo(parseFloat(e.target.value));
+    }
   };
 
   handleProgress = state => {
-    console.log("onProgress", state);
     if (!this.state.seeking) {
       this.setState(state);
     }
   };
 
-  handleEnded = () => {
-    console.log("onEnded");
-  };
+  handleEnded = () => {};
 
   handleDuration = duration => {
-    console.log("onDuration", duration);
     this.setState({ duration });
   };
 
@@ -110,104 +132,141 @@ class Youtube extends Component {
   };
 
   renderLoadButton = (url, label) => {
-    return <button onClick={() => this.load(url)}>{label}</button>;
+    return <button onClick={() => this.playTrack(url)}>{label}</button>;
   };
 
   ref = player => {
     this.player = player;
   };
 
+  playNext = async () => {
+    if (this.props.topTracks) {
+      const artist = this.props.topTracks[0].artist.name;
+      const trackNum = this.props.trackNum < 9 ? this.props.trackNum + 1 : 0;
+      const trackName = this.props.topTracks[trackNum].name;
+      const query = encodeURIComponent(`${artist} ${trackName}`);
+      const httpQuery = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&order=relevance&q=${query}&key=${youTubeApikey}`;
+      const res = await axios.get(httpQuery);
+
+      const videoId = get(res, `data.items[0].id.videoId`, "dQw4w9WgXcQ");
+      const url = `https://www.youtube.com/watch?v=${videoId}`;
+
+      this.props.youtubePlayerChangeTrack(url, trackNum);
+      this.setState({ playing: true });
+    }
+  };
+
+  playPrevious = async () => {
+    if (this.props.topTracks) {
+      const artist = this.props.topTracks[0].artist.name;
+      const trackNum = this.props.trackNum > 0 ? this.props.trackNum - 1 : 9;
+      const trackName = this.props.topTracks[trackNum].name;
+      const query = encodeURIComponent(`${artist} ${trackName}`);
+      const httpQuery = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&order=relevance&q=${query}&key=${youTubeApikey}`;
+      const res = await axios.get(httpQuery);
+
+      const videoId = get(res, `data.items[0].id.videoId`, "dQw4w9WgXcQ");
+      const url = `https://www.youtube.com/watch?v=${videoId}`;
+
+      this.props.youtubePlayerChangeTrack(url, trackNum);
+      this.setState({ playing: true });
+    }
+  };
+
   render() {
-    const {
-      url,
-      playing,
-      controls,
-      volume,
-      muted,
-      played,
-      pip
-    } = this.state;
+    const { controls, volume, muted, played, pip } = this.state;
 
     return (
       <div className="app">
-        <section className="section">
-          <div className="player-wrapper">
-            <ReactPlayer
-              ref={this.ref}
-              className="react-player"
-              width="100%"
-              height="100%"
-              url={url}
-              pip={pip}
-              playing={playing}
-              controls={controls}
-              volume={volume}
-              muted={muted}
-              onReady={() => console.log("onReady")}
-              onStart={() => console.log("onStart")}
-              onPlay={this.handlePlay}
-              onEnablePIP={this.handleEnablePIP}
-              onDisablePIP={this.handleDisablePIP}
-              onPause={this.handlePause}
-              onBuffer={() => console.log("onBuffer")}
-              onSeek={e => console.log("onSeek", e)}
-              onEnded={this.handleEnded}
-              onError={e => console.log("onError", e)}
-              onProgress={this.handleProgress}
-              onDuration={this.handleDuration}
-            />
-          </div>
+        <section className="section-player">
+          {this.props.playerWindow && (
+            <div>
+              <div className="player-wrapper">
+                <ReactPlayer
+                  ref={this.ref}
+                  className="react-player"
+                  width="100%"
+                  height="100%"
+                  url={this.props.url}
+                  pip={pip}
+                  playing={this.props.playing}
+                  controls={controls}
+                  volume={volume}
+                  muted={muted}
+                  onPlay={this.handlePlay}
+                  onEnablePIP={this.handleEnablePIP}
+                  onDisablePIP={this.handleDisablePIP}
+                  onPause={this.handlePause}
+                  onEnded={this.handleEnded}
+                  onError={e => console.log("onError", e)}
+                  onProgress={this.handleProgress}
+                  onDuration={this.handleDuration}
+                />
+              </div>
+              <div className="player-close-icon" color="error">
+                {this.props.url && (
+                  <IconButton onClick={this.handleStop} color="error">
+                    <CloseIcon color="error" />
+                  </IconButton>
+                )}
+              </div>
+            </div>
+          )}
 
-          <div className="">
-            <ButtonGroup
-              color="primary"
-              aria-label="outlined primary button group"
-            >
-              <Button
-                onClick={this.handlePlayPause}
-                color="secondary"
-                startIcon={
-                  playing ? <PauseOutlinedIcon /> : <PlayArrowOutlinedIcon />
-                }
-              ></Button>
-              <Button
-                onClick={this.handleStop}
-                color="secondary"
-                startIcon={<StopOutlinedIcon />}
-              ></Button>
-
-              <Button
-                onClick={() =>
-                  this.load("https://www.youtube.com/watch?v=oUFJJNQGwhk")
-                }
-              >
-                YT
-              </Button>
-              <Button
-                onClick={() =>
-                  this.load(
-                    "https://soundcloud.com/miami-nights-1984/accelerated"
-                  )
-                }
-              >
-                SC
-              </Button>
-            </ButtonGroup>
-            <input
-              type="range"
-              min={0}
-              max={1}
-              step="any"
-              value={played}
-              onMouseDown={this.handleSeekMouseDown}
-              onChange={this.handleSeekChange}
-              onMouseUp={this.handleSeekMouseUp}
-            />
-          </div>
+          <ButtonGroup
+            className="player-controls"
+            aria-label="outlined primary button group"
+            color="secondary"
+          >
+            <Button onClick={this.playPrevious}>
+              <FastRewindOutlinedIcon color="error" />
+            </Button>
+            <Button onClick={this.handlePlayPause}>
+              {this.props.playerWindow && this.props.playing ? (
+                <PauseCircleOutlineOutlinedIcon color="error" />
+              ) : (
+                <PlayCircleOutlineOutlinedIcon color="error" />
+              )}
+            </Button>
+            <Button onClick={this.playNext}>
+              <FastForwardOutlinedIcon color="error" />
+            </Button>
+          </ButtonGroup>
+          <input
+            type="range"
+            min={0}
+            max={1}
+            step="any"
+            value={played}
+            onMouseDown={this.handleSeekMouseDown}
+            onChange={this.handleSeekChange}
+            onMouseUp={this.handleSeekMouseUp}
+          />
+          <progress max={1} value={played} />
         </section>
       </div>
     );
   }
 }
 
-export default hot(module)(Youtube);
+const mapStateToProps = store => ({
+  url: store.youtube.url,
+  playing: store.youtube.playing,
+  trackNum: store.youtube.trackNum,
+  topTracks: store.youtube.topTracks,
+  playerWindow: store.youtube.playerWindow
+});
+
+const mapDispatchToProps = dispatch => ({
+  youtubePlayerClose: () => dispatch(youtubePlayerCloseAC()),
+  youtubePlayerPlayPause: playingToggle =>
+    dispatch(youtubePlayerPlayPauseAC(playingToggle)),
+  youtubePlayerChangeTrack: (url, trackNum) =>
+    dispatch(youtubePlayerChangeTrackAC(url, trackNum))
+});
+
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(Youtube));

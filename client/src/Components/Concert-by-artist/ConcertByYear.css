@@ -1,0 +1,16 @@
+.concertBlock {
+  margin: 1%;
+  background-color: black;
+  border-radius: 15px;
+  padding: 1.5em;
+
+}
+
+.styleHead {
+  font-size: 2em
+}
+
+.concertWrapper {
+  display: flex;
+  flex-wrap: wrap;
+}

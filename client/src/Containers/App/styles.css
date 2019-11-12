@@ -5,6 +5,13 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  position: relative;
+  background: url('http://www.cnvliquor.com.au/wp-content/uploads/2017/03/background-grey-1080.jpg') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+ 
 }
 
 code {
@@ -18,11 +25,19 @@ code {
   flex-direction: row;
   justify-content: space-evenly;
   font-size: calc(10px + 2vmin);
-  color: #09d3ac;
+  color: white;
+}
+
+.AppBody {
+  margin:0 5%
+}
+
+a {
+  color: whitesmoke
 }
 
 .Active {
-  color: #09d3ac;
+  color: #8b0000;
 }
 
 .landingPage {
