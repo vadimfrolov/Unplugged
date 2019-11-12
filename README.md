@@ -1,4 +1,4 @@
-#  Unplugged #
+
 ![logo png](https://www.stjohnsblackheath.org.uk/wp-content/uploads/2016/01/Unplugged-Logo-571x400.png)
 
 # Description:
