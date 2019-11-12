@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-
 import { connect } from "react-redux";
-import Spinner from "../Spinner/index";
+
+import { Button } from "react-materialize";
 
 import {
   fetchPastDates,
@@ -10,15 +10,16 @@ import {
   fetchUpcomingAC
 } from "../../Redux/concertsReducer/concertsActions";
 
-import { Button } from "react-materialize";
-
 import ConcertsByYear from "./ConcertsByYear";
+import Spinner from "../Spinner/index";
+
 
 class ConcertYear extends Component {
   state = {
     year: [],
     isLoading: true
   };
+
   componentDidMount = async () => {
     const id = this.props.match.params.id;
     let page = 1;
@@ -42,38 +43,40 @@ class ConcertYear extends Component {
     this.props.fetchUpcomingAC(id);
   };
 
+
   render() {
     return (
       <>
         {this.state.isLoading ? (
           <Spinner />
         ) : (
-          <div style={{ marginTop: "30px" }}>
-            <Button
-              style={{ backgroundColor: "black" }}
-              onClick={this.onClickUpcoming}
-            >
-              Upcoming
+            <div style={{ marginTop: "30px" }}>
+              <Button
+                style={{ backgroundColor: "black" }}
+                onClick={this.onClickUpcoming}
+              >
+                Upcoming
             </Button>
-            {this.props.concerts.years &&
-              this.props.concerts.years.map((el, i) => (
-                <Button
-                  className="red darken-4 white-text"
-                  key={i}
-                  onClick={() => this.onClick(el)}
-                >
-                  {el}
-                </Button>
-              ))}
-            <ConcertsByYear nameArtist={this.props.artist.name} />
-          </div>
-        )}
+              {this.props.concerts.years &&
+                this.props.concerts.years.map((el, i) => (
+                  <Button
+                    className="red darken-4 white-text"
+                    key={i}
+                    onClick={() => this.onClick(el)}
+                  >
+                    {el}
+                  </Button>
+                ))}
+              <ConcertsByYear nameArtist={this.props.artist.name} />
+            </div>
+          )}
       </>
     );
   }
 }
 
-function mapDispatchToProps(dispatch) {
+
+const mapDispatchToProps = (dispatch) => {
   return {
     fetchPastDates: (id, page) => dispatch(fetchPastDates(id, page)),
     fetchPastDatesAC: arr => dispatch(fetchPastDatesAC(arr)),
@@ -82,12 +85,13 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-function mapStateToProps(store) {
+const mapStateToProps = (store) => {
   return {
     artist: store.artist,
     concerts: store.concerts
   };
 }
+
 
 export default connect(
   mapStateToProps,

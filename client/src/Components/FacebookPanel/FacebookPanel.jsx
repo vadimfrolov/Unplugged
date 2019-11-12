@@ -1,7 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { FacebookProvider, Like, Page } from "react-facebook";
 import get from "lodash.get";
+
+import {
+  FacebookProvider,
+  Like,
+  Page
+} from "react-facebook";
 
 
 class FBpanel extends Component {
@@ -13,11 +18,10 @@ class FBpanel extends Component {
     this.setState({ name: "bla" })
   }
 
+
   render() {
     const { artist } = this.props;
-
     const name = get(artist, "name").replace(/ /g, '');
-
 
     return (
       <div>

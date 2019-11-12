@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-import get from "lodash.get";
 import { connect } from "react-redux";
-
-import { fetchAddCommentAC } from "../../Redux/concertPageReducer/concertPageActions";
+import get from "lodash.get";
 
 import M from "materialize-css";
 import {
@@ -11,12 +9,15 @@ import {
   Textarea
 } from "react-materialize";
 
+import { fetchAddCommentAC } from "../../Redux/concertPageReducer/concertPageActions";
+
 
 class CommentConcert extends Component {
   state = {
     text: "",
     date: ""
   };
+
   handleChange = e => {
     e.preventDefault();
     this.setState({
@@ -24,6 +25,7 @@ class CommentConcert extends Component {
       date: new Date()
     });
   };
+
   onClick = async () => {
     const { nameArtist, idConcert, user } = this.props;
     const nameuser = get(user, "user.username");
@@ -43,6 +45,7 @@ class CommentConcert extends Component {
     await this.setState({ text: "", data: "" });
   };
 
+
   render() {
     return (
       <>
@@ -54,25 +57,33 @@ class CommentConcert extends Component {
             placeholder="Add a comment"
             value={this.state.text}
             onChange={this.handleChange}
-            required />
+            required
+          />
         </Row>
-        <Button style={{ marginTop: "-60px" }} className="red darken-4" onClick={this.onClick}>Add</Button>
+        <Button
+          style={{ marginTop: "-60px" }}
+          className="red darken-4"
+          onClick={this.onClick}
+        >
+          Add
+        </Button>
       </>
     );
   }
 }
 
-function mapDispatchToProps(dispatch) {
+const mapDispatchToProps = (dispatch) => {
   return {
     fetchAddCommentAC: comment => dispatch(fetchAddCommentAC(comment))
   };
 }
 
-function mapStateToProps(store) {
+const mapStateToProps = (store) => {
   return {
     user: store.user
   };
 }
+
 
 export default connect(
   mapStateToProps,

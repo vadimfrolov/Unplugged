@@ -1,17 +1,19 @@
 import React, { Component } from "react";
-
-import Comment from "./Comment";
-
 import { connect } from "react-redux";
 
 import { Button } from "react-materialize";
+
 import { fetchDeleteCommentArtistAC } from "../../Redux/artistReducer/artistActions";
+
+import Comment from "./Comment";
 
 
 class CommentListArtist extends Component {
   onClick = async (id, idArtist) => {
     await this.props.fetchDeleteCommentArtistAC(id, idArtist);
   };
+
+
   render() {
     const { commentsArtists, idArtist, idUser } = this.props;
     const sortCommentsArtist = commentsArtists.sort((a, b) => {
@@ -31,8 +33,12 @@ class CommentListArtist extends Component {
                   date={el.date}
                 />
                 {idUser === el.idUser ? (
-                  <Button className="red darken-4" style={{ marginBottom: "50px" }} onClick={() => this.onClick(el._id, idArtist)}>
-                    delete
+                  <Button
+                    className="red darken-4"
+                    style={{ marginBottom: "50px" }}
+                    onClick={() => this.onClick(el._id, idArtist)}
+                  >
+                    Delete
                   </Button>
                 ) : null}
               </div>
@@ -43,12 +49,14 @@ class CommentListArtist extends Component {
   }
 }
 
-function mapDispatchToProps(dispatch) {
+
+const mapDispatchToProps = (dispatch) => {
   return {
     fetchDeleteCommentArtistAC: (id, idArtist) =>
       dispatch(fetchDeleteCommentArtistAC(id, idArtist))
   };
 }
+
 
 export default connect(
   null,

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { playTrackFromListAC, youtubePlayerPlayPauseAC } from "../../Redux/youtubeReducer/youtubeActions";
 import axios from "axios";
 import get from "lodash.get";
 
@@ -9,7 +8,10 @@ import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import IconButton from "@material-ui/core/IconButton";
 import Button from "@material-ui/core/Button";
 
+import { playTrackFromListAC, youtubePlayerPlayPauseAC } from "../../Redux/youtubeReducer/youtubeActions";
+
 const youTubeApikey = process.env.REACT_APP_YOUTUBE_API_KEY;
+
 
 class ArtistTrack extends Component {
   playButtonClick = async () => {
@@ -30,6 +32,7 @@ class ArtistTrack extends Component {
     this.props.youtubePlayerPlayPause(true);
   };
 
+
   render() {
     return (
       <div style={{ display: 'inline' }}>
@@ -38,7 +41,10 @@ class ArtistTrack extends Component {
             onClick={this.playButtonClick}
             fontSize="large"
             color="secondary">
-            <PlayArrowIcon color="secondary" fontSize="large" />
+            <PlayArrowIcon
+              color="secondary"
+              fontSize="large"
+            />
           </IconButton>
         )}
 
@@ -58,6 +64,7 @@ class ArtistTrack extends Component {
   }
 }
 
+
 const mapStateToProps = store => ({
   playing: store.youtube.playing
 });
@@ -68,6 +75,7 @@ const mapDispatchToProps = dispatch => ({
   playTrackFromList: (url, trackNum, topTracks) =>
     dispatch(playTrackFromListAC(url, trackNum, topTracks))
 });
+
 
 export default connect(
   mapStateToProps,

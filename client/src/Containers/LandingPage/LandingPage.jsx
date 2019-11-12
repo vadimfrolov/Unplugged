@@ -1,12 +1,17 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { withRouter, Link } from "react-router-dom";
+
 import { fadeIn } from "react-animations";
 import styled, { keyframes } from "styled-components";
-import dataArtists from "../../Data/dataArtists";
 import M from "materialize-css";
-import { Slider, Slide, Caption, Button, Icon } from "react-materialize";
-import "./landingPage.css";
-import { withRouter, Link } from "react-router-dom";
-import { connect } from "react-redux";
+import {
+  Slider,
+  Slide,
+  Caption,
+  Button,
+  Icon
+} from "react-materialize";
 
 import {
   fetchArtistIdAC,
@@ -15,9 +20,14 @@ import {
 } from "../../Redux/artistReducer/artistActions";
 import { setUserAC } from "../../Redux/UserAuth/actions/userAuth";
 
+import dataArtists from "../../Data/dataArtists";
+
+import "./landingPage.css";
+
 const Pulse = styled.div`
   animation: 4s ${keyframes`${fadeIn}`};
 `;
+
 
 class LandingPage extends Component {
   constructor(props) {
@@ -66,7 +76,7 @@ class LandingPage extends Component {
             <Caption placement="left">
               <p className="bigLetters">For everyone </p>
               <h4 className="capt light #d50000-text text-lighten-3" style={{ fontSize: "30px" }}>
-              who loves the music
+                who loves the music
               </h4>
             </Caption>
           </Slide>
@@ -79,9 +89,7 @@ class LandingPage extends Component {
             </Caption>
           </Slide>
           <Slide
-            image={
-              <img src="https://www.elsetge.cat/myimg/f/26-267773_post-malone-at-the-rock-in-roma-festival.jpg" />
-            }
+            image={<img src="https://www.elsetge.cat/myimg/f/26-267773_post-malone-at-the-rock-in-roma-festival.jpg" />}
           >
             <Caption placement="left">
               <p className="bigLetters">Enjoy the music</p>
@@ -93,7 +101,11 @@ class LandingPage extends Component {
         {dataArtists.artists.map(group => (
           <div className="landing-artist-div">
             <Pulse>
-              <div className="hoverable responsive-video" onClick={this.handleClick} name={group.name}>
+              <div
+                className="hoverable responsive-video"
+                onClick={this.handleClick}
+                name={group.name}
+              >
                 <img
                   style={{ borderRadius: "15px" }}
                   src={group.profilePic}
@@ -113,6 +125,7 @@ class LandingPage extends Component {
   }
 }
 
+
 const mapStateToProps = state => ({
   artist: state.artist,
   user: state.user
@@ -124,6 +137,7 @@ const mapDispatchToProps = {
   keepArtistNameAC,
   setUserAC
 };
+
 
 export default withRouter(
   connect(

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { registrationAC } from '../../Redux/UserAuth/actions/userAuth';
 import { Link } from "react-router-dom";
+
 import M from "materialize-css";
 import {
   Container,
@@ -10,6 +10,9 @@ import {
   Col,
   Button
 } from "react-materialize";
+
+import { registrationAC } from '../../Redux/UserAuth/actions/userAuth';
+
 
 class Registration extends Component {
   constructor(props) {
@@ -28,6 +31,7 @@ class Registration extends Component {
   onChangeUsername = (e) => {
     this.setState({ username: e.target.value })
   }
+
   onChangePassword = (e) => {
     this.setState({ password: e.target.value })
   }
@@ -35,6 +39,7 @@ class Registration extends Component {
   registration = () => {
     this.props.registrationAC(this.state)
   }
+
 
   render() {
     return (
@@ -46,10 +51,36 @@ class Registration extends Component {
               textClassName="white-text"
               title="Registration">
               <div>
-                <input style={{ color: "white" }} type="text" placeholder="Username" name="username" onChange={this.onChangeUsername} />
-                <input style={{ color: "white" }} type="email" placeholder="E-mail" name="email" onChange={this.onChangeEmail} />
-                <input style={{ color: "white" }} type="password" placeholder="Password" bsSize="lg" name="password" onChange={this.onChangePassword} />
-                <Link to={"/dashboard"}> <Button style={{ backgroundColor: "#b71c1c" }} onClick={this.registration}>Register</Button> </Link >
+                <input
+                  style={{ color: "white" }}
+                  type="text"
+                  placeholder="Username"
+                  name="username"
+                  onChange={this.onChangeUsername}
+                />
+                <input
+                  style={{ color: "white" }}
+                  type="email"
+                  placeholder="E-mail"
+                  name="email"
+                  onChange={this.onChangeEmail}
+                />
+                <input
+                  style={{ color: "white" }}
+                  type="password"
+                  placeholder="Password"
+                  bsSize="lg"
+                  name="password"
+                  onChange={this.onChangePassword}
+                />
+                <Link to={"/dashboard"}>
+                  <Button
+                    style={{ backgroundColor: "#b71c1c" }}
+                    onClick={this.registration}
+                  >
+                    Register
+                  </Button>
+                </Link >
               </div>
             </Card>
           </Col>
@@ -59,7 +90,8 @@ class Registration extends Component {
   }
 }
 
-function mapStateToProps(store) {
+
+const mapStateToProps = (store) => {
   return {
     user: store.user
   }
@@ -69,4 +101,5 @@ const mapDispatchToProps = {
   registrationAC
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Registration)
+
+export default connect(mapStateToProps, mapDispatchToProps)(Registration);

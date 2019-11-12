@@ -3,6 +3,10 @@ import { connect } from "react-redux";
 import get from "lodash.get";
 import { parse, format } from 'date-fns'
 
+import {
+  Button,
+} from "react-materialize";
+
 import "../../Containers/ConcertPage/concertPage.css";
 
 import {
@@ -12,9 +16,6 @@ import {
   previousConcertRemoveAC
 } from '../../Redux/UserActivity/activityActions'
 
-import {
-  Button,
-} from "react-materialize";
 
 class GoButton extends Component {
   constructor(props) {
@@ -28,9 +29,7 @@ class GoButton extends Component {
   componentDidMount = async () => {
     this.concertActivityCheck()
     this.previousConcertActivityCheck()
-
   }
-
 
   convertDate = () => {
     const date = get(this.props.concertPage, "start.date")
@@ -39,7 +38,6 @@ class GoButton extends Component {
 
   previousConcert = async () => {
     const formatD = format(parse(this.props.concertPage.start.date, 'yyyy-MM-dd', new Date()), 'MM.dd.yy')
-    console.log('sjadhoidhfjkhoiwjqw', format);
 
     await this.props.previousConcertAC(
       {
@@ -55,7 +53,6 @@ class GoButton extends Component {
   }
 
   concertActivityCheck = () => {
-
     const check = this.props.user.upcomingConcerts.find((e) => {
       return e.concertId == this.props.concertPage.id
     })
@@ -63,11 +60,9 @@ class GoButton extends Component {
     !check ?
       this.setState({ concertGo: false }) :
       this.setState({ concertGo: true });
-
   }
 
   previousConcertActivityCheck = () => {
-
     const check = this.props.user.previousConcerts.find((e) => {
       return e.concertId == this.props.concertPage.id
     })
@@ -75,7 +70,6 @@ class GoButton extends Component {
     !check ?
       this.setState({ concertBeen: false }) :
       this.setState({ concertBeen: true });
-
   }
 
   upcomingConcert = async () => {
@@ -92,7 +86,6 @@ class GoButton extends Component {
       this.props.concertPage.id)
 
     this.concertActivityCheck()
-
   }
 
   upcomingConcertCancel = async () => {
@@ -105,6 +98,7 @@ class GoButton extends Component {
     this.previousConcertActivityCheck()
   }
 
+
   render() {
     const concertFlag = this.state.concertGo
     const prevFlag = this.state.concertBeen
@@ -112,7 +106,6 @@ class GoButton extends Component {
       this.convertDate() > Date.now() ?
         <>
           {!concertFlag ?
-
             <Button className="red darken-4" onClick={this.upcomingConcert}>I'll be there!</Button> :
             <Button className="red darken-4" onClick={this.upcomingConcertCancel}>Cancel</Button>
           }
@@ -127,6 +120,7 @@ class GoButton extends Component {
   }
 }
 
+
 const mapStateToProps = store => ({
   user: store.user.user,
 });
@@ -137,6 +131,7 @@ const mapDispatchToProps = {
   upcomingConcertCancelAC,
   previousConcertRemoveAC
 };
+
 
 export default connect(
   mapStateToProps,

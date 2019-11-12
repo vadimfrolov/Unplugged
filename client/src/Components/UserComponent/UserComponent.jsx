@@ -1,10 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
-import {
-  fetchArtistIdAC,
-  fetchArtistInfoAC
-} from "../../Redux/artistReducer/artistActions";
 
 import M from "materialize-css";
 import {
@@ -15,15 +10,16 @@ import {
   Button
 } from "react-materialize";
 
+
 class UserComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = { user: this.props.user };
   }
 
+
   render() {
     const { username } = this.state.user;
-
     return (
       <div>
         {!this.props.user.user ? (
@@ -31,14 +27,14 @@ class UserComponent extends React.Component {
         ) : (
             <div className="avatarWrapper">
               {JSON.stringify(this.props.user.user.username)}
-
               <div className="avatar">
                 <div
                   className="User"
                   style={{ fontSize: "50px", fontWeight: "600" }}
                 >
                   {" "}
-                  {username}{" "}
+                  {username}
+                  {" "}
                 </div>
                 <img
                   src={dataUser.user.profilePic}
@@ -46,12 +42,8 @@ class UserComponent extends React.Component {
                   alt="profile picture"
                 />
               </div>
-
               <div>
                 <Row>
-
-
-                  {/* Favourite artists  */}
                   <Col m={4} s={4}>
                     <Card
                       className="black darken-1"
@@ -73,9 +65,6 @@ class UserComponent extends React.Component {
                       <div>{artistShort}</div>
                     </Card>
                   </Col>
-
-
-                  {/* Upcoming concerts  */}
                   <Col m={4} s={4}>
                     <Card
                       className="black darken-1"
@@ -97,9 +86,6 @@ class UserComponent extends React.Component {
                       <div>{UpcomingConcertsSHORT}</div>
                     </Card>
                   </Col>
-
-
-                  {/* Last concerts  */}
                   <Col m={4} s={4}>
                     <Card
                       className="black darken-1"
@@ -130,11 +116,12 @@ class UserComponent extends React.Component {
   }
 }
 
+
 const mapStateToProps = state => ({
   user: state.user
 });
 
-//
+
 export default connect(
   mapStateToProps,
   null

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import moment from "moment";
 
 import M from "materialize-css";
 import {
@@ -7,8 +8,6 @@ import {
   Collection,
   CollectionItem,
 } from "react-materialize";
-
-let moment = require("moment");
 
 
 export default class Comment extends Component {

@@ -1,19 +1,26 @@
 import React, { Component } from "react";
-import { NavLink, withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
+import {
+  NavLink,
+  withRouter
+} from "react-router-dom";
+
+import { Button, Icon } from "react-materialize";
+import "./navbar.css";
+
 import {
   fetchArtistIdAC,
   fetchArtistInfoAC,
   switchSearchBarAC,
   keepArtistNameAC
 } from "../../Redux/artistReducer/artistActions";
-import { setUserAC, logoutAC } from "../../Redux/UserAuth/actions/userAuth";
-import { Button } from "react-materialize";
-
-import "./navbar.css";
-import { Icon } from "react-materialize";
+import {
+  setUserAC,
+  logoutAC
+} from "../../Redux/UserAuth/actions/userAuth";
 
 import Youtube from "../Youtube/Youtube";
+
 
 class Navbar1 extends Component {
   constructor(props) {
@@ -29,7 +36,6 @@ class Navbar1 extends Component {
 
   checkSession = async () => {
     const response = await fetch("/users/getsession/");
-
     const user = await response.json();
     this.props.setUserAC(user);
   };
@@ -51,12 +57,18 @@ class Navbar1 extends Component {
     this.props.history.push(`/artists/${this.props.artist.id}`);
   };
 
+
   render() {
     return (
       <div className="Home">
         <div className="Home-header">
           <div className="NavLinks">
-            <NavLink className="NavLink" activeClassName={"Active"} exact={true} to={"/"}>
+            <NavLink
+              className="NavLink"
+              activeClassName={"Active"}
+              exact={true}
+              to={"/"}
+            >
               <img src="img/image.png" style={{ maxHeight: "110px" }} />
             </NavLink>
             <NavLink
@@ -124,6 +136,7 @@ class Navbar1 extends Component {
   }
 }
 
+
 const mapStateToProps = state => ({
   artist: state.artist,
   user: state.user
@@ -137,6 +150,7 @@ const mapDispatchToProps = {
   setUserAC,
   logoutAC
 };
+
 
 export default withRouter(
   connect(

@@ -6,6 +6,7 @@ const initialState = {
   comments: []
 };
 
+
 export default (state = initialState, { type, payload }) => {
   switch (type) {
     case TYPES.FETCH_CONCERT_INFO_REQUEST: {

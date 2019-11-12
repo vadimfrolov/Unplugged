@@ -66,10 +66,10 @@
   font-weight: 200;
   margin-bottom: 20px;
 }
+
 .userHead {
   font-size: 1.0em;
 }
-
 
 .blockUser {
   margin-right: 20px;
@@ -79,11 +79,9 @@
   padding: 23px;
 }
 
-
 .User {
   font-size: 1.8em;
   font-weight: 600;
-
 }
 
 .selected {
@@ -91,8 +89,6 @@
   font-weight: 600;
   margin-bottom: 3%;
 }
-
-
 
 .dateConcert {
   color: #e6e6fa;

@@ -1,25 +1,31 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import get from "lodash.get";
 import { withRouter, Link } from "react-router-dom";
-import { parse, format } from "date-fns";
+import get from "lodash.get";
 import moment from "moment";
 
-import "./concertPage.css";
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  Chip
+} from "react-materialize";
 
+import { fetchConcertInfoAC } from "../../Redux/concertPageReducer/concertPageActions";
 import {
   fetchArtistIdAC,
   fetchArtistInfoAC,
   keepArtistNameAC
 } from "../../Redux/artistReducer/artistActions";
-import { fetchConcertInfoAC } from "../../Redux/concertPageReducer/concertPageActions";
 
 import CommentConcert from "../../Components/CommentsConcert";
 import CommentList from "../../Components/CommentsConcert/CommentList";
+import GoButton from "../../Components/GoButton/GoButton";
 import Spinner from "../../Components/Spinner/index";
 
-import { Container, Row, Col, Card, Button, Chip } from "react-materialize";
-import GoButton from "../../Components/GoButton/GoButton";
+import "./concertPage.css";
+
 
 class ConcertPage extends Component {
   constructor(props) {
@@ -46,6 +52,7 @@ class ConcertPage extends Component {
     this.props.history.push(`/artists/${artistId}`);
   };
 
+
   render() {
     const { concertPage } = this.props;
 
@@ -63,122 +70,123 @@ class ConcertPage extends Component {
         {this.state.isLoading ? (
           <Spinner />
         ) : (
-          <>
-            <Container
-              style={{
-                marginTop: "40px",
-                padding: "0px 30px",
-                borderRadius: "3%"
-              }}
-            >
-              <Row>
-                <Col m={12} s={12}>
-                  <Card
-                    className="black"
-                    textClassName="white-text"
-                    title={name}
-                  >
-                    <Row>
-                      <Col m={9}>
-                        <p
-                          style={{ fontSize: "35px", marginBottom: "25px" }}
-                          className="pointConcert"
-                        >
-                          {name}
-                        </p>
-                      </Col>
-                      <Col style={{ textAlign: "right" }} m={3}>
-                        {!this.props.user ? (
-                          <></>
-                        ) : (
-                          <GoButton
-                            concertPage={this.props.concertPage}
-                            user={this.props.user}
-                          />
-                        )}
-                      </Col>
-                    </Row>
-                    <p
-                      style={{ fontSize: "25px", marginBottom: "25px" }}
-                      className="pointConcert"
+            <>
+              <Container
+                style={{
+                  marginTop: "40px",
+                  padding: "0px 30px",
+                  borderRadius: "3%"
+                }}
+              >
+                <Row>
+                  <Col m={12} s={12}>
+                    <Card
+                      className="black"
+                      textClassName="white-text"
+                      title={name}
                     >
-                      <span
-                        style={{
-                          fontWeight: "bold",
-                          fontSize: "35px",
-                          color: "#b71c1c",
-                          marginRight: "15px"
-                        }}
+                      <Row>
+                        <Col m={9}>
+                          <p
+                            style={{ fontSize: "35px", marginBottom: "25px" }}
+                            className="pointConcert"
+                          >
+                            {name}
+                          </p>
+                        </Col>
+                        <Col style={{ textAlign: "right" }} m={3}>
+                          {!this.props.user ? (
+                            <></>
+                          ) : (
+                              <GoButton
+                                concertPage={this.props.concertPage}
+                                user={this.props.user}
+                              />
+                            )}
+                        </Col>
+                      </Row>
+                      <p
+                        style={{ fontSize: "25px", marginBottom: "25px" }}
+                        className="pointConcert"
                       >
-                        When:
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            fontSize: "35px",
+                            color: "#b71c1c",
+                            marginRight: "15px"
+                          }}
+                        >
+                          When:
                       </span>{" "}
-                      {moment(new Date(date)).format("LL")}, {time}
-                    </p>
-                    <p style={{ fontSize: "25px", marginBottom: "25px" }}>
-                      <span
-                        style={{
-                          fontWeight: "bold",
-                          fontSize: "35px",
-                          color: "#b71c1c",
-                          marginRight: "15px"
-                        }}
-                      >
-                        Where:
+                        {moment(new Date(date)).format("LL")}, {time}
+                      </p>
+                      <p style={{ fontSize: "25px", marginBottom: "25px" }}>
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            fontSize: "35px",
+                            color: "#b71c1c",
+                            marginRight: "15px"
+                          }}
+                        >
+                          Where:
                       </span>
-                      {venue}, {location}
-                    </p>
-                    <p style={{ fontSize: "25px", marginBottom: "25px" }}>
-                      <span
-                        style={{
-                          fontWeight: "bold",
-                          fontSize: "35px",
-                          color: "#b71c1c",
-                          marginRight: "15px"
-                        }}
-                      >
-                        Performers:
+                        {venue}, {location}
+                      </p>
+                      <p style={{ fontSize: "25px", marginBottom: "25px" }}>
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            fontSize: "35px",
+                            color: "#b71c1c",
+                            marginRight: "15px"
+                          }}
+                        >
+                          Performers:
                       </span>
-                      {performers &&
-                        performers.map((el, i) => (
-                          <Chip className="performersList" key={`${name}_${i}`}>
-                            <Link
-                              style={{ color: "black" }}
-                              to={`/artists/${el.id}`}
-                              value={el.displayName}
-                              onClick={() => this.onClick(el.displayName, el.id)}
-                            >
-                              {el.displayName}
-                            </Link>
-                          </Chip>
-                        ))}
-                    </p>
-                    <>
-                      {!this.props.user ? (
-                        <CommentList comments={comments} idConcert={id} />
-                      ) : (
-                        <>
-                          <CommentList
-                            comments={comments}
-                            idConcert={id}
-                            idUser={this.props.user._id}
-                          />
-                          <CommentConcert
-                            nameArtist={performers}
-                            idConcert={id}
-                          />
-                        </>
-                      )}
-                    </>
-                  </Card>
-                </Col>
-              </Row>
-            </Container>
-          </>
-        )}
+                        {performers &&
+                          performers.map((el, i) => (
+                            <Chip className="performersList" key={`${name}_${i}`}>
+                              <Link
+                                style={{ color: "black" }}
+                                to={`/artists/${el.id}`}
+                                value={el.displayName}
+                                onClick={() => this.onClick(el.displayName, el.id)}
+                              >
+                                {el.displayName}
+                              </Link>
+                            </Chip>
+                          ))}
+                      </p>
+                      <>
+                        {!this.props.user ? (
+                          <CommentList comments={comments} idConcert={id} />
+                        ) : (
+                            <>
+                              <CommentList
+                                comments={comments}
+                                idConcert={id}
+                                idUser={this.props.user._id}
+                              />
+                              <CommentConcert
+                                nameArtist={performers}
+                                idConcert={id}
+                              />
+                            </>
+                          )}
+                      </>
+                    </Card>
+                  </Col>
+                </Row>
+              </Container>
+            </>
+          )}
       </>
     );
   }
 }
+
 
 const mapStateToProps = store => ({
   artist: store.artist,
@@ -193,6 +201,7 @@ const mapDispatchToProps = {
   fetchArtistInfoAC,
   keepArtistNameAC
 };
+
 
 export default connect(
   mapStateToProps,

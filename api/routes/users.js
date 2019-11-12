@@ -1,11 +1,8 @@
 const express = require("express");
-const passport = require("passport");
-
 const router = express.Router();
+
 const User = require('../models/users');
 
-
-/* GET users listing. */
 
 router.get('/getsession/', async (req, res) => {
   req.session.user ? res.json(req.session.user) : res.json(null);
@@ -27,54 +24,23 @@ router.put("/registration/", async (req, res) => {
   }
 });
 
-
-
 router.post('/login/', async (req, res) => {
   const user = await User.findOne({
     username: req.body.user.username
   });
-  !user ?
-    res.json({ error: 'wrong user' }) :
-    console.log('slka');  
+  !user
+  ? res.json({ error: 'wrong user' })
+  : res.json(true);
+
   if (user && user.password === req.body.user.password) {
     req.session.user = user;
     res.json(req.session.user);
-
   } else {
-    user ?
-      res.json({ error: 'wrong user' }) :
-      console.log('slka');      
+    user
+    ? res.json({ error: 'wrong user' })
+    : res.json(true);      
   }
 });
-
-// router.get(
-//   "/login/facebook",
-//   passport.authenticate("facebook", { authType: "rerequest" })
-// );
-
-// router.get('/login/facebook',
-//   passport.authenticate('facebook', { authType: 'rerequest' }));
-
-// router.get('/login/facebook/callback',
-//   passport.authenticate('facebook'),
-//   (req, res) => {
-//     console.log('askjdhoqwh');
-
-//     req.session.user = req.user
-//   });
-
-// router.get('/login/google',
-//   passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] }));
-
-// router.get('/auth/google/callback',
-//   passport.authenticate('google'), (req, res) => {
-//     console.log(req.user);
-
-//     req.session.user = req.user
-//     // Successful authentication, redirect home.
-//     res.json(req.user);
-//   })
-
 
 router.patch("/update/", async (req, res) => {
   const user = await User.findOneAndUpdate(

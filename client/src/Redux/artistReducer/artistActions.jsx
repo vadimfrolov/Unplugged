@@ -89,11 +89,7 @@ export const fetchArtistConcertAC = id => async dispatch => {
 
   try {
     const res = await axios.get(`/artists/${id}`, { id });
-    const tourSnippet = get(
-      res,
-      "data.dataConcerts.resultsPage.results.event",
-      []
-    );
+    const tourSnippet = get(res, "data.dataConcerts.resultsPage.results.event", []);
 
     dispatch({
       type: TYPES.FETCH_TOUR_SNIPPET_SUCCESS,
@@ -105,7 +101,6 @@ export const fetchArtistConcertAC = id => async dispatch => {
   }
 };
 
-/// ADD коментарии
 export const fetchAddCommentArtistAC = comment => async dispatch => {
   try {
     const res = await axios.post(`/commentsar`, { comment });
@@ -123,20 +118,12 @@ export const fetchAddCommentArtistAC = comment => async dispatch => {
   }
 };
 
-//DELETE COMMENT
-
-export const fetchDeleteCommentArtistAC = (
-  id,
-  idArtist
-) => async dispatch => {
+export const fetchDeleteCommentArtistAC = (id, idArtist) => async dispatch => {
   try {
-    const res = await axios.post(`/delete/${id}/${idArtist}`, {
-      id,
-      idArtist
-    });
+    const res = await axios.post(`/delete/${id}/${idArtist}`, { id, idArtist });
     const data = get(res, "data", {});
-    const sortComments=data.commentsArtist.comments.sort((a,b)=>{
-      return new Date(b.date)-new Date(a.date)
+    const sortComments = data.commentsArtist.comments.sort((a, b) => {
+      return new Date(b.date) - new Date(a.date)
     })
     dispatch({
       type: TYPES.FETCH_DELETE_COMMENT_ARTIST,

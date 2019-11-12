@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-import get from "lodash.get";
 import { connect } from "react-redux";
-
-import { fetchAddCommentArtistAC } from "../../Redux/artistReducer/artistActions";
+import get from "lodash.get";
 
 import M from "materialize-css";
 import {
@@ -11,16 +9,20 @@ import {
   Textarea, Icon
 } from "react-materialize";
 
+import { fetchAddCommentArtistAC } from "../../Redux/artistReducer/artistActions";
+
+
 class CommentArtist extends Component {
   state = {
     text: "",
     date: ""
   };
+
   handleChange = e => {
     e.preventDefault();
     this.setState({
       text: e.target.value,
-      date: new Date()  
+      date: new Date()
     });
   };
 
@@ -43,6 +45,7 @@ class CommentArtist extends Component {
     await this.setState({ text: "", data: "" });
   };
 
+
   render() {
     return (
       <>
@@ -54,26 +57,35 @@ class CommentArtist extends Component {
             placeholder="Add a comment"
             value={this.state.text}
             onChange={this.handleChange}
-            required />
+            required
+          />
         </Row>
-        <Button style={{ marginTop: "-60px" }} className="red darken-4" onClick={this.onClick}>Add</Button>
+        <Button
+          style={{ marginTop: "-60px" }}
+          className="red darken-4"
+          onClick={this.onClick}
+        >
+          Add
+        </Button>
       </>
     );
   }
 }
 
-function mapDispatchToProps(dispatch) {
+
+const mapStateToProps = (store) => {
+  return {
+    user: store.user
+  };
+}
+
+const mapDispatchToProps = (dispatch) => {
   return {
     fetchAddCommentArtistAC: comment =>
       dispatch(fetchAddCommentArtistAC(comment))
   };
 }
 
-function mapStateToProps(store) {
-  return {
-    user: store.user
-  };
-}
 
 export default connect(
   mapStateToProps,
