@@ -3,7 +3,13 @@
 
 ### Main page ###
 
-![logo png](https://im2.ezgif.com/tmp/ezgif-2-33acf3fba14f.gif)
+![logo png](https://im2.ezgif.com/tmp/ezgif-2-b6eb961b5981.gif)
 
 # Description:
 This app allows you to find upcoming concerts in your area, listen to your favourite music and discover new artists. After registration you can follow artists, add concerts you're going to and concerts you've been at. And a very special feature - all concerts are added to a map so you can keep track of your and your favourite band's travels.
+
+# Technologies:
+- Back end - Express.js
+- Front end - React + Redux
+- Styled with React Materialize and Material-UI
+- API - YouTube, Facebook, Songkick, Lastfm, Google Maps, Napster
