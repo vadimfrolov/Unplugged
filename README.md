@@ -18,3 +18,31 @@ https://unpluggedelbrus.herokuapp.com/
 - Front end - React + Redux
 - Styled with React Materialize and Material-UI
 - API - YouTube, Facebook, Songkick, Lastfm, Google Maps, Napster
+
+## How to run application
+
+1. Clone repository
+
+```
+git clone git@github.com:vadimfrolov/Unplugged.git
+cd weather-application
+```
+
+2. Go to folder
+
+```
+cd Unplugged
+```
+
+3. Install
+
+```
+npm install
+```
+
+4. Create .env file in root folder with your api keys
+
+5. Run app
+```
+npm start
+```
