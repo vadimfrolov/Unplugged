@@ -35,7 +35,7 @@ git clone git@github.com:vadimfrolov/Unplugged.git
 cd unplugged
 ```
 
-3. Install
+3. Install packages
 
 ```
 npm install
