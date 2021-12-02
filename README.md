@@ -27,13 +27,12 @@ https://unpluggedelbrus.herokuapp.com/
 
 ```
 git clone git@github.com:vadimfrolov/Unplugged.git
-cd weather-application
 ```
 
 2. Go to folder
 
 ```
-cd Unplugged
+cd unplugged
 ```
 
 3. Install
