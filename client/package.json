@@ -28,7 +28,7 @@
     "react-player": "^1.13.0",
     "react-redux": "^7.1.1",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.2.0",
+    "react-scripts": "5.0.1",
     "react-sky": "^1.1.0",
     "react-soundcloud-player": "^1.1.1",
     "redux": "^4.0.4",
